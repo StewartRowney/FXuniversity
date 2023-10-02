@@ -1,14 +1,15 @@
 package com.example.fxuniversity.models;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class CourseClassRelationship {
 
     private UUID courseID;
-    private UUID classID;
+    private ArrayList<UUID> classID;
 
-    public CourseClassRelationship(UUID courseID, UUID classID) {
+    public CourseClassRelationship(UUID courseID) {
         this.courseID = courseID;
-        this.classID = classID;
+        classID = new ArrayList<>();
     }
 }

@@ -11,7 +11,7 @@ public class Class {
     private double room;
 
 
-    public Class(int semester, Course course, LocalDateTime classDateTime, double room) {
+    public Class(int semester, LocalDateTime classDateTime, double room) {
         id = UUID.randomUUID();
         this.semester = semester;
         this.classDateTime = classDateTime;

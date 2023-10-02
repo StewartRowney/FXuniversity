@@ -6,15 +6,15 @@ public class Student {
 
     private UUID id;
     private String name;
-    private String studentAddress;
+    private String address;
     private String major;
     private String email;
     private String phoneNumber;
 
-    public Student (String studentName, String studentAddress, String studentMajor, String email, String phoneNumber) {
+    public Student (String studentName, String address, String studentMajor, String email, String phoneNumber) {
         this.id = UUID.randomUUID();
         this.name = studentName;
-        this.studentAddress = studentAddress;
+        this.address = address;
         this.major = studentMajor;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -24,8 +24,8 @@ public class Student {
         return name;
     }
 
-    public String getStudentAddress() {
-        return studentAddress;
+    public String getAddress() {
+        return address;
     }
 
     public String getMajor() {

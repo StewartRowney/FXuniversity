@@ -4,12 +4,14 @@ import java.util.UUID;
 
 public class Transcript {
 
+    private UUID id;
     private UUID classID;
     private UUID studentID;
     private String grade;
 
 
     public Transcript(UUID classID, UUID studentID, String grade) {
+        id = UUID.randomUUID();
         this.classID = classID;
         this.studentID = studentID;
         this.grade = grade;

@@ -1,11 +1,73 @@
 package com.example.fxuniversity.models;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.UUID;
 
 public class Database {
+    static HashMap<UUID,Student> studentHashMap = new HashMap<>();
+    static HashMap<UUID,Course> courseHashMap = new HashMap<>();
+    static HashMap<UUID, Professor> professorHashMap = new HashMap<>();
+    static HashMap<UUID, Class> classHashMap = new HashMap<>();
+    static HashMap<UUID, Transcript> transcriptHashMap = new HashMap<>();
+    static HashMap<UUID, Department> departmentHashMap = new HashMap<>();
+    static ArrayList<CourseClassRelationship> courseClassRelationshipArrayList = new ArrayList<>();
+    static ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
+    static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
 
-    HashMap<UUID,Student> studentHashMap = new HashMap<UUID, Student>();
-    HashMap<UUID,Course> courseHashMap = new HashMap<UUID, Course>();
-    HashMap<UUID, Professor> professorHashMap = new HashMap<>();
+    public static void setUpDatabase(){
+        loadStudentData();
+        loadProfessorData();
+    }
+
+     private static void loadStudentData() {
+
+        try (Scanner fileScanner = new Scanner(new File("C:\\Users\\pande\\Desktop\\Ayush@Strath\\Work\\Barclays\\Capstone\\FXuniversity\\src\\main\\resources\\studentmockdata.csv"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] splitter = line.split(",");
+                Student student = new Student(splitter[0], splitter[1], splitter[2], splitter[3], splitter[4]);
+                studentHashMap.put(student.getId(), student);
+            }
+        } catch (FileNotFoundException fnfe) {
+            System.err.println("Hey, we couldn't find the file");
+        }
+    }
+
+    private static void loadProfessorData() {
+
+        try (Scanner fileScanner = new Scanner(new File("C:\\Users\\pande\\Desktop\\Ayush@Strath\\Work\\Barclays\\Capstone\\FXuniversity\\src\\main\\resources\\professormockdata.csv"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] splitter = line.split(",");
+
+                Professor professor = new Professor(splitter[0], splitter[1], splitter[2], splitter[3],  UUID.randomUUID(), Integer.parseInt(splitter[5].trim()));
+                professorHashMap.put(professor.getId(), professor);
+                System.out.println(professor.getName());
+            }
+        } catch (FileNotFoundException fnfe) {
+            System.err.println("Hey, we couldn't find the file");
+        }
+    }
+
+    private static void loadClassData() {
+
+        try (Scanner fileScanner = new Scanner(new File("C:\\Users\\pande\\Desktop\\Ayush@Strath\\Work\\Barclays\\Capstone\\FXuniversity\\src\\main\\resources\\classmockdata.csv"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] splitter = line.split(",");
+
+                Professor professor = new Professor(Integer.parseInt(splitter[0]), splitter[1], splitter[2]);
+                professorHashMap.put(professor.getId(), professor);
+                System.out.println(professor.getName());
+            }
+        } catch (FileNotFoundException fnfe) {
+            System.err.println("Hey, we couldn't find the file");
+        }
+    }
 }
