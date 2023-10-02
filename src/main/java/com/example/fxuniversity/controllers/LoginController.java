@@ -31,7 +31,7 @@ public class LoginController {
 
     @FXML
     void onAdminLogin(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("admin-view.fxml"));new Scene(fxmlLoader.load());
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("admin-view.fxml"));
         showScene(fxmlLoader);
     }
 
