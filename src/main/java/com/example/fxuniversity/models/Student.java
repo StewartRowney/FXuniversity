@@ -1,7 +1,10 @@
 package com.example.fxuniversity.models;
 
+import java.util.UUID;
+
 public class Student {
 
+    private UUID id;
     private String name;
     private String studentAddress;
     private String major;
@@ -9,6 +12,7 @@ public class Student {
     private String phoneNumber;
 
     public Student (String studentName, String studentAddress, String studentMajor, String email, String phoneNumber) {
+        this.id = UUID.randomUUID();
         this.name = studentName;
         this.studentAddress = studentAddress;
         this.major = studentMajor;
@@ -34,6 +38,10 @@ public class Student {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
 }

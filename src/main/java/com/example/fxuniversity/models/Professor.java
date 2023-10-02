@@ -1,7 +1,10 @@
 package com.example.fxuniversity.models;
 
+import java.util.UUID;
+
 public class Professor {
 
+    private UUID id;
     private String professorName;
     private String professorAddress;
     private String professorPhone;
@@ -11,6 +14,7 @@ public class Professor {
 
 
     public Professor(String professorName, String professorAddress, String professorPhone, String professorEmail, String professorDepartment, int professorOfficeNumber) {
+        this.id = UUID.randomUUID();
         this.professorName = professorName;
         this.professorAddress = professorAddress;
         this.professorPhone = professorPhone;
