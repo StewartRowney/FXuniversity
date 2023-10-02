@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -21,8 +22,9 @@ public class Database {
     static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
 
     public static void setUpDatabase(){
-        loadStudentData();
-        loadProfessorData();
+      //  loadStudentData();
+        //loadProfessorData();
+        loadClassData();
     }
 
      private static void loadStudentData() {
@@ -57,14 +59,14 @@ public class Database {
 
     private static void loadClassData() {
 
-        try (Scanner fileScanner = new Scanner(new File("C:\\Users\\pande\\Desktop\\Ayush@Strath\\Work\\Barclays\\Capstone\\FXuniversity\\src\\main\\resources\\classmockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\classmockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
 
-                Professor professor = new Professor(Integer.parseInt(splitter[0]), splitter[1], splitter[2]);
-                professorHashMap.put(professor.getId(), professor);
-                System.out.println(professor.getName());
+                Class classroom = new Class(Integer.parseInt(splitter[0]), LocalDateTime.parse(splitter[1]), Double.parseDouble(splitter[2]));
+                classHashMap.put(classroom.getId(), classroom);
+                System.out.println(classroom.getSemester());
             }
         } catch (FileNotFoundException fnfe) {
             System.err.println("Hey, we couldn't find the file");

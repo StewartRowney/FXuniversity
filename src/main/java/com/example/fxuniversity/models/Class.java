@@ -5,6 +5,8 @@ import java.util.UUID;
 
 public class Class {
 
+
+
     private UUID id;
     private int semester;
     private LocalDateTime classDateTime;
@@ -24,7 +26,9 @@ public class Class {
     public void setSemester(int semester) {
         this.semester = semester;
     }
-
+    public UUID getId() {
+        return id;
+    }
 //    public Course getCourse() {
 //        return course;
 //    }

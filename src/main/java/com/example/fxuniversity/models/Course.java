@@ -9,9 +9,9 @@ public class Course {
     private String description;
     private String requiredBooks;
     private String prerequisites;
-    private int courseNumber;
+    private String courseNumber;
 
-    public Course(String name, String description, String requiredBooks, String preReqs, int courseNumber) {
+    public Course(String name, String description, String requiredBooks, String preReqs, String courseNumber) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
@@ -48,10 +48,10 @@ public class Course {
         this.prerequisites = preReqs;
     }
 
-    public int getCourseNumber() {
+    public String getCourseNumber() {
         return courseNumber;
     }
-    public void setCourseNumber(int courseNumber) {
+    public void setCourseNumber(String courseNumber) {
         this.courseNumber = courseNumber;
     }
 
