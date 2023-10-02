@@ -1,21 +1,21 @@
 package com.example.fxuniversity.models;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Class {
 
+    private UUID id;
     private int semester;
-    private Course course;
     private LocalDateTime classDateTime;
     private double room;
-    private Professor professor;
 
-    public Class(int semester, Course course, LocalDateTime classDateTime, double room, Professor professor) {
+
+    public Class(int semester, Course course, LocalDateTime classDateTime, double room) {
+        id = UUID.randomUUID();
         this.semester = semester;
-        this.course = course;
         this.classDateTime = classDateTime;
         this.room = room;
-        this.professor = professor;
     }
 
     public int getSemester() {
@@ -25,12 +25,12 @@ public class Class {
         this.semester = semester;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-    public void setCourse(Course course) {
-        this.course = course;
-    }
+//    public Course getCourse() {
+//        return course;
+//    }
+//    public void setCourse(Course course) {
+//        this.course = course;
+//    }
 
     public LocalDateTime getClassDateTime() {
         return classDateTime;
@@ -46,10 +46,4 @@ public class Class {
         this.room = room;
     }
 
-    public Professor getProfessor() {
-        return professor;
-    }
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
 }

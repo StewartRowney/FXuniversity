@@ -1,6 +1,10 @@
 package com.example.fxuniversity.models;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 public class Course {
+    private UUID id;
     private String name;
     private String description;
     private String requiredBooks;
@@ -8,6 +12,7 @@ public class Course {
     private int courseNumber;
 
     public Course(String name, String description, String requiredBooks, String preReqs, int courseNumber) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.requiredBooks = requiredBooks;

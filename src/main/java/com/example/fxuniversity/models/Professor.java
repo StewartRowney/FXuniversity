@@ -5,45 +5,42 @@ import java.util.UUID;
 public class Professor {
 
     private UUID id;
-    private String professorName;
-    private String professorAddress;
-    private String professorPhone;
-    private String professorEmail;
-    private String professorDepartment;
-    private int professorOfficeNumber;
+    private String name;
+    private String address;
+    private String phoneNumber;
+    private String email;
+    private UUID departmentID;
+    private int officeNumber;
 
 
-    public Professor(String professorName, String professorAddress, String professorPhone, String professorEmail, String professorDepartment, int professorOfficeNumber) {
+    public Professor(String name, String professorAddress, String phoneNumber, String email, UUID departmentID, int officeNumber) {
         this.id = UUID.randomUUID();
-        this.professorName = professorName;
-        this.professorAddress = professorAddress;
-        this.professorPhone = professorPhone;
-        this.professorEmail = professorEmail;
-        this.professorDepartment = professorDepartment;
-        this.professorOfficeNumber = professorOfficeNumber;
+        this.name = name;
+        this.address = professorAddress;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.departmentID = departmentID;
+        this.officeNumber = officeNumber;
     }
 
-    public String getProfessorName() {
-        return professorName;
+    public String getName() {
+        return name;
     }
 
-    public String getProfessorAddress() {
-        return professorAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public String getProfessorPhone() {
-        return professorPhone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public String getProfessorEmail() {
-        return professorEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public String getProfessorDepartment() {
-        return professorDepartment;
-    }
 
-    public int getProfessorOfficeNumber() {
-        return professorOfficeNumber;
+    public int getOfficeNumber() {
+        return officeNumber;
     }
 }

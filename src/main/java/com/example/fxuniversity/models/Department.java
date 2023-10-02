@@ -1,28 +1,26 @@
 package com.example.fxuniversity.models;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 public class Department {
 
-    private String departmentName;
+    private String name;
 
-    private String professorInDepartment;
+    private UUID id;
+    private ArrayList<UUID> courses;
+    private ArrayList<UUID> professors;
 
-    private String courseInDepartment;
 
-    public Department(String departmentName, String professorInDepartment, String courseInDepartment) {
-        this.departmentName = departmentName;
-        this.professorInDepartment = professorInDepartment;
-        this.courseInDepartment = courseInDepartment;
+
+    public Department(String name, String professorInDepartment, String courseInDepartment) {
+        id = UUID.randomUUID();
+        this.name = name;
+        courses = new ArrayList<>();
+        professors = new ArrayList<>();
     }
 
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public String getProfessorInDepartment() {
-        return professorInDepartment;
-    }
-
-    public String getCourseInDepartment() {
-        return courseInDepartment;
+    public String getName() {
+        return name;
     }
 }
