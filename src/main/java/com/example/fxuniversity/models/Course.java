@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Course {
+    public UUID getId() {
+        return id;
+    }
+
     private UUID id;
     private String name;
     private String description;

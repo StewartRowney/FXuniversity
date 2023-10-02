@@ -26,6 +26,7 @@ public class Database {
         loadStudentData();
         loadProfessorData();
         loadClassData();
+        loadCourseData();
     }
 
      private static void loadStudentData() {
@@ -44,7 +45,7 @@ public class Database {
 
     private static void loadProfessorData() {
 
-        try (Scanner fileScanner = new Scanner(new File("src/main/resources/professormockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("C:\\Users\\pande\\Desktop\\Ayush@Strath\\Work\\Barclays\\Capstone\\FXuniversity\\src\\main\\resources\\professormockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
@@ -70,6 +71,22 @@ public class Database {
                 Class classroom = new Class(Integer.parseInt(splitter[0]), LocalDateTime.parse(splitter[1],formatter), Double.parseDouble(splitter[2]));
                 classHashMap.put(classroom.getId(), classroom);
                 System.out.println(classroom.getSemester());
+            }
+        } catch (FileNotFoundException fnfe) {
+            System.err.println("Hey, we couldn't find the file");
+        }
+    }
+
+    private static void loadCourseData() {
+
+        try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\coursemockdata.csv"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] splitter = line.split(",");
+
+                Course course = new Course(splitter[0], splitter[1], splitter[2], "", splitter[3]);
+                courseHashMap.put(course.getId(), course);
+                System.out.println(course.getName());
             }
         } catch (FileNotFoundException fnfe) {
             System.err.println("Hey, we couldn't find the file");
