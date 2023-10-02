@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 
 public class Class {
 
-    int semester;
-    Course course;
-    LocalDateTime classDateTime;
-    double room;
-    Professor professor;
+    private int semester;
+    private Course course;
+    private LocalDateTime classDateTime;
+    private double room;
+    private Professor professor;
 
     public int getSemester() {
         return semester;

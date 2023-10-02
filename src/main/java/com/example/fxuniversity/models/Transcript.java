@@ -2,8 +2,8 @@ package com.example.fxuniversity.models;
 
 public class Transcript {
 
-    Course course;
-    String grade;
+    private Course course;
+    private String grade;
 
     public Course getCourse() {
         return course;
