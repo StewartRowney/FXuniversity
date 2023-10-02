@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxuniversity.controllers.AdminController">
    <children>
       <TextArea blendMode="SRC_ATOP" layoutX="14.0" layoutY="21.0" prefHeight="44.0" prefWidth="562.0" text="Welcome, Admin.">
@@ -15,6 +14,6 @@
       </TextArea>
       <Button fx:id="addStudent" layoutX="25.0" layoutY="200.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="142.0" text="Admit student" />
       <Button fx:id="deleteStudent" layoutX="433.0" layoutY="200.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="142.0" text="Delete Student" />
-      <TextArea fx:id="dummyText" layoutX="195.0" layoutY="165.0" prefHeight="200.0" prefWidth="200.0" />
+
    </children>
 </AnchorPane>

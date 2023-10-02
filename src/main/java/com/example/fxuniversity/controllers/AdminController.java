@@ -18,6 +18,6 @@ public class AdminController {
 
     @FXML
     public void onAddStudent (ActionEvent event) {
-        dummyText.setText("Student was added");
+
     }
 }
