@@ -1,46 +1,39 @@
 package com.example.fxuniversity.models;
 
-import java.util.Scanner;
-
 public class Student {
 
-    private String studentName, studentAddress, studentMajor, studentEmail, studentPhoneNumber;
+    private String name;
+    private String studentAddress;
+    private String major;
+    private String email;
+    private String phoneNumber;
 
-
-    public void setStudentEmail(String studentEmail) {
-        this.studentEmail = studentEmail;
+    public Student (String studentName, String studentAddress, String studentMajor, String email, String phoneNumber) {
+        this.name = studentName;
+        this.studentAddress = studentAddress;
+        this.major = studentMajor;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
-    public void setStudentPhoneNumber(String studentPhoneNumber) {
-        this.studentPhoneNumber = studentPhoneNumber;
-    }
-
-
-    public String getStudentName() {
-        return studentName;
+    public String getName() {
+        return name;
     }
 
     public String getStudentAddress() {
         return studentAddress;
     }
 
-    public String getStudentMajor() {
-        return studentMajor;
+    public String getMajor() {
+        return major;
     }
 
-    public String getStudentEmail() {
-        return studentEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public String getStudentPhoneNumber() {
-        return studentPhoneNumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public Student(String studentName, String studentAddress, String studentMajor, String studentEmail, String studentPhoneNumber) {
-        this.studentName = studentName;
-        this.studentAddress = studentAddress;
-        this.studentMajor = studentMajor;
-        this.studentEmail = studentEmail;
-        this.studentPhoneNumber = studentPhoneNumber;
-    }
 }

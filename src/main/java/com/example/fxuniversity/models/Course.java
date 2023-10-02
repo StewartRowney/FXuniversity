@@ -1,26 +1,17 @@
 package com.example.fxuniversity.models;
 
 public class Course {
-
-//Objectives:
-//    •	Course Number
-//•	Course Name
-//•	Course description
-//•	Number of credits
-//•	Required book
-//•	Pre-req’s (if any)
-
     private String name;
     private String description;
     private String requiredBooks;
-    private String preReqs;
+    private String prerequisites;
     private int courseNumber;
 
     public Course(String name, String description, String requiredBooks, String preReqs, int courseNumber) {
         this.name = name;
         this.description = description;
         this.requiredBooks = requiredBooks;
-        this.preReqs = preReqs;
+        this.prerequisites = preReqs;
         this.courseNumber = courseNumber;
     }
 
@@ -46,10 +37,10 @@ public class Course {
     }
 
     public String getPreReqs() {
-        return preReqs;
+        return prerequisites;
     }
     public void setPreReqs(String preReqs) {
-        this.preReqs = preReqs;
+        this.prerequisites = preReqs;
     }
 
     public int getCourseNumber() {
