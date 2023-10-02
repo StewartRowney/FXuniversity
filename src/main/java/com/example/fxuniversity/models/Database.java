@@ -45,7 +45,7 @@ public class Database {
 
     private static void loadProfessorData() {
 
-        try (Scanner fileScanner = new Scanner(new File("C:\\Users\\pande\\Desktop\\Ayush@Strath\\Work\\Barclays\\Capstone\\FXuniversity\\src\\main\\resources\\professormockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src/main/resources/professormockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
@@ -79,7 +79,7 @@ public class Database {
 
     private static void loadCourseData() {
 
-        try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\coursemockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src/main/resources/coursemockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
