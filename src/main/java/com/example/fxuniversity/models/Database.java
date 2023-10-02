@@ -30,7 +30,7 @@ public class Database {
 
      private static void loadStudentData() {
 
-        try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\studentmockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src/main/resources/studentmockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
@@ -44,7 +44,7 @@ public class Database {
 
     private static void loadProfessorData() {
 
-        try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\professormockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src/main/resources/professormockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
@@ -62,7 +62,7 @@ public class Database {
         String pattern = "dd-MM-yyyy HH:mm:ss";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
-        try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\classmockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src/main/resources/classmockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
