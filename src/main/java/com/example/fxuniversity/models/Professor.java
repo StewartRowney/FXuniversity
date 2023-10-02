@@ -2,44 +2,44 @@ package com.example.fxuniversity.models;
 
 public class Professor {
 
-    private String name;
-    private String address;
-    private String phone;
-    private String email;
-    private String department;
-    private int officenumber;
+    private String professorName;
+    private String professorAddress;
+    private String professorPhone;
+    private String professorEmail;
+    private String professorDepartment;
+    private int professorOfficeNumber;
 
 
-    public Professor(String name, String address, String phone, String email, String department, int officenumber) {
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.department = department;
-        this.officenumber = officenumber;
+    public Professor(String professorName, String professorAddress, String professorPhone, String professorEmail, String professorDepartment, int professorOfficeNumber) {
+        this.professorName = professorName;
+        this.professorAddress = professorAddress;
+        this.professorPhone = professorPhone;
+        this.professorEmail = professorEmail;
+        this.professorDepartment = professorDepartment;
+        this.professorOfficeNumber = professorOfficeNumber;
     }
 
-    public String getName() {
-        return name;
+    public String getProfessorName() {
+        return professorName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getProfessorAddress() {
+        return professorAddress;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getProfessorPhone() {
+        return professorPhone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getProfessorEmail() {
+        return professorEmail;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getProfessorDepartment() {
+        return professorDepartment;
     }
 
-    public int getOfficenumber() {
-        return officenumber;
+    public int getProfessorOfficeNumber() {
+        return professorOfficeNumber;
     }
 }

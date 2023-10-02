@@ -2,27 +2,27 @@ package com.example.fxuniversity.models;
 
 public class Department {
 
-    private String name;
+    private String departmentName;
 
-    private String professorindep;
+    private String professorInDepartment;
 
-    private String courseindep;
+    private String courseInDepartment;
 
-    public Department(String name, String professorindep, String courseindep) {
-        this.name = name;
-        this.professorindep = professorindep;
-        this.courseindep = courseindep;
+    public Department(String departmentName, String professorInDepartment, String courseInDepartment) {
+        this.departmentName = departmentName;
+        this.professorInDepartment = professorInDepartment;
+        this.courseInDepartment = courseInDepartment;
     }
 
-    public String getName() {
-        return name;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public String getProfessorindep() {
-        return professorindep;
+    public String getProfessorInDepartment() {
+        return professorInDepartment;
     }
 
-    public String getCourseindep() {
-        return courseindep;
+    public String getCourseInDepartment() {
+        return courseInDepartment;
     }
 }
