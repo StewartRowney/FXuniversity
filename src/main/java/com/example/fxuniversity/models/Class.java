@@ -10,10 +10,17 @@ public class Class {
     private double room;
     private Professor professor;
 
+    public Class(int semester, Course course, LocalDateTime classDateTime, double room, Professor professor) {
+        this.semester = semester;
+        this.course = course;
+        this.classDateTime = classDateTime;
+        this.room = room;
+        this.professor = professor;
+    }
+
     public int getSemester() {
         return semester;
     }
-
     public void setSemester(int semester) {
         this.semester = semester;
     }
@@ -21,7 +28,6 @@ public class Class {
     public Course getCourse() {
         return course;
     }
-
     public void setCourse(Course course) {
         this.course = course;
     }
@@ -29,7 +35,6 @@ public class Class {
     public LocalDateTime getClassDateTime() {
         return classDateTime;
     }
-
     public void setClassDateTime(LocalDateTime classDateTime) {
         this.classDateTime = classDateTime;
     }
@@ -37,7 +42,6 @@ public class Class {
     public double getRoom() {
         return room;
     }
-
     public void setRoom(double room) {
         this.room = room;
     }
@@ -45,16 +49,7 @@ public class Class {
     public Professor getProfessor() {
         return professor;
     }
-
     public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public Class(int semester, Course course, LocalDateTime classDateTime, double room, Professor professor) {
-        this.semester = semester;
-        this.course = course;
-        this.classDateTime = classDateTime;
-        this.room = room;
         this.professor = professor;
     }
 }
