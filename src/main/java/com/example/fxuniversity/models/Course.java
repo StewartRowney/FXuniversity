@@ -2,7 +2,7 @@ package com.example.fxuniversity.models;
 
 public class Course {
 
-    //Objectives:
+//Objectives:
 //    •	Course Number
 //•	Course Name
 //•	Course description
@@ -10,26 +10,37 @@ public class Course {
 //•	Required book
 //•	Pre-req’s (if any)
 
-    public String getCourseName() {
-        return courseName;
+    private String name;
+    private String description;
+    private String requiredBooks;
+    private String preReqs;
+    private int courseNumber;
+
+    public Course(String name, String description, String requiredBooks, String preReqs, int courseNumber) {
+        this.name = name;
+        this.description = description;
+        this.requiredBooks = requiredBooks;
+        this.preReqs = preReqs;
+        this.courseNumber = courseNumber;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCourseDescription() {
-        return courseDescription;
+    public String getDescription() {
+        return description;
     }
-
-    public void setCourseDescription(String courseDescription) {
-        this.courseDescription = courseDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getRequiredBooks() {
         return requiredBooks;
     }
-
     public void setRequiredBooks(String requiredBooks) {
         this.requiredBooks = requiredBooks;
     }
@@ -37,7 +48,6 @@ public class Course {
     public String getPreReqs() {
         return preReqs;
     }
-
     public void setPreReqs(String preReqs) {
         this.preReqs = preReqs;
     }
@@ -45,23 +55,9 @@ public class Course {
     public int getCourseNumber() {
         return courseNumber;
     }
-
     public void setCourseNumber(int courseNumber) {
         this.courseNumber = courseNumber;
     }
-
-    public Course(String courseName, String courseDescription, String requiredBooks, String preReqs, int courseNumber) {
-        this.courseName = courseName;
-        this.courseDescription = courseDescription;
-        this.requiredBooks = requiredBooks;
-        this.preReqs = preReqs;
-        this.courseNumber = courseNumber;
-    }
-
-    String courseName, courseDescription, requiredBooks, preReqs;
-        int courseNumber;
-
-
 
 }
 
