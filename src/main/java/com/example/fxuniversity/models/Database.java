@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -22,14 +23,14 @@ public class Database {
     static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
 
     public static void setUpDatabase(){
-      //  loadStudentData();
-        //loadProfessorData();
+        loadStudentData();
+        loadProfessorData();
         loadClassData();
     }
 
      private static void loadStudentData() {
 
-        try (Scanner fileScanner = new Scanner(new File("C:\\Users\\pande\\Desktop\\Ayush@Strath\\Work\\Barclays\\Capstone\\FXuniversity\\src\\main\\resources\\studentmockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\studentmockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
@@ -43,7 +44,7 @@ public class Database {
 
     private static void loadProfessorData() {
 
-        try (Scanner fileScanner = new Scanner(new File("C:\\Users\\pande\\Desktop\\Ayush@Strath\\Work\\Barclays\\Capstone\\FXuniversity\\src\\main\\resources\\professormockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\professormockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
@@ -58,13 +59,15 @@ public class Database {
     }
 
     private static void loadClassData() {
+        String pattern = "dd-MM-yyyy HH:mm:ss";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
         try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\classmockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
 
-                Class classroom = new Class(Integer.parseInt(splitter[0]), LocalDateTime.parse(splitter[1]), Double.parseDouble(splitter[2]));
+                Class classroom = new Class(Integer.parseInt(splitter[0]), LocalDateTime.parse(splitter[1],formatter), Double.parseDouble(splitter[2]));
                 classHashMap.put(classroom.getId(), classroom);
                 System.out.println(classroom.getSemester());
             }
