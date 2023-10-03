@@ -117,4 +117,20 @@ public class Database {
 
         return classes;
     }
+
+    public static Collection<Class> getAllClassesForProfessor(UUID professorId) {
+        ArrayList<UUID> classIds = new ArrayList<>();
+        for (ProfessorClassRelationship pcr : professorClassRelationshipArrayList) {
+            if (pcr.getProfessorID() == professorId) {
+                classIds.add(pcr.getClassID());
+            }
+        }
+
+        ArrayList<Class> classes = new ArrayList<>();
+        for (UUID id : classIds) {
+            classes.add(classHashMap.get(id));
+        }
+
+        return classes;
+    }
 }
