@@ -6,15 +6,55 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxuniversity.controllers.AdminController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxuniversity.controllers.AdminController">
    <children>
-      <TabPane layoutX="1.0" layoutY="60.0" prefHeight="340.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TextArea blendMode="SRC_ATOP" prefHeight="19.0" prefWidth="600.0" text="Welcome, Admin.">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="btnLogout" layoutX="547.0" layoutY="1.0" mnemonicParsing="false" onAction="#onAdminLogout" text="Logout" />
+      <Button fx:id="btnHome" layoutX="471.0" layoutY="2.0" mnemonicParsing="false" onAction="#onHomeAction" text="Home" />
+      <TabPane fx:id="tabPane" layoutX="1.0" layoutY="60.0" prefHeight="340.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Admit/Delete">
+            <Tab fx:id="tbHome" text="Home">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Button fx:id="btnManageCourse" mnemonicParsing="false" onAction="#onManageCourse" text="Manage Course" />
+                                    <Button fx:id="btnDeleteCourse" mnemonicParsing="false" onAction="#onDeleteCourse" text="Delete Course" />
+                                    <Button fx:id="btnAddClass" mnemonicParsing="false" onAction="#OnAddClass" text="Add Class" />
+                                    <Button fx:id="btnDeleteClass" mnemonicParsing="false" onAction="#OnDeleteClass" text="Delete Class" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Button fx:id="btnScheduleClass" mnemonicParsing="false" onAction="#OnScheduleClass" text="Schedule Class" />
+                                    <Button fx:id="btnAdmitStudent" mnemonicParsing="false" onAction="#OnAdmitStudent" text="Admit Student" />
+                                    <Button fx:id="btnAddCourse" mnemonicParsing="false" onAction="#OnAddCourse" text="Add Course" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab fx:id="tbScheduleClass" text="Schedule Class">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+               </content>
+          </Tab>
+          <Tab fx:id="tbStudentAdmit" text="Admit Student">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -30,36 +70,40 @@
                               <TextField fx:id="getStudentEmail" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Phone" />
                               <TextField fx:id="getStudentPhone" />
-                              <Button fx:id="btnAdmit" mnemonicParsing="false" onAction="#onAdmit" prefHeight="20.0" prefWidth="51.0" text="Admit" />
-                              <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#onDelete" prefHeight="16.0" prefWidth="51.0" text="Delete" />
+                              <Button fx:id="btnStudentAdmit" mnemonicParsing="false" onAction="#onStudentAdmit" prefHeight="20.0" prefWidth="51.0" text="Admit" />
                            </children>
                         </VBox>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Manage Student">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <VBox prefHeight="305.0" prefWidth="227.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Set Prerequisite" />
-                              <TextField fx:id="setPrerequisite" prefHeight="25.0" prefWidth="270.0" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
+            <Tab fx:id="tbAddCourse" text=" Add Course">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab fx:id="tbManageCourse" text="Manage Course">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab fx:id="tbDeleteCourse" text="Delete Course">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab fx:id="tbAddClass" text="Add Class">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab fx:id="tbDeleteClass" text="Delete Class">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
-      <TextArea blendMode="SRC_ATOP" prefHeight="19.0" prefWidth="600.0" text="Welcome, Admin.">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextArea>
-      <Button fx:id="btnLogout" layoutX="547.0" layoutY="1.0" mnemonicParsing="false" onAction="#onAdminLogout" text="Logout" />
 
    </children>
 </AnchorPane>
