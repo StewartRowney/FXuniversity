@@ -1,11 +1,15 @@
 package com.example.fxuniversity.controllers;
 
+import com.example.fxuniversity.models.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 public class StudentController {
+
+    private Student currentStudent;
+
     @FXML
     private Button btnCourseDescription;
 
@@ -51,5 +55,9 @@ public class StudentController {
     @FXML
     void onSeeCourseList(ActionEvent event) {
 
+    }
+
+    public void setStudent(Student student) {
+        this.currentStudent = student;
     }
 }

@@ -4,7 +4,6 @@ import java.util.UUID;
 
 public class Professor {
 
-
     private UUID id;
     private String name;
     private String address;
@@ -50,5 +49,9 @@ public class Professor {
 
     public int getOfficeNumber() {
         return officeNumber;
+    }
+
+    public String toString() {
+        return name;
     }
 }
