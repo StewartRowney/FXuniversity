@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,24 +54,22 @@ public class Database {
 
                 Professor professor = new Professor(splitter[0], splitter[1], splitter[2], splitter[3],  UUID.randomUUID(), Integer.parseInt(splitter[5].trim()));
                 professorHashMap.put(professor.getId(), professor);
-                System.out.println(professor.getName());
+
             }
         } catch (FileNotFoundException fnfe) {
             System.err.println("Hey, we couldn't find the file");
         }
     }
     private static void loadClassData() {
-        String pattern = "dd-MM-yyyy HH:mm:ss";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
-        try (Scanner fileScanner = new Scanner(new File("src/main/resources/classmockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src/main/resources/classesmockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
 
-                Class classroom = new Class(Integer.parseInt(splitter[0]), LocalDateTime.parse(splitter[1],formatter), Double.parseDouble(splitter[2]));
+                Class classroom = new Class(Integer.parseInt(splitter[0]), DayOfWeek.of(Integer.parseInt(splitter[1])), LocalTime.parse(splitter[2]), Duration.ofHours(Long.parseLong(splitter[3])), Double.parseDouble(splitter[4]));
                 classHashMap.put(classroom.getId(), classroom);
-                System.out.println(classroom.getSemester());
+
             }
         } catch (FileNotFoundException fnfe) {
             System.err.println("Hey, we couldn't find the file");
@@ -83,7 +84,7 @@ public class Database {
 
                 Course course = new Course(splitter[0], splitter[1], splitter[2], "", splitter[3]);
                 courseHashMap.put(course.getId(), course);
-                System.out.println(course.getName());
+
             }
         } catch (FileNotFoundException fnfe) {
             System.err.println("Hey, we couldn't find the file");

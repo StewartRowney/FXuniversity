@@ -1,7 +1,12 @@
 package com.example.fxuniversity.models;
 
+import java.security.Timestamp;
+import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class Class {
 
@@ -9,14 +14,18 @@ public class Class {
 
     private UUID id;
     private int semester;
-    private LocalDateTime classDateTime;
+    private DayOfWeek day;
+    private LocalTime timeStart;
+    private Duration classDuration;
     private double room;
 
 
-    public Class(int semester, LocalDateTime classDateTime, double room) {
+    public Class(int semester, DayOfWeek day, LocalTime timeStart, Duration classDuration, double room) {
         id = UUID.randomUUID();
+        this.day = day;
         this.semester = semester;
-        this.classDateTime = classDateTime;
+        this.timeStart = timeStart;
+        this.classDuration = classDuration;
         this.room = room;
     }
 
@@ -29,18 +38,21 @@ public class Class {
     public UUID getId() {
         return id;
     }
-//    public Course getCourse() {
-//        return course;
-//    }
-//    public void setCourse(Course course) {
-//        this.course = course;
-//    }
 
-    public LocalDateTime getClassDateTime() {
-        return classDateTime;
+    public LocalTime getTimeStart() {
+        return timeStart;
     }
-    public void setClassDateTime(LocalDateTime classDateTime) {
-        this.classDateTime = classDateTime;
+
+    public void setTimeStart(LocalTime timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public Duration getClassDuration() {
+        return classDuration;
+    }
+
+    public void setClassDuration(Duration classDuration) {
+        this.classDuration = classDuration;
     }
 
     public double getRoom() {

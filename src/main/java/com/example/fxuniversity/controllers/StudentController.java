@@ -3,6 +3,8 @@ package com.example.fxuniversity.controllers;
 import com.example.fxuniversity.models.Course;
 import com.example.fxuniversity.models.Database;
 import com.example.fxuniversity.models.Student;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,6 +68,7 @@ public class StudentController {
 
         tabPane.getSelectionModel().select(tbCourseListTab);
         setUpCourseList();
+        setUpTextArea();
 
     }
 
@@ -79,5 +82,22 @@ public class StudentController {
              ) {
             listViewCourses.getItems().add(course);
         }
+    }
+
+    public void setUpTextArea() {
+        listViewCourses.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
+            @Override
+            public void changed(ObservableValue<? extends Course> observableValue, Course course, Course t1) {
+                Course coursetodisplay = listViewCourses.getSelectionModel().getSelectedItem();
+                String setTextString = "Course Description: " + coursetodisplay.getDescription() + "\nRequired Books: "+ coursetodisplay.getRequiredBooks()+"\nCourse Code: "+ coursetodisplay.getCourseNumber();
+                txtAreaCourseDescription.setText(setTextString);
+            }
+        });
+
+
+    }
+
+    public void onRegister() {
+
     }
 }
