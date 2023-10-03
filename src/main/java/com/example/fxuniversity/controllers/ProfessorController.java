@@ -171,17 +171,27 @@ public class ProfessorController {
     public void listAllClassesForProf() {
         Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
         listViewClassesAddGrade.getItems().addAll(classes);
+
         listViewClassesAddGrade.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Class>() {
             @Override
             public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
+
                 Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
-                Collection<Student> students = Database.getAllStudentsInClass(selectedClass.getId());
-                for (Student student: students
-                     ) {
-                    listViewStudents.getItems().add(student);
-                }
+
+                listClassStudents(selectedClass.getId());
+
             }
         });
+    }
+
+    private void listClassStudents(UUID selectedClassID) {
+        Collection<Student> students = Database.getAllStudentsInClass(selectedClassID);
+        listViewStudents.getItems().removeAll(students);
+        for (Student student: students
+             ) {
+            listViewStudents.getItems().add(student);
+        }
+
     }
 
     public void setUpDaysList() {
