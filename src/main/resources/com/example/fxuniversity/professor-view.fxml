@@ -1,19 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxuniversity.controllers.ProfessorController">
-   <top>
-      <AnchorPane prefHeight="158.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxuniversity.controllers.ProfessorController">
+   <children>
+      <HBox prefHeight="26.0" prefWidth="600.0" AnchorPane.bottomAnchor="373.6" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="getSchedule" layoutX="153.0" layoutY="79.0" mnemonicParsing="false" text="Schedule" />
-            <Button fx:id="addGrade" layoutX="401.0" layoutY="79.0" mnemonicParsing="false" text="Add grade" />
-            <TextField layoutX="28.0" layoutY="32.0" text="Welcome Professor" />
+            <Button fx:id="btnProfessorLogout" mnemonicParsing="false" onAction="#onLogout" prefHeight="26.0" prefWidth="58.0" text="Logout">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Label fx:id="lblWelcomeProfessor" prefHeight="27.0" prefWidth="523.0" text="Welcome Professor:  ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Label>
          </children>
-      </AnchorPane>
-   </top>
-</BorderPane>
+      </HBox>
+      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+        <tabs>
+          <Tab fx:id="tbProfessorHomepage" text="Homepage">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnSchedule" layoutX="162.0" layoutY="161.0" mnemonicParsing="false" onAction="#onSeeSchedule" text="Schedule" />
+                        <Button layoutX="380.0" layoutY="161.0" mnemonicParsing="false" text="Add Grade" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tbProfessorSchedule" text="Schedule">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="347.0" prefWidth="600.0">
+                           <children>
+                              <ListView fx:id="listViewDateSchedule" prefHeight="154.0" prefWidth="600.0" />
+                              <Label fx:id="lblSelectedDate" text="Date: ">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ListView fx:id="listViewClassesSchedule" prefHeight="139.0" prefWidth="600.0" />
+                              <Label fx:id="lblSelectedClass" text="Class">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="tbProfessorAddGrade" text="Add Grade">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="348.0" prefWidth="600.0">
+                           <children>
+                              <ListView fx:id="listViewClassesAddGrade" prefHeight="130.0" prefWidth="600.0" />
+                              <Label fx:id="lblClassListAddGrade" text="Class: ">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ListView fx:id="listViewStudents" prefHeight="126.0" prefWidth="600.0" />
+                              <Label fx:id="lblStudentListAddGrade" text="Student: ">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="30.0" prefWidth="600.0">
+                                 <children>
+                                    <RadioButton fx:id="rdioBtnGradeA" mnemonicParsing="false" onAction="#onSetGradeA" text="A">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rdioBtnGradeB" mnemonicParsing="false" onAction="#onSetGradeB" text="B">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rdioBtnGradeC" mnemonicParsing="false" onAction="#onSetGradeC" text="C">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rdioBtnGradeD" mnemonicParsing="false" onAction="#onSetGradeD" text="D">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rdioBtnGradeE" mnemonicParsing="false" onAction="#onSetGradeE" text="E">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rdioBtnGradeF" mnemonicParsing="false" onAction="#onSetGradeF" text="F">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
+                                    <Button fx:id="btnConfirmAddGrade" mnemonicParsing="false" onAction="#onConfirmAddGrade" text="Confirm Grade Selection">
+                                       <HBox.margin>
+                                          <Insets left="200.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
