@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 public class ProfessorController {
 
-    private Professor currentProfesor;
+    private Professor currentProfessor;
 
     @FXML
     private Button addGrade;
@@ -14,7 +14,7 @@ public class ProfessorController {
     private Button getSchedule;
 
     public void setProfessor(Professor professor) {
-        this.currentProfesor = professor;
+        this.currentProfessor = professor;
     }
 
 }
