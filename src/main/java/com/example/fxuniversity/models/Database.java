@@ -9,10 +9,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class Database {
     public static HashMap<UUID,Student> studentHashMap = new HashMap<>();
@@ -31,8 +28,7 @@ public class Database {
         loadClassData();
         loadCourseData();
     }
-
-     private static void loadStudentData() {
+    private static void loadStudentData() {
 
         try (Scanner fileScanner = new Scanner(new File("src/main/resources/studentmockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
@@ -89,5 +85,36 @@ public class Database {
         } catch (FileNotFoundException fnfe) {
             System.err.println("Hey, we couldn't find the file");
         }
+    }
+
+    public static Student getStudent(UUID id) {
+        return studentHashMap.get(id);
+    }
+    public static void addNewStudent(Student student) {
+        studentHashMap.put(student.getId(), student);
+    }
+
+    public static Course getCourse(UUID id) {
+        return courseHashMap.get(id);
+    }
+    public static void addNewCourse(Course course) {
+        courseHashMap.put(course.getId(), course);
+    }
+
+    public static Collection<Class> getAllClassesInCourse(UUID courseId) {
+        ArrayList<UUID> classIds = new ArrayList<>();
+        for (CourseClassRelationship ccr : courseClassRelationshipArrayList) {
+            if (ccr.getCourseID() == courseId) {
+                classIds.addAll(ccr.getClassIDs());
+                break;
+            }
+        }
+
+        ArrayList<Class> classes = new ArrayList<>();
+        for (UUID id : classIds) {
+            classes.add(classHashMap.get(id));
+        }
+
+        return classes;
     }
 }

@@ -12,4 +12,12 @@ public class CourseClassRelationship {
         this.courseID = courseID;
         classID = new ArrayList<>();
     }
+
+    public UUID getCourseID() {
+        return courseID;
+    }
+
+    public ArrayList<UUID> getClassIDs() {
+        return classID;
+    }
 }
