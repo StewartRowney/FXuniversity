@@ -1,5 +1,6 @@
 package com.example.fxuniversity.controllers;
 
+import com.example.fxuniversity.Main;
 import com.example.fxuniversity.models.Course;
 import com.example.fxuniversity.models.Database;
 import com.example.fxuniversity.models.Student;
@@ -9,14 +10,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Collection;
 
 public class StudentController {
 
     private Student currentStudent;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private Button btnCheckClassAvailability;
@@ -58,13 +66,16 @@ public class StudentController {
     private TextArea txtAreaCourseDescription;
 
     @FXML
-    void onLogout(ActionEvent event) {
-
+    void onLogout(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = (Stage) anchorPane.getScene().getWindow();
+        stage.setScene(scene);
     }
 
     @FXML
     void onClassAvailability(ActionEvent event) {
-
+        tabPane.getSelectionModel().select(tbRegisterClassListTab);
     }
 
     @FXML
@@ -74,7 +85,7 @@ public class StudentController {
 
     @FXML
     void onHomePage(ActionEvent event) {
-
+        tabPane.getSelectionModel().select(tbStudentHomepage);
     }
 
     @FXML
