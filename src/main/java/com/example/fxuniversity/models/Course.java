@@ -24,6 +24,11 @@ public class Course {
         this.courseNumber = courseNumber;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     public String getName() {
         return name;
     }

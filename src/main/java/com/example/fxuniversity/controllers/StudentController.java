@@ -1,10 +1,16 @@
 package com.example.fxuniversity.controllers;
 
+import com.example.fxuniversity.models.Course;
+import com.example.fxuniversity.models.Database;
 import com.example.fxuniversity.models.Student;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.Collection;
 
 public class StudentController {
 
@@ -23,7 +29,7 @@ public class StudentController {
     private Button btnSeeCourseList;
 
     @FXML
-    private ListView<?> listViewCourses;
+    private ListView<Course> listViewCourses;
 
     @FXML
     private TabPane tabPane;
@@ -33,6 +39,9 @@ public class StudentController {
 
     @FXML
     private Tab tbStudentHomepage;
+
+    @FXML
+    private Tab tbCourseListTab;
 
     @FXML
     private TextArea txtAreaCourseDescription;
@@ -55,9 +64,20 @@ public class StudentController {
     @FXML
     void onSeeCourseList(ActionEvent event) {
 
+        tabPane.getSelectionModel().select(tbCourseListTab);
+        setUpCourseList();
+
     }
 
     public void setStudent(Student student) {
         this.currentStudent = student;
+    }
+
+    public void setUpCourseList() {
+        Collection<Course> courseCollection = Database.courseHashMap.values();
+        for (Course course: courseCollection
+             ) {
+            listViewCourses.getItems().add(course);
+        }
     }
 }
