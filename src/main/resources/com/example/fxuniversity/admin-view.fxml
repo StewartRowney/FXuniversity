@@ -20,7 +20,7 @@
       </TextArea>
       <Button fx:id="btnLogout" layoutX="547.0" layoutY="1.0" mnemonicParsing="false" onAction="#onAdminLogout" text="Logout" />
       <Button fx:id="btnHome" layoutX="471.0" layoutY="2.0" mnemonicParsing="false" onAction="#onHomeAction" text="Home" />
-      <TabPane fx:id="tabPane" layoutX="1.0" layoutY="60.0" prefHeight="340.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="1.0" layoutY="60.0" minWidth="-Infinity" prefHeight="340.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="0.0" tabMaxWidth="0.0">
         <tabs>
             <Tab fx:id="tbHome" text="Home">
               <content>

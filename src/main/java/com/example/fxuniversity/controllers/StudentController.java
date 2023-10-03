@@ -1,6 +1,7 @@
 package com.example.fxuniversity.controllers;
 
 import com.example.fxuniversity.Main;
+import com.example.fxuniversity.models.Class;
 import com.example.fxuniversity.models.Course;
 import com.example.fxuniversity.models.Database;
 import com.example.fxuniversity.models.Student;
@@ -17,7 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 public class StudentController {
 
@@ -42,7 +45,7 @@ public class StudentController {
     private Button btnSeeCourseList;
 
     @FXML
-    private ListView<?> listViewClassListAvailability;
+    private ListView<Class> listViewClassListAvailability;
 
     @FXML
     private ListView<Course> listViewCourses;
@@ -76,6 +79,13 @@ public class StudentController {
     @FXML
     void onClassAvailability(ActionEvent event) {
         tabPane.getSelectionModel().select(tbRegisterClassListTab);
+        setUpClassAvailabilityList();
+    }
+
+    public void setUpClassAvailabilityList() {
+        Course course = listViewCourses.getSelectionModel().getSelectedItem();
+        Collection<Class> classes = Database.getAllClassesInCourse(course.getId());
+        listViewClassListAvailability.getItems().addAll(classes);
     }
 
     @FXML
@@ -90,11 +100,9 @@ public class StudentController {
 
     @FXML
     void onSeeCourseList(ActionEvent event) {
-
         tabPane.getSelectionModel().select(tbCourseListTab);
         setUpCourseList();
         setUpTextArea();
-
     }
 
     public void setStudent(Student student) {

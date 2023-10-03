@@ -25,10 +25,10 @@ public class Database {
 
 
     public static void setUpDatabase(){
-        loadStudentData();
-        loadProfessorData();
-        loadClassData();
-        loadCourseData();
+//        loadStudentData();
+//        loadProfessorData();
+//        loadClassData();
+//        loadCourseData();
         populatePCR();
     }
     private static void loadStudentData() {
@@ -62,6 +62,7 @@ public class Database {
 
     public static void populatePCR() {
         Professor prof = new Professor("Ayush", "Aysuh12", "123", "pn@pn", UUID.randomUUID(), 69);
+        Course course = new Course("Legit Course", "super legit", "None", "", "ENG109");
         Class class1 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(12,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
         Class class2 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(13,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
         Class class3 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(14,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
@@ -70,12 +71,37 @@ public class Database {
         professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class2.getId()));
         professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class3.getId()));
         professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class4.getId()));
+        ArrayList<UUID> classIds = new ArrayList<>();
+        classIds.add(class1.getId());
+        classIds.add(class2.getId());
+        classIds.add(class3.getId());
+        classIds.add(class4.getId());
+
+        Student student1 = new Student("Stewart","","","","");
+        Student student2 = new Student("Thomas","","","","");
+        Student student3 = new Student("Abhijeet","","","","");
+
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student1.getId(), class1.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student1.getId(), class2.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student1.getId(), class3.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student1.getId(), class4.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student2.getId(), class1.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student3.getId(), class2.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student2.getId(), class3.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student2.getId(), class4.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student3.getId(), class1.getId()));
+
+        courseClassRelationshipArrayList.add(new CourseClassRelationship(course.getId(), classIds));
 
         professorHashMap.put(prof.getId(), prof);
+        courseHashMap.put(course.getId(), course);
         classHashMap.put(class1.getId(), class1);
         classHashMap.put(class2.getId(), class2);
         classHashMap.put(class3.getId(), class3);
         classHashMap.put(class4.getId(), class4);
+        studentHashMap.put(student1.getId(), student1);
+        studentHashMap.put(student2.getId(), student2);
+        studentHashMap.put(student3.getId(), student3);
     }
     private static void loadClassData() {
 
