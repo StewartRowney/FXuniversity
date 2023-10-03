@@ -6,6 +6,8 @@ import com.example.fxuniversity.models.Course;
 import com.example.fxuniversity.models.Database;
 import com.example.fxuniversity.models.Professor;
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -169,24 +171,17 @@ public class ProfessorController {
     public void listAllClassesForProf() {
         Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
         listViewClassesAddGrade.getItems().addAll(classes);
-    }
-    public void listAllStudentsInAClass () {
-
-        Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
-        StudentClassRelationship scr = null;
-        ProfessorClassRelationship pcr = null;
-        classes.getClass();
-
-        Collection<Student> students = Database.studentHashMap.values();
-
-            for (Student student: students
-                 ) {
-                while(scr.getClassID() == pcr.getClassID()) {
-                listViewStudents.getItems().add(student);
+        listViewClassesAddGrade.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Class>() {
+            @Override
+            public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
+                Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
+                Collection<Student> students = Database.getAllStudentsInClass(selectedClass.getId());
+                for (Student student: students
+                     ) {
+                    listViewStudents.getItems().add(student);
                 }
             }
-
-
+        });
     }
 
     public void setUpDaysList() {
