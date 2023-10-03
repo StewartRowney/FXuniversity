@@ -62,4 +62,11 @@ public class Class {
         this.room = room;
     }
 
+    public DayOfWeek getDay() {
+        return day;
+    }
+
+    public void setDay(DayOfWeek day) {
+        this.day = day;
+    }
 }

@@ -134,4 +134,15 @@ public class Database {
 
         return classes;
     }
+
+    public static Collection<Class> getAllProfessorClassesForDay(UUID professorId, DayOfWeek day) {
+        Collection<Class> classes = Database.getAllClassesForProfessor(professorId);
+        Collection<Class> relevantClasses = new ArrayList<>();
+        for (Class currentClass: classes) {
+            if (currentClass.getDay() == day) {
+                relevantClasses.add(currentClass);
+            }
+        }
+        return relevantClasses;
+    }
 }
