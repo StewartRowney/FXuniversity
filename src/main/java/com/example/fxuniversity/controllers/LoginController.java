@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -14,6 +15,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginController {
+
+    @FXML
+    private ComboBox<?> cmboBoxAdmin;
+
+    @FXML
+    private ComboBox<?> cmboBoxProffessor;
+
+    @FXML
+    private ComboBox<?> cmboBoxStudent;
+
     @FXML
     private AnchorPane anchorPane;
 
