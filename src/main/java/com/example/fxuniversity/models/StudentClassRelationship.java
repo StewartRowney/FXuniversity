@@ -11,5 +11,11 @@ public class StudentClassRelationship {
         this.classID = classID;
     }
 
+    public UUID getStudentID() {
+        return studentID;
+    }
 
+    public UUID getClassID() {
+        return classID;
+    }
 }

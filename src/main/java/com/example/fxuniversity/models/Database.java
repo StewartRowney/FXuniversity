@@ -145,4 +145,20 @@ public class Database {
         }
         return relevantClasses;
     }
+
+    public static Collection<Student> getAllStudentsInClass(UUID classId) {
+        ArrayList<UUID> studentIds = new ArrayList<>();
+        for (StudentClassRelationship scr : studentClassRelationshipArrayList) {
+            if (scr.getClassID() == classId) {
+                studentIds.add(scr.getStudentID());
+            }
+        }
+
+        ArrayList<Student> students = new ArrayList<>();
+        for (UUID id : studentIds) {
+            students.add(studentHashMap.get(id));
+        }
+
+        return students;
+    }
 }
