@@ -1,7 +1,12 @@
 package com.example.fxuniversity.controllers;
 
 import com.example.fxuniversity.Main;
+import com.example.fxuniversity.models.Course;
+import com.example.fxuniversity.models.Database;
 import com.example.fxuniversity.models.Professor;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +16,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class ProfessorController {
 
@@ -50,7 +59,7 @@ public class ProfessorController {
     private ListView<?> listViewClassesSchedule;
 
     @FXML
-    private ListView<?> listViewDateSchedule;
+    private ListView<DayOfWeek> listViewDateSchedule;
 
     @FXML
     private ListView<?> listViewStudents;
@@ -83,6 +92,12 @@ public class ProfessorController {
     private Tab tbProfessorSchedule;
 
     @FXML
+    private TabPane tabPane;
+
+
+
+
+    @FXML
     void onConfirmAddGrade(ActionEvent event) {
 
     }
@@ -97,7 +112,8 @@ public class ProfessorController {
 
     @FXML
     void onSeeSchedule(ActionEvent event) {
-
+        setUpDaysList();
+        tabPane.getSelectionModel().select(tbProfessorSchedule);
     }
 
     @FXML
@@ -132,6 +148,12 @@ public class ProfessorController {
 
     public void setProfessor(Professor professor) {
         this.currentProfessor = professor;
+    }
+
+    public void setUpDaysList() {
+        ObservableList<DayOfWeek> weekdays = FXCollections.observableArrayList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+        listViewDateSchedule.getItems().addAll(weekdays);
+
     }
 
 }

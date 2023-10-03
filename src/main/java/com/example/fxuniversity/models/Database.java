@@ -9,10 +9,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class Database {
     public static HashMap<UUID,Student> studentHashMap = new HashMap<>();
@@ -24,6 +21,7 @@ public class Database {
     public static ArrayList<CourseClassRelationship> courseClassRelationshipArrayList = new ArrayList<>();
     public static ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
     public static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
+
 
     public static void setUpDatabase(){
         loadStudentData();
