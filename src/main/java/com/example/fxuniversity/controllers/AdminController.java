@@ -138,6 +138,8 @@ public class AdminController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) anchorPane.getScene().getWindow();
+        LoginController controller = fxmlLoader.getController();
+        controller.loadComboBoxes();
         stage.setScene(scene);
     }
 

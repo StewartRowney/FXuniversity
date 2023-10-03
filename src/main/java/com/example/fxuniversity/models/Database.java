@@ -66,7 +66,7 @@ public class Database {
         Class class1 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(12,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
         Class class2 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(13,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
         Class class3 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(14,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
-        Class class4 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(15,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
+        Class class4 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(15,0,0), Duration.of(1, ChronoUnit.HOURS), 5.08 );
         professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class1.getId()));
         professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class2.getId()));
         professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class3.getId()));
@@ -146,6 +146,10 @@ public class Database {
     }
     public static void addNewCourse(Course course) {
         courseHashMap.put(course.getId(), course);
+    }
+
+    public static void addStudentToClass(StudentClassRelationship src) {
+        studentClassRelationshipArrayList.add(src);
     }
 
     public static Collection<Class> getAllClassesInCourse(UUID courseId) {

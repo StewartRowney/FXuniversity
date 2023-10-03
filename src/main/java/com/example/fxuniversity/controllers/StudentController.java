@@ -1,10 +1,8 @@
 package com.example.fxuniversity.controllers;
 
 import com.example.fxuniversity.Main;
+import com.example.fxuniversity.models.*;
 import com.example.fxuniversity.models.Class;
-import com.example.fxuniversity.models.Course;
-import com.example.fxuniversity.models.Database;
-import com.example.fxuniversity.models.Student;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -73,6 +71,8 @@ public class StudentController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) anchorPane.getScene().getWindow();
+        LoginController controller = fxmlLoader.getController();
+        controller.loadComboBoxes();
         stage.setScene(scene);
     }
 
@@ -90,7 +90,9 @@ public class StudentController {
 
     @FXML
     void onConfirmClassBooking(ActionEvent event) {
-
+        Class currentClass = listViewClassListAvailability.getSelectionModel().getSelectedItem();
+        StudentClassRelationship src = new StudentClassRelationship(currentStudent.getId(), currentClass.getId());
+        Database.addStudentToClass(src);
     }
 
     @FXML
