@@ -1,19 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxuniversity.controllers.AdminController">
    <children>
-      <TextArea blendMode="SRC_ATOP" layoutX="14.0" layoutY="21.0" prefHeight="44.0" prefWidth="562.0" text="Welcome, Admin.">
+      <TabPane layoutX="1.0" layoutY="60.0" prefHeight="340.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Admit/Delete">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="293.0" prefWidth="265.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Name" />
+                              <TextField fx:id="getStudentName" prefHeight="25.0" prefWidth="156.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Address" wrappingWidth="84.19790649414062" />
+                              <TextField fx:id="getStudentAddress" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Major" />
+                              <TextField fx:id="getStudentMajor" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Email" wrappingWidth="64.271484375" />
+                              <TextField fx:id="getStudentEmail" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Phone" />
+                              <TextField fx:id="getStudentPhone" />
+                              <Button fx:id="btnAdmit" mnemonicParsing="false" onAction="#onAdmit" prefHeight="20.0" prefWidth="51.0" text="Admit" />
+                              <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#onDelete" prefHeight="16.0" prefWidth="51.0" text="Delete" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Manage Student">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="305.0" prefWidth="227.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Set Prerequisite" />
+                              <TextField fx:id="setPrerequisite" prefHeight="25.0" prefWidth="270.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <TextArea blendMode="SRC_ATOP" prefHeight="19.0" prefWidth="600.0" text="Welcome, Admin.">
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </TextArea>
-      <Button fx:id="addStudent" layoutX="25.0" layoutY="200.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="142.0" text="Admit student" />
-      <Button fx:id="deleteStudent" layoutX="433.0" layoutY="200.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="142.0" text="Delete Student" />
+      <Button fx:id="btnLogout" layoutX="547.0" layoutY="1.0" mnemonicParsing="false" onAction="#onAdminLogout" text="Logout" />
 
    </children>
 </AnchorPane>
