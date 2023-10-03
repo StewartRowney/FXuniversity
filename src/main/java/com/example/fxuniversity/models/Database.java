@@ -22,6 +22,7 @@ public class Database {
     public static ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
     public static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
 
+
     public static void setUpDatabase(){
         loadStudentData();
         loadProfessorData();
