@@ -19,16 +19,22 @@ public class StudentController {
     private Student currentStudent;
 
     @FXML
-    private Button btnCourseDescription;
+    private Button btnCheckClassAvailability;
+
+    @FXML
+    private Button btnConfirmClassBooking;
+
+    @FXML
+    private Button btnHomePage;
 
     @FXML
     private Button btnLogout;
 
     @FXML
-    private Button btnRegister;
+    private Button btnSeeCourseList;
 
     @FXML
-    private Button btnSeeCourseList;
+    private ListView<?> listViewClassListAvailability;
 
     @FXML
     private ListView<Course> listViewCourses;
@@ -46,12 +52,10 @@ public class StudentController {
     private Tab tbCourseListTab;
 
     @FXML
-    private TextArea txtAreaCourseDescription;
+    private Tab tbRegisterClassListTab;
 
     @FXML
-    void onCourseDescription(ActionEvent event) {
-
-    }
+    private TextArea txtAreaCourseDescription;
 
     @FXML
     void onLogout(ActionEvent event) {
@@ -59,7 +63,17 @@ public class StudentController {
     }
 
     @FXML
-    void onRegisterCourse(ActionEvent event) {
+    void onClassAvailability(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onConfirmClassBooking(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onHomePage(ActionEvent event) {
 
     }
 
@@ -93,11 +107,5 @@ public class StudentController {
                 txtAreaCourseDescription.setText(setTextString);
             }
         });
-
-
-    }
-
-    public void onRegister() {
-
     }
 }

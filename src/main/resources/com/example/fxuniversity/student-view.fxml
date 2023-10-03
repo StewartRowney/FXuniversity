@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -9,21 +11,31 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxuniversity.controllers.StudentController">
    <children>
       <HBox layoutX="1.0" prefHeight="26.0" prefWidth="600.0" spacing="2.0">
          <children>
-            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#onLogout" text="Logout" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Welcome Student" wrappingWidth="542.9367218017578">
+            <Label prefHeight="30.0" prefWidth="463.0" text="Welcome Student: ">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
-            </Text>
+            </Label>
+            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#onLogout" prefHeight="27.0" prefWidth="66.0" text="Logout">
+               <HBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </HBox.margin></Button>
+            <Button fx:id="btnHomePage" mnemonicParsing="false" onAction="#onHomePage" prefHeight="27.0" prefWidth="55.0" text="Home">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
-      <TabPane fx:id="tabPane" layoutX="-3.0" layoutY="24.0" prefHeight="381.0" prefWidth="606.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="-3.0" layoutY="30.0" prefHeight="362.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <tabs>
           <Tab fx:id="tbStudentHomepage" text="Homepage">
             <content>
@@ -38,18 +50,42 @@
             <content>
               <AnchorPane fx:id="tbCourseList" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="349.0" prefWidth="606.0">
+                        <VBox prefHeight="333.0" prefWidth="606.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-6.399999999999977">
                            <children>
-                              <ListView fx:id="listViewCourses" prefHeight="200.0" prefWidth="200.0" />
-                              <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#onRegisterCourse" text="Register" />
-                              <TextArea fx:id="txtAreaCourseDescription" prefHeight="200.0" prefWidth="200.0" />
-                              <Button fx:id="btnCourseDescription" mnemonicParsing="false" onAction="#onCourseDescription" text="Course Description" />
+                              <ListView fx:id="listViewCourses" prefHeight="202.0" prefWidth="606.0" />
+                              <TextArea fx:id="txtAreaCourseDescription" prefHeight="104.0" prefWidth="606.0" />
+                              <Button fx:id="btnCheckClassAvailability" mnemonicParsing="false" onAction="#onClassAvailability" text="Check Availability">
+                                 <VBox.margin>
+                                    <Insets bottom="7.0" left="480.0" top="7.0" />
+                                 </VBox.margin></Button>
                            </children>
                         </VBox>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab fx:id="tbRegisterClassListTab" text="Class List">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="348.0" prefWidth="606.0">
+                           <children>
+                              <ListView fx:id="listViewClassListAvailability" prefHeight="294.0" prefWidth="606.0" />
+                              <HBox prefHeight="57.0" prefWidth="606.0">
+                                 <children>
+                                    <Button fx:id="btnConfirmClassBooking" mnemonicParsing="false" onAction="#onConfirmClassBooking" text="Confirm Class Booking">
+                                       <HBox.margin>
+                                          <Insets left="450.0" top="7.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>
