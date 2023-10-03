@@ -1,6 +1,7 @@
 package com.example.fxuniversity.controllers;
 
 import com.example.fxuniversity.Main;
+import com.example.fxuniversity.models.*;
 import com.example.fxuniversity.models.Course;
 import com.example.fxuniversity.models.Database;
 import com.example.fxuniversity.models.Professor;
@@ -14,8 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import com.example.fxuniversity.models.Class;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.UUID;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,6 +41,9 @@ public class ProfessorController {
     private Button btnSchedule;
 
     @FXML
+    private Button btnAddGradeButton;
+
+    @FXML
     private Label lblClassListAddGrade;
 
     @FXML
@@ -53,7 +59,7 @@ public class ProfessorController {
     private Label lblWelcomeProfessor;
 
     @FXML
-    private ListView<?> listViewClassesAddGrade;
+    private ListView<Class> listViewClassesAddGrade;
 
     @FXML
     private ListView<?> listViewClassesSchedule;
@@ -62,7 +68,7 @@ public class ProfessorController {
     private ListView<DayOfWeek> listViewDateSchedule;
 
     @FXML
-    private ListView<?> listViewStudents;
+    private ListView<Student> listViewStudents;
 
     @FXML
     private RadioButton rdioBtnGradeA;
@@ -97,9 +103,17 @@ public class ProfessorController {
 
 
 
+
+
     @FXML
     void onConfirmAddGrade(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onAddGrade (ActionEvent event) {
+        tabPane.getSelectionModel().select(tbProfessorAddGrade);
+        listAllClassesForProf();
     }
 
     @FXML
@@ -148,6 +162,31 @@ public class ProfessorController {
 
     public void setProfessor(Professor professor) {
         this.currentProfessor = professor;
+    }
+
+
+
+    public void listAllClassesForProf() {
+        Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
+        listViewClassesAddGrade.getItems().addAll(classes);
+    }
+    public void listAllStudentsInAClass () {
+
+        Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
+        StudentClassRelationship scr = null;
+        ProfessorClassRelationship pcr = null;
+        classes.getClass();
+
+        Collection<Student> students = Database.studentHashMap.values();
+
+            for (Student student: students
+                 ) {
+                while(scr.getClassID() == pcr.getClassID()) {
+                listViewStudents.getItems().add(student);
+                }
+            }
+
+
     }
 
     public void setUpDaysList() {

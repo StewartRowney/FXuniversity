@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Database {
@@ -28,6 +29,7 @@ public class Database {
         loadProfessorData();
         loadClassData();
         loadCourseData();
+        populatePCR();
     }
     private static void loadStudentData() {
 
@@ -56,6 +58,24 @@ public class Database {
         } catch (FileNotFoundException fnfe) {
             System.err.println("Hey, we couldn't find the file");
         }
+    }
+
+    public static void populatePCR() {
+        Professor prof = new Professor("Ayush", "Aysuh12", "123", "pn@pn", UUID.randomUUID(), 69);
+        Class class1 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(12,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
+        Class class2 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(13,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
+        Class class3 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(14,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
+        Class class4 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(15,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
+        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class1.getId()));
+        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class2.getId()));
+        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class3.getId()));
+        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class4.getId()));
+
+        professorHashMap.put(prof.getId(), prof);
+        classHashMap.put(class1.getId(), class1);
+        classHashMap.put(class2.getId(), class2);
+        classHashMap.put(class3.getId(), class3);
+        classHashMap.put(class4.getId(), class4);
     }
     private static void loadClassData() {
 
@@ -161,4 +181,5 @@ public class Database {
 
         return students;
     }
+
 }

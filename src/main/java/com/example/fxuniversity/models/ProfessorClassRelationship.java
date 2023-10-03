@@ -19,4 +19,5 @@ public class ProfessorClassRelationship {
     public UUID getClassID() {
         return classID;
     }
+
 }

@@ -14,8 +14,8 @@ public class StudentClassRelationship {
     public UUID getStudentID() {
         return studentID;
     }
-
     public UUID getClassID() {
         return classID;
     }
+
 }

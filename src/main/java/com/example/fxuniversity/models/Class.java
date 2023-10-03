@@ -29,6 +29,12 @@ public class Class {
         this.room = room;
     }
 
+
+    @Override
+    public String toString() {
+        return "Semester: "+ semester + " | Day: "+ day + " | Room: "+ room;
+    }
+
     public int getSemester() {
         return semester;
     }
