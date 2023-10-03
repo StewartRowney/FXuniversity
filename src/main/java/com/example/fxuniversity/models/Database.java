@@ -12,15 +12,15 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class Database {
-    static HashMap<UUID,Student> studentHashMap = new HashMap<>();
-    static HashMap<UUID,Course> courseHashMap = new HashMap<>();
-    static HashMap<UUID, Professor> professorHashMap = new HashMap<>();
-    static HashMap<UUID, Class> classHashMap = new HashMap<>();
-    static HashMap<UUID, Transcript> transcriptHashMap = new HashMap<>();
-    static HashMap<UUID, Department> departmentHashMap = new HashMap<>();
-    static ArrayList<CourseClassRelationship> courseClassRelationshipArrayList = new ArrayList<>();
-    static ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
-    static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
+    public static HashMap<UUID,Student> studentHashMap = new HashMap<>();
+    public static HashMap<UUID,Course> courseHashMap = new HashMap<>();
+    public static HashMap<UUID, Professor> professorHashMap = new HashMap<>();
+    public static HashMap<UUID, Class> classHashMap = new HashMap<>();
+    public static HashMap<UUID, Transcript> transcriptHashMap = new HashMap<>();
+    public static HashMap<UUID, Department> departmentHashMap = new HashMap<>();
+    public static ArrayList<CourseClassRelationship> courseClassRelationshipArrayList = new ArrayList<>();
+    public static ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
+    public static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
 
     public static void setUpDatabase(){
         loadStudentData();
@@ -42,10 +42,9 @@ public class Database {
             System.err.println("Hey, we couldn't find the file");
         }
     }
-
     private static void loadProfessorData() {
 
-        try (Scanner fileScanner = new Scanner(new File("C:\\Users\\pande\\Desktop\\Ayush@Strath\\Work\\Barclays\\Capstone\\FXuniversity\\src\\main\\resources\\professormockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src/main/resources/professormockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
@@ -58,7 +57,6 @@ public class Database {
             System.err.println("Hey, we couldn't find the file");
         }
     }
-
     private static void loadClassData() {
         String pattern = "dd-MM-yyyy HH:mm:ss";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
@@ -76,10 +74,9 @@ public class Database {
             System.err.println("Hey, we couldn't find the file");
         }
     }
-
     private static void loadCourseData() {
 
-        try (Scanner fileScanner = new Scanner(new File("src\\main\\resources\\coursemockdata.csv"))) {
+        try (Scanner fileScanner = new Scanner(new File("src/main/resources/coursemockdata.csv"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] splitter = line.split(",");
