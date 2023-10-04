@@ -100,6 +100,7 @@ public class StudentController {
     @FXML
     void onSeeTranscripts (ActionEvent event) {
         tabPane.getSelectionModel().select(tbTranscriptsListTab);
+        seeAllTranscripts();
 
     }
 
