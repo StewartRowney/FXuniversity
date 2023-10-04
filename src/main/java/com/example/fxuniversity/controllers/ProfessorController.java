@@ -115,6 +115,11 @@ public class ProfessorController {
     }
 
     @FXML
+    void onHome(ActionEvent event) {
+        tabPane.getSelectionModel().select(tbProfessorHomepage);
+    }
+
+    @FXML
     void onLogout(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -199,6 +204,7 @@ public class ProfessorController {
 
 
     public void setUpDaysList() {
+        listViewDateSchedule.getItems().clear();
         ObservableList<DayOfWeek> weekdays = FXCollections.observableArrayList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
         listViewDateSchedule.getItems().addAll(weekdays);
     }
