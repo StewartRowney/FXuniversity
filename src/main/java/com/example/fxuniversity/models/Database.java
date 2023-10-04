@@ -395,4 +395,8 @@ public class Database {
         return null;
     }
 
+    public static Collection<Course> getAllCourses() {
+        return courseHashMap.values();
+    }
+
 }

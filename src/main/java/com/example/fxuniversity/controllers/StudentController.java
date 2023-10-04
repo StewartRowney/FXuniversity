@@ -95,7 +95,6 @@ public class StudentController {
 
     @FXML
     void onConfirmClassBooking(ActionEvent event) {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setContentText("Are you sure you wish to enroll in this class?");
