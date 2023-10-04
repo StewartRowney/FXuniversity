@@ -83,14 +83,14 @@ public class LoginController {
     }
 
     private void loadStudents() {
-        Collection<Student> students = Database.studentHashMap.values();
+        Collection<Student> students = Database.getStudentHashMap().values();
         for (Student student : students) {
             cmboBoxStudent.getItems().add(student);
         }
     }
 
     private void loadProfessors() {
-        Collection<Professor> professors = Database.professorHashMap.values();
+        Collection<Professor> professors = Database.getProfessorHashMap().values();
         for (Professor professor : professors) {
             cmboBoxProffessor.getItems().add(professor);
         }

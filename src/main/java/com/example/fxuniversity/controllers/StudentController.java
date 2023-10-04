@@ -112,7 +112,7 @@ public class StudentController {
     }
 
     public void setUpCourseList() {
-        Collection<Course> courseCollection = Database.courseHashMap.values();
+        Collection<Course> courseCollection = Database.getCourseHashMap().values();
         for (Course course: courseCollection
              ) {
             listViewCourses.getItems().add(course);

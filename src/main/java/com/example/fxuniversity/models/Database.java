@@ -13,15 +13,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Database {
-    public static HashMap<UUID,Student> studentHashMap = new HashMap<>();
-    public static HashMap<UUID,Course> courseHashMap = new HashMap<>();
-    public static HashMap<UUID, Professor> professorHashMap = new HashMap<>();
-    public static HashMap<UUID, Class> classHashMap = new HashMap<>();
-    public static HashMap<UUID, Transcript> transcriptHashMap = new HashMap<>();
-    public static HashMap<UUID, Department> departmentHashMap = new HashMap<>();
-    public static ArrayList<CourseClassRelationship> courseClassRelationshipArrayList = new ArrayList<>();
-    public static ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
-    public static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
+    private static HashMap<UUID,Student> studentHashMap = new HashMap<>();
+    private static HashMap<UUID,Course> courseHashMap = new HashMap<>();
+    private static HashMap<UUID, Professor> professorHashMap = new HashMap<>();
+    private static HashMap<UUID, Class> classHashMap = new HashMap<>();
+    private static HashMap<UUID, Transcript> transcriptHashMap = new HashMap<>();
+    private static HashMap<UUID, Department> departmentHashMap = new HashMap<>();
+    private static ArrayList<CourseClassRelationship> courseClassRelationshipArrayList = new ArrayList<>();
+    private static ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
+    private static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
 
 
     public static void setUpDatabase(){
@@ -132,6 +132,18 @@ public class Database {
         } catch (FileNotFoundException fnfe) {
             System.err.println("Hey, we couldn't find the file");
         }
+    }
+
+    public static HashMap<UUID, Student> getStudentHashMap() {
+        return studentHashMap;
+    }
+
+    public static HashMap<UUID, Course> getCourseHashMap() {
+        return courseHashMap;
+    }
+
+    public static HashMap<UUID, Professor> getProfessorHashMap() {
+        return professorHashMap;
     }
 
     public static Student getStudent(UUID id) {
