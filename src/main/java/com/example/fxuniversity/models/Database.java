@@ -120,11 +120,12 @@ public class Database {
         classIds.add(class1.getId());
         classIds.add(class2.getId());
         courseClassRelationshipArrayList.add(new CourseClassRelationship(course1.getId(), classIds));
-        classIds.removeAll(classIds);
-        classIds.add(class3.getId());
-        courseClassRelationshipArrayList.add(new CourseClassRelationship(course2.getId(), classIds));
-        classIds.removeAll(classIds);
-        courseClassRelationshipArrayList.add(new CourseClassRelationship(course3.getId(), classIds));
+        ArrayList<UUID> course2Ids = new ArrayList<>();
+        course2Ids.add(class3.getId());
+        courseClassRelationshipArrayList.add(new CourseClassRelationship(course2.getId(), course2Ids));
+        ArrayList<UUID> course3Ids = new ArrayList<>();
+        course3Ids.add(class4.getId());
+        courseClassRelationshipArrayList.add(new CourseClassRelationship(course3.getId(), course3Ids));
 
         professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof1.getId(), class1.getId()));
         professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof1.getId(), class2.getId()));
@@ -272,6 +273,33 @@ public class Database {
         }
 
         return students;
+    }
+
+    public static Collection<Course> getAllCoursesAStudentIsNotAlreadyOn(UUID studentId) {
+        ArrayList<UUID> listOfClassIdsStudentIsOn = new ArrayList<>();
+        for (StudentClassRelationship src: studentClassRelationshipArrayList) {
+            if (src.getStudentID() == studentId) {
+                listOfClassIdsStudentIsOn.add(src.getClassID());
+            }
+        }
+
+        ArrayList<UUID> listOfCourseIdsStudentIsOn = new ArrayList<>();
+        for (UUID classId : listOfClassIdsStudentIsOn) {
+            for (CourseClassRelationship ccr: courseClassRelationshipArrayList) {
+                if (ccr.getClassIDs().contains(classId)) {
+                    listOfCourseIdsStudentIsOn.add(ccr.getCourseID());
+                    break;
+                }
+            }
+        }
+
+        ArrayList<Course> coursesStudentIsNot = new ArrayList<>();
+        for (Course course : courseHashMap.values()){
+            if (!listOfCourseIdsStudentIsOn.contains(course.getId())) {
+                coursesStudentIsNot.add(course);
+            }
+        }
+        return coursesStudentIsNot;
     }
 
 }
