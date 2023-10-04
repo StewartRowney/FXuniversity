@@ -1,6 +1,10 @@
 package com.example.fxuniversity.controllers;
 
 import com.example.fxuniversity.Main;
+import com.example.fxuniversity.models.Course;
+import com.example.fxuniversity.models.Database;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Collection;
 
 public class AdminController {
 
@@ -95,10 +100,10 @@ public class AdminController {
     private ListView<?> listViewCoursesForDeleteClass;
 
     @FXML
-    private ListView<?> listViewCoursesForDeletion;
+    private ListView<Course> listViewCoursesForDeletion;
 
     @FXML
-    private ListView<?> listViewCoursesPreReqs;
+    private ListView<Course> listViewCoursesPreReqs;
 
     @FXML
     private ListView<?> listViewCoursesToSchedule;
@@ -175,13 +180,17 @@ public class AdminController {
     }
 
     @FXML
-    void onAddCourse(ActionEvent event) {
-
+    void onAddCourseButton(ActionEvent event) {
+        Course newCourse = new Course(txtFieldCourseName.getText(), txtAreaCourseDescription.getText(), txtAreaCourseReqBooks.getText(), txtAreaCoursePrereqs.getText(), txtFieldCourseNumber.getText() );
+        Database.addNewCourse(newCourse);
+        tabPane.getSelectionModel().select(tbHome);
     }
 
     @FXML
     void onAddPreReqs(ActionEvent event) {
-
+        Course courseToChangePreReq = listViewCoursesPreReqs.getSelectionModel().getSelectedItem();
+        courseToChangePreReq.setPreReqs(txtAreaPreReqsDescription.getText());
+        tabPane.getSelectionModel().select(tbHome);
     }
 
     @FXML
@@ -191,6 +200,7 @@ public class AdminController {
 
     @FXML
     void onDeleteClassAdmin(ActionEvent event) {
+
 
     }
 
@@ -202,6 +212,7 @@ public class AdminController {
     @FXML
     void OnAddCourse(ActionEvent event) {
         tabPane.getSelectionModel().select(tbAddCourse);
+        clearAddCourseFields();
     }
 
     @FXML
@@ -222,6 +233,14 @@ public class AdminController {
     @FXML
     void onDeleteCourse(ActionEvent event) {
         tabPane.getSelectionModel().select(tbDeleteCourse);
+        deleteCourses();
+    }
+
+    @FXML
+    void onDeleteCourseButton(ActionEvent event){
+        Course courseToDelete = listViewCoursesForDeletion.getSelectionModel().getSelectedItem();
+        Database.removeCourse(courseToDelete);
+        tabPane.getSelectionModel().select(tbHome);
     }
 
     @FXML
@@ -232,6 +251,7 @@ public class AdminController {
     @FXML
     void onManageCourse(ActionEvent event) {
         tabPane.getSelectionModel().select(tbManageCourse);
+        manageCourses();
     }
 
     @FXML
@@ -249,5 +269,43 @@ public class AdminController {
         stage.setScene(scene);
     }
 
+
+    void manageCourses() {
+        listViewCoursesPreReqs.getItems().clear();
+        Collection<Course> courses = Database.getAllCourses();
+        listViewCoursesPreReqs.getItems().addAll(courses);
+        txtAreaPreReqsDescription.clear();
+        listViewCoursesPreReqs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
+            @Override
+            public void changed(ObservableValue<? extends Course> observableValue, Course course, Course t1) {
+                Course courseToManager = listViewCoursesPreReqs.getSelectionModel().getSelectedItem();
+                txtAreaPreReqsDescription.setText(courseToManager.getPreReqs());
+            }
+        });
+    }
+
+    void deleteCourses() {
+        listViewCoursesForDeletion.getItems().clear();
+        Collection<Course> courses = Database.getAllCourses();
+        listViewCoursesForDeletion.getItems().addAll(courses);
+        txtAreaDescribeCourseForDeletion.clear();
+        listViewCoursesForDeletion.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Course> observableValue, Course course, Course t1) {
+                Course courseToManager = listViewCoursesPreReqs.getSelectionModel().getSelectedItem();
+                txtAreaDescribeCourseForDeletion.setText(courseToManager.getDescription());
+            }
+        });
+    }
+
+    void clearAddCourseFields () {
+        txtFieldCourseName.clear();
+        txtAreaCoursePrereqs.clear();
+        txtAreaCourseReqBooks.clear();
+        txtAreaCourseDescription.clear();
+        txtFieldCourseNumber.clear();
+
+    }
 
 }

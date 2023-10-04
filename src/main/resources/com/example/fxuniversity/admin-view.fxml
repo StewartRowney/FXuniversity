@@ -220,7 +220,7 @@
                               <Insets left="10.0" right="10.0" />
                            </padding>
                         </VBox>
-                        <Button fx:id="btnAddCourse" layoutX="508.0" layoutY="297.0" mnemonicParsing="false" onAction="#onAddCourse" prefHeight="27.0" prefWidth="82.0" text="Add course" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="508.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="297.0" />
+                        <Button fx:id="btnAddCourse" layoutX="508.0" layoutY="297.0" mnemonicParsing="false" onAction="#onAddCourseButton" prefHeight="27.0" prefWidth="82.0" text="Add course" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="508.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="297.0" />
                      </children></AnchorPane>
               </content>
             </Tab>
@@ -266,7 +266,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </VBox.margin>
                               </TextArea>
-                              <Button fx:id="btnDeleteCourse" mnemonicParsing="false" onAction="#onDeleteCourse" text="Delete Course">
+                              <Button fx:id="btnDeleteCourse" mnemonicParsing="false" onAction="#onDeleteCourseButton" text="Delete Course">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="497.0" right="10.0" top="10.0" />
                                  </VBox.margin>
