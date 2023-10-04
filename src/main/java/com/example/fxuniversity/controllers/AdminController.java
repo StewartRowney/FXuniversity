@@ -1,10 +1,8 @@
 package com.example.fxuniversity.controllers;
 
 import com.example.fxuniversity.Main;
+import com.example.fxuniversity.models.*;
 import com.example.fxuniversity.models.Class;
-import com.example.fxuniversity.models.Course;
-import com.example.fxuniversity.models.Database;
-import com.example.fxuniversity.models.StudentClassRelationship;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -26,9 +24,11 @@ import java.util.Optional;
 public class AdminController {
 
     private Course course;
+    private Student myStudent;
 
     @FXML
     private AnchorPane anchorPane;
+
 
     @FXML
     private ComboBox<DayOfWeek> cmboBoxDaySchedule;
@@ -190,6 +190,21 @@ public class AdminController {
     private TextField txtFieldSemester;
 
     @FXML
+    private TextField txtFieldGetStudentAddress;
+
+    @FXML
+    private TextField txtFieldGetStudentEmail;
+
+    @FXML
+    private TextField txtFieldGetStudentMajor;
+
+    @FXML
+    private TextField txtFieldGetStudentName;
+
+    @FXML
+    private TextField txtFieldGetStudentPhone;
+
+    @FXML
     private TextField txtFieldSemesterScheduleClasses;
 
     @FXML
@@ -277,7 +292,26 @@ public class AdminController {
 
     @FXML
     void onStudentAdmit(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbStudentAdmit);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Confirm and add new student details?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            String name = txtFieldGetStudentName.getText();
+            String address = txtFieldGetStudentAddress.getText();
+            String studentMajor = txtFieldGetStudentMajor.getText();
+            String email = txtFieldGetStudentEmail.getText();
+            String phoneNumber = txtFieldGetStudentPhone.getText();
+            Student myStudent = new Student(name, address, studentMajor, email, phoneNumber);
+            Database.addNewStudent(myStudent);
+            txtFieldGetStudentName.clear();
+            txtFieldGetStudentAddress.clear();
+            txtFieldGetStudentMajor.clear();
+            txtFieldGetStudentEmail.clear();
+            txtFieldGetStudentPhone.clear();
+            tabPane.getSelectionModel().select(tbHome);
+        }
     }
 
     @FXML
