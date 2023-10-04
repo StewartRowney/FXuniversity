@@ -20,13 +20,25 @@ public class AdminController {
     private Button btnAddClass;
 
     @FXML
+    private Button btnAddClassToCourse;
+
+    @FXML
     private Button btnAddCourse;
+
+    @FXML
+    private Button btnAddPreReqs;
 
     @FXML
     private Button btnAdmitStudent;
 
     @FXML
+    private Button btnConfirmClassScheduleChange;
+
+    @FXML
     private Button btnDeleteClass;
+
+    @FXML
+    private Button btnDeleteClassAdmin;
 
     @FXML
     private Button btnDeleteCourse;
@@ -47,6 +59,12 @@ public class AdminController {
     private Button btnStudentAdmit;
 
     @FXML
+    private DatePicker datePickerAddDate;
+
+    @FXML
+    private DatePicker datePickerDateScheduleClasses;
+
+    @FXML
     private TextField getStudentAddress;
 
     @FXML
@@ -60,6 +78,30 @@ public class AdminController {
 
     @FXML
     private TextField getStudentPhone;
+
+    @FXML
+    private Label lblWelcomeAdmin;
+
+    @FXML
+    private ListView<?> listViewClassesForDeleteClass;
+
+    @FXML
+    private ListView<?> listViewClassesToSchedule;
+
+    @FXML
+    private ListView<?> listViewCoursesForAddClass;
+
+    @FXML
+    private ListView<?> listViewCoursesForDeleteClass;
+
+    @FXML
+    private ListView<?> listViewCoursesForDeletion;
+
+    @FXML
+    private ListView<?> listViewCoursesPreReqs;
+
+    @FXML
+    private ListView<?> listViewCoursesToSchedule;
 
     @FXML
     private TabPane tabPane;
@@ -87,6 +129,70 @@ public class AdminController {
 
     @FXML
     private Tab tbStudentAdmit;
+
+    @FXML
+    private TextArea txtAreaCourseDescription;
+
+    @FXML
+    private TextArea txtAreaCoursePrereqs;
+
+    @FXML
+    private TextArea txtAreaCourseReqBooks;
+
+    @FXML
+    private TextArea txtAreaDescribeCourseForDeletion;
+
+    @FXML
+    private TextArea txtAreaPreReqsDescription;
+
+    @FXML
+    private TextField txtFieldAddDuration;
+
+    @FXML
+    private TextField txtFieldAddDurationScheduleClass;
+
+    @FXML
+    private TextField txtFieldAddTime;
+
+    @FXML
+    private TextField txtFieldAddTimeScheduleClass;
+
+    @FXML
+    private TextField txtFieldCourseName;
+
+    @FXML
+    private TextField txtFieldCourseNumber;
+
+    @FXML
+    private TextField txtFieldSemester;
+
+    @FXML
+    private TextField txtFieldSemesterScheduleClasses;
+
+    @FXML
+    void onAddClassToCourse(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddCourse(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddPreReqs(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onConfirmClassScheduleChange(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onDeleteClassAdmin(ActionEvent event) {
+
+    }
 
     @FXML
     void OnAddClass(ActionEvent event) {

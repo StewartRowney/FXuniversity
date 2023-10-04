@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -13,14 +17,32 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxuniversity.controllers.AdminController">
    <children>
-      <TextArea blendMode="SRC_ATOP" prefHeight="19.0" prefWidth="600.0" text="Welcome, Admin.">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextArea>
-      <Button fx:id="btnLogout" layoutX="547.0" layoutY="1.0" mnemonicParsing="false" onAction="#onAdminLogout" text="Logout" />
-      <Button fx:id="btnHome" layoutX="471.0" layoutY="2.0" mnemonicParsing="false" onAction="#onHomeAction" text="Home" />
-      <TabPane fx:id="tabPane" layoutX="1.0" layoutY="60.0" minWidth="-Infinity" prefHeight="340.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="0.0" tabMaxWidth="0.0">
+      <HBox prefHeight="26.0" prefWidth="600.0" spacing="2.0" AnchorPane.bottomAnchor="363.2" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="lblWelcomeAdmin" prefHeight="30.0" prefWidth="463.0" text="Welcome Admin: ">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#onAdminLogout" prefHeight="27.0" prefWidth="66.0" text="Logout">
+               <HBox.margin>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#onHomeAction" prefHeight="27.0" prefWidth="55.0" text="Home">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <TabPane fx:id="tabPane" layoutX="1.0" layoutY="49.0" minWidth="-Infinity" prefHeight="362.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="20.0" tabMaxWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
         <tabs>
             <Tab fx:id="tbHome" text="Home">
               <content>
@@ -31,7 +53,7 @@
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <Button fx:id="btnManageCourse" mnemonicParsing="false" onAction="#onManageCourse" text="Manage Course" />
-                                    <Button fx:id="btnDeleteCourse" mnemonicParsing="false" onAction="#onDeleteCourse" text="Delete Course" />
+                                    <Button fx:id="btnDeleteCourseHomePage" mnemonicParsing="false" onAction="#onDeleteCourse" text="Delete Course" />
                                     <Button fx:id="btnAddClass" mnemonicParsing="false" onAction="#OnAddClass" text="Add Class" />
                                     <Button fx:id="btnDeleteClass" mnemonicParsing="false" onAction="#OnDeleteClass" text="Delete Class" />
                                  </children>
@@ -40,7 +62,7 @@
                                  <children>
                                     <Button fx:id="btnScheduleClass" mnemonicParsing="false" onAction="#OnScheduleClass" text="Schedule Class" />
                                     <Button fx:id="btnAdmitStudent" mnemonicParsing="false" onAction="#OnAdmitStudent" text="Admit Student" />
-                                    <Button fx:id="btnAddCourse" mnemonicParsing="false" onAction="#OnAddCourse" text="Add Course" />
+                                    <Button fx:id="btnAddCourseHomePage" mnemonicParsing="false" onAction="#OnAddCourse" text="Add Course" />
                                  </children>
                               </HBox>
                            </children>
@@ -51,26 +73,126 @@
             </Tab>
           <Tab fx:id="tbScheduleClass" text="Schedule Class">
                <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ListView fx:id="listViewCoursesToSchedule" prefHeight="136.0" prefWidth="579.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </ListView>
+                              <ListView fx:id="listViewClassesToSchedule" prefHeight="102.0" prefWidth="579.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </ListView>
+                              <HBox prefHeight="46.0" prefWidth="600.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="142.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Semester:">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                          <TextField fx:id="txtFieldSemesterScheduleClasses" promptText="1,2 or 3" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="142.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
+                                          <DatePicker fx:id="datePickerDateScheduleClasses" prefHeight="26.0" prefWidth="137.0" promptText="dd/MM/yyyy" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="142.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time:">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <TextField fx:id="txtFieldAddTimeScheduleClass" prefHeight="26.0" prefWidth="50.0" promptText="HH:mm:ss">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="142.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:" />
+                                          <TextField fx:id="txtFieldAddDurationScheduleClass" prefHeight="26.0" prefWidth="92.0" promptText="1 or 2" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button fx:id="btnConfirmClassScheduleChange" mnemonicParsing="false" onAction="#onConfirmClassScheduleChange" text="Confirm Changes">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="482.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
                </content>
           </Tab>
           <Tab fx:id="tbStudentAdmit" text="Admit Student">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="293.0" prefWidth="265.0">
+                        <VBox prefHeight="293.0" prefWidth="265.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Name" />
-                              <TextField fx:id="getStudentName" prefHeight="25.0" prefWidth="156.0" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Address" wrappingWidth="84.19790649414062" />
-                              <TextField fx:id="getStudentAddress" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Major" />
-                              <TextField fx:id="getStudentMajor" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Email" wrappingWidth="64.271484375" />
-                              <TextField fx:id="getStudentEmail" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Phone" />
-                              <TextField fx:id="getStudentPhone" />
-                              <Button fx:id="btnStudentAdmit" mnemonicParsing="false" onAction="#onStudentAdmit" prefHeight="20.0" prefWidth="51.0" text="Admit" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name:">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></Text>
+                              <TextField fx:id="getStudentName" prefHeight="25.0" prefWidth="156.0">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></TextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student Home Address:" wrappingWidth="172.99790954589844">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></Text>
+                              <TextField fx:id="getStudentAddress">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></TextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student Major:">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></Text>
+                              <TextField fx:id="getStudentMajor">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></TextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student Email Address:" wrappingWidth="145.87146759033203">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></Text>
+                              <TextField fx:id="getStudentEmail">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></TextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student Phone Number:">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></Text>
+                              <TextField fx:id="getStudentPhone">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></TextField>
+                              <Button fx:id="btnStudentAdmit" mnemonicParsing="false" onAction="#onStudentAdmit" prefHeight="26.0" prefWidth="101.0" text="Admit Student">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="487.0" right="10.0" top="70.0" />
+                                 </VBox.margin></Button>
                            </children>
                         </VBox>
                      </children>
@@ -79,27 +201,180 @@
           </Tab>
             <Tab fx:id="tbAddCourse" text=" Add Course">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="11.0" prefHeight="249.0" prefWidth="600.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course Name:" />
+                              <TextField fx:id="txtFieldCourseName" promptText="e.g. Intro to Chemistry" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course Number:" />
+                              <TextField fx:id="txtFieldCourseNumber" promptText="e.g. CHEM101" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course Description:" />
+                              <TextArea fx:id="txtAreaCourseDescription" prefHeight="200.0" prefWidth="200.0" promptText="e.g. An intro to chemistry fundamentals" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Required Books:" />
+                              <TextArea fx:id="txtAreaCourseReqBooks" prefHeight="200.0" prefWidth="200.0" promptText="e.g. &quot;Chemistry for Beginners&quot; by Arnold Waters" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pre-requisites:" />
+                              <TextArea fx:id="txtAreaCoursePrereqs" prefHeight="200.0" prefWidth="200.0" promptText="e.g. Student to have completed high school chemistry" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </VBox>
+                        <Button fx:id="btnAddCourse" layoutX="508.0" layoutY="297.0" mnemonicParsing="false" onAction="#onAddCourse" prefHeight="27.0" prefWidth="82.0" text="Add course" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="508.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="297.0" />
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab fx:id="tbManageCourse" text="Manage Course">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="10.0" prefHeight="301.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ListView fx:id="listViewCoursesPreReqs" prefHeight="163.0" prefWidth="338.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </ListView>
+                              <TextArea fx:id="txtAreaPreReqsDescription" prefHeight="92.0" prefWidth="580.0" promptText="Add pre-requisites...">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <Button fx:id="btnAddPreReqs" mnemonicParsing="false" onAction="#onAddPreReqs" text="Add PreRequisites">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="477.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab fx:id="tbDeleteCourse" text="Delete Course">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ListView fx:id="listViewCoursesForDeletion" prefHeight="163.0" prefWidth="600.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </ListView>
+                              <TextArea fx:id="txtAreaDescribeCourseForDeletion" prefHeight="92.0" prefWidth="580.0" promptText="Course Description...">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <Button fx:id="btnDeleteCourse" mnemonicParsing="false" onAction="#onDeleteCourse" text="Delete Course">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="497.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab fx:id="tbAddClass" text="Add Class">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="249.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ListView fx:id="listViewCoursesForAddClass" prefHeight="200.0" prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </ListView>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="58.0" prefWidth="142.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Semester:">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                          <TextField fx:id="txtFieldSemester" promptText="1,2 or 3" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="142.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
+                                          <DatePicker fx:id="datePickerAddDate" prefHeight="26.0" prefWidth="137.0" promptText="dd/MM/yyyy" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="142.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" />
+                                          <TextField fx:id="txtFieldAddTime" prefHeight="26.0" prefWidth="50.0" promptText="HH:mm:ss" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="142.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:" />
+                                          <TextField fx:id="txtFieldAddDuration" promptText="1 or 2" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button fx:id="btnAddClassToCourse" mnemonicParsing="false" onAction="#onAddClassToCourse" text="Add Class">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="510.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </VBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab fx:id="tbDeleteClass" text="Delete Class">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ListView fx:id="listViewCoursesForDeleteClass" prefHeight="200.0" prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </ListView>
+                              <ListView fx:id="listViewClassesForDeleteClass" prefHeight="138.0" prefWidth="579.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </ListView>
+                              <Button fx:id="btnDeleteClassAdmin" mnemonicParsing="false" onAction="#onDeleteClassAdmin" text="Delete Class">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="510.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
