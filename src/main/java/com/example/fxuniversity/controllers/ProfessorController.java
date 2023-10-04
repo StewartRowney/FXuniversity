@@ -108,7 +108,8 @@ public class ProfessorController {
 
     @FXML
     void onConfirmAddGrade(ActionEvent event) {
-
+        addAGradeForAStudent();
+        tabPane.getSelectionModel().select(tbProfessorHomepage);
     }
 
     @FXML
@@ -199,15 +200,14 @@ public class ProfessorController {
 
     }
 
-    public String setUpToggle() {
+    public void setUpToggle() {
         rdioBtnGradeA.setToggleGroup(radioToggleGroup);
         rdioBtnGradeB.setToggleGroup(radioToggleGroup);
         rdioBtnGradeC.setToggleGroup(radioToggleGroup);
         rdioBtnGradeD.setToggleGroup(radioToggleGroup);
         rdioBtnGradeE.setToggleGroup(radioToggleGroup);
         rdioBtnGradeF.setToggleGroup(radioToggleGroup);
-        grade = radioToggleGroup.getSelectedToggle().toString();
-        return grade;
+
     }
 
 
@@ -220,8 +220,9 @@ public class ProfessorController {
     public void addAGradeForAStudent() {
         Student selectedStudent = listViewStudents.getSelectionModel().getSelectedItem();
         Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
-        grade = setUpToggle();
-
+        RadioButton rdio = (RadioButton) radioToggleGroup.getSelectedToggle();
+        grade = rdio.getText();
+        Database.addNewTranscript(new Transcript(selectedClass.getId(), selectedStudent.getId(), grade));
     }
 
 }
