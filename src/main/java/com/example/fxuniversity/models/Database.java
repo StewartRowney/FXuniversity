@@ -13,15 +13,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Database {
-    private static HashMap<UUID,Student> studentHashMap = new HashMap<>();
-    private static HashMap<UUID,Course> courseHashMap = new HashMap<>();
-    private static HashMap<UUID, Professor> professorHashMap = new HashMap<>();
-    private static HashMap<UUID, Class> classHashMap = new HashMap<>();
-    private static HashMap<UUID, Transcript> transcriptHashMap = new HashMap<>();
-    private static HashMap<UUID, Department> departmentHashMap = new HashMap<>();
-    private static ArrayList<CourseClassRelationship> courseClassRelationshipArrayList = new ArrayList<>();
-    private static ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
-    private static ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
+    private static final HashMap<UUID,Student> studentHashMap = new HashMap<>();
+    private static final HashMap<UUID,Course> courseHashMap = new HashMap<>();
+    private static final HashMap<UUID, Professor> professorHashMap = new HashMap<>();
+    private static final HashMap<UUID, Class> classHashMap = new HashMap<>();
+    private static final HashMap<UUID, Transcript> transcriptHashMap = new HashMap<>();
+    private static final HashMap<UUID, Department> departmentHashMap = new HashMap<>();
+    private static final ArrayList<CourseClassRelationship> courseClassRelationshipArrayList = new ArrayList<>();
+    private static final ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
+    private static final ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
 
 
     public static void setUpDatabase(){
@@ -61,47 +61,97 @@ public class Database {
     }
 
     public static void populatePCR() {
-        Professor prof = new Professor("Ayush", "Aysuh12", "123", "pn@pn", UUID.randomUUID(), 69);
-        Course course = new Course("Legit Course", "super legit", "None", "", "ENG109");
-        Class class1 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(12,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
-        Class class2 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(13,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
-        Class class3 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(14,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
-        Class class4 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(15,0,0), Duration.of(1, ChronoUnit.HOURS), 5.08 );
-        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class1.getId()));
-        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class2.getId()));
-        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class3.getId()));
-        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof.getId(), class4.getId()));
-        ArrayList<UUID> classIds = new ArrayList<>();
-        classIds.add(class1.getId());
-        classIds.add(class2.getId());
-        classIds.add(class3.getId());
-        classIds.add(class4.getId());
-
         Student student1 = new Student("Stewart","","","","");
         Student student2 = new Student("Thomas","","","","");
         Student student3 = new Student("Abhijeet","","","","");
+        Student student4 = new Student("Jim","","","","");
+        Student student5 = new Student("Tom","","","","");
+        Student student6 = new Student("Bob","","","","");
+        Student student7 = new Student("Jack","","","","");
+        Student student8 = new Student("Hamish","","","","");
+        Student student9 = new Student("Bert","","","","");
+
+        Student[] students = {student1, student2, student3, student4, student5, student6, student7, student8, student9};
+        for (Student s: students) {
+            studentHashMap.put(s.getId(), s);
+        }
+
+        Class class1 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(12,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
+        Class class2 = new Class(1, DayOfWeek.TUESDAY, LocalTime.of(12,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
+        Class class3 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(14,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
+        Class class4 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(15,0,0), Duration.of(1, ChronoUnit.HOURS), 5.08 );
+        Class[] classes = {class1, class2, class3, class4};
+        for (Class c: classes) {
+            classHashMap.put(c.getId(), c);
+        }
+        
+        Department department1 = new Department("Physics");
+        Department department2 = new Department("Maths");
+        Department[] departments = {department1, department2};
+        for (Department d: departments) {
+            departmentHashMap.put(d.getId(), d);
+        }
+
+        Professor prof1 = new Professor("Ayush", "Aysuh12", "123", "pn@pn", department1.getId(), 69);
+        Professor prof2 = new Professor("Bill", "Aysuh124", "12354", "pn@pn45", department2.getId(), 67);
+        Professor prof3 = new Professor("Dave", "Aysuh125", "1234", "pn@ph", department2.getId(), 68);
+        Professor[] professors = {prof1, prof2, prof3};
+        for (Professor p: professors) {
+            professorHashMap.put(p.getId(), p);
+        }
+        
+        Course course1 = new Course("Legit Course", "super legit", "None", "", "ENG109");
+        Course course2 = new Course("Empty Course", "you do nothing", "None", "", "ENG105");
+        Course course3 = new Course("Another Course", "course", "None", "", "ENG100");
+        Course[] courses = {course1, course2, course3};
+        for (Course c: courses) {
+            courseHashMap.put(c.getId(), c);
+        }
+        
+        department1.addCourse(course1.getId());
+        department2.addCourse(course2.getId());
+        department2.addCourse(course3.getId());
+        
+        department1.addProfessors(prof1.getId());
+        department2.addProfessors(prof2.getId());
+        department2.addProfessors(prof3.getId());
+
+        ArrayList<UUID> classIds = new ArrayList<>();
+        classIds.add(class1.getId());
+        classIds.add(class2.getId());
+        courseClassRelationshipArrayList.add(new CourseClassRelationship(course1.getId(), classIds));
+        classIds.removeAll(classIds);
+        classIds.add(class3.getId());
+        courseClassRelationshipArrayList.add(new CourseClassRelationship(course2.getId(), classIds));
+        classIds.removeAll(classIds);
+        courseClassRelationshipArrayList.add(new CourseClassRelationship(course3.getId(), classIds));
+
+        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof1.getId(), class1.getId()));
+        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof1.getId(), class2.getId()));
+        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof2.getId(), class3.getId()));
+        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(prof3.getId(), class4.getId()));
 
         studentClassRelationshipArrayList.add(new StudentClassRelationship(student1.getId(), class1.getId()));
-        studentClassRelationshipArrayList.add(new StudentClassRelationship(student1.getId(), class2.getId()));
-        studentClassRelationshipArrayList.add(new StudentClassRelationship(student1.getId(), class3.getId()));
-        studentClassRelationshipArrayList.add(new StudentClassRelationship(student1.getId(), class4.getId()));
         studentClassRelationshipArrayList.add(new StudentClassRelationship(student2.getId(), class1.getId()));
-        studentClassRelationshipArrayList.add(new StudentClassRelationship(student3.getId(), class2.getId()));
-        studentClassRelationshipArrayList.add(new StudentClassRelationship(student2.getId(), class3.getId()));
-        studentClassRelationshipArrayList.add(new StudentClassRelationship(student2.getId(), class4.getId()));
         studentClassRelationshipArrayList.add(new StudentClassRelationship(student3.getId(), class1.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student4.getId(), class1.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student5.getId(), class1.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student6.getId(), class1.getId()));
 
-        courseClassRelationshipArrayList.add(new CourseClassRelationship(course.getId(), classIds));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student7.getId(), class2.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student8.getId(), class2.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student9.getId(), class2.getId()));
 
-        professorHashMap.put(prof.getId(), prof);
-        courseHashMap.put(course.getId(), course);
-        classHashMap.put(class1.getId(), class1);
-        classHashMap.put(class2.getId(), class2);
-        classHashMap.put(class3.getId(), class3);
-        classHashMap.put(class4.getId(), class4);
-        studentHashMap.put(student1.getId(), student1);
-        studentHashMap.put(student2.getId(), student2);
-        studentHashMap.put(student3.getId(), student3);
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student1.getId(), class4.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student2.getId(), class3.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student3.getId(), class3.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student4.getId(), class3.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student5.getId(), class4.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student6.getId(), class4.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student7.getId(), class3.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student8.getId(), class4.getId()));
+        studentClassRelationshipArrayList.add(new StudentClassRelationship(student9.getId(), class3.getId()));
+
     }
     private static void loadClassData() {
 
