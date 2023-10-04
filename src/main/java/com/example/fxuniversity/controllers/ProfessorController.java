@@ -189,6 +189,7 @@ public class ProfessorController {
     private void listClassStudents(UUID selectedClassID) {
         Collection<Student> students = Database.getAllStudentsInClass(selectedClassID);
         listViewStudents.getItems().removeAll(students);
+        listViewStudents.getItems().clear();
         for (Student student: students
              ) {
             listViewStudents.getItems().add(student);
