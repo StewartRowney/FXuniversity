@@ -17,6 +17,9 @@ public class Transcript {
         this.grade = grade;
     }
 
+    public UUID getId() {
+        return id;
+    }
 
     public UUID getClassID() {
         return classID;

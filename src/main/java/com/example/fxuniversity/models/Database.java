@@ -302,4 +302,27 @@ public class Database {
         return coursesStudentIsNot;
     }
 
+    public static void addNewTranscript(Transcript transcript) {
+        transcriptHashMap.put(transcript.getId(), transcript);
+    }
+
+    public static Collection<Transcript> getAllStudentTranscripts(UUID studentId) {
+        ArrayList<Transcript> transcripts = new ArrayList<>();
+        for (Transcript t: transcriptHashMap.values()) {
+            if (t.getStudentID() == studentId) {
+                transcripts.add(t);
+            }
+        }
+        return transcripts;
+    }
+
+    public static Collection<Transcript> getAllTranscriptsForClass(UUID classId) {
+        ArrayList<Transcript> transcripts = new ArrayList<>();
+        for (Transcript t: transcriptHashMap.values()) {
+            if (t.getClassID() == classId) {
+                transcripts.add(t);
+            }
+        }
+        return transcripts;
+    }
 }
