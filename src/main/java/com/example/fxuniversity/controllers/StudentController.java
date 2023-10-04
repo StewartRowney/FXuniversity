@@ -112,7 +112,7 @@ public class StudentController {
     }
 
     public void setUpCourseList() {
-        Collection<Course> courseCollection = Database.getCourseHashMap().values();
+        Collection<Course> courseCollection = Database.getAllCoursesAStudentIsNotAlreadyOn(currentStudent.getId());
         for (Course course: courseCollection
              ) {
             listViewCourses.getItems().add(course);
