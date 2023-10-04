@@ -16,7 +16,7 @@
    <children>
       <HBox prefHeight="26.0" prefWidth="600.0" AnchorPane.bottomAnchor="370.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="lblWelcomeProfessor" prefHeight="38.0" prefWidth="460.0" text="Welcome Professor:  ">
+            <Label fx:id="lbl_Header_WelcomeProfessor" prefHeight="38.0" prefWidth="460.0" text="Welcome Professor:  ">
                <font>
                   <Font size="18.0" />
                </font>
@@ -24,8 +24,8 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#onHome" prefHeight="26.0" prefWidth="58.0" text="Home" />
-            <Button fx:id="btnProfessorLogout" mnemonicParsing="false" onAction="#onLogout" prefHeight="26.0" text="Logout">
+            <Button fx:id="btn_Header_Home" mnemonicParsing="false" onAction="#onHomeAction" prefHeight="26.0" prefWidth="58.0" text="Home" />
+            <Button fx:id="btn_Header_ProfessorLogout" mnemonicParsing="false" onAction="#onLogoutAction" prefHeight="26.0" text="Logout">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -34,104 +34,72 @@
       </HBox>
       <TabPane fx:id="tabPane" layoutY="33.0" prefHeight="367.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="0.0" tabMaxWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
         <tabs>
-          <Tab fx:id="tbProfessorHomepage" text="Homepage">
+          <Tab fx:id="tbHomepage" text="Homepage">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnSchedule" layoutX="162.0" layoutY="161.0" mnemonicParsing="false" onAction="#onSeeSchedule" text="Schedule" />
-                        <Button fx:id="btnAddGradeButton" layoutX="380.0" layoutY="161.0" mnemonicParsing="false" onAction="#onAddGrade" text="Add Grade" />
-                        <Button layoutX="249.0" layoutY="113.0" mnemonicParsing="false" onAction="#onSeeGradesAction" text="See Class Grades" />
+                        <Button fx:id="btn_Home_Schedule" layoutX="162.0" layoutY="161.0" mnemonicParsing="false" onAction="#onSeeSchedule" text="Schedule" />
+                        <Button fx:id="btn_Home_AddGrade" layoutX="380.0" layoutY="161.0" mnemonicParsing="false" onAction="#onAddGrade" text="Add Grade" />
+                        <Button fx:id="btn_Home_SeeGrades" layoutX="249.0" layoutY="113.0" mnemonicParsing="false" onAction="#onSeeGradesAction" text="See Grades" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="tbProfessorSchedule" text="Schedule">
+          <Tab fx:id="tbSchedule" text="Schedule">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="347.0" prefWidth="600.0">
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                            <children>
-                              <ListView fx:id="listViewDateSchedule" prefHeight="154.0" prefWidth="600.0" />
-                              <Label fx:id="lblSelectedDate" text="Date: ">
-                                 <VBox.margin>
-                                    <Insets left="5.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <ListView fx:id="listViewClassesSchedule" prefHeight="139.0" prefWidth="600.0" />
-                              <Label fx:id="lblSelectedClass" text="Class">
-                                 <VBox.margin>
-                                    <Insets left="5.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
+                              <ListView fx:id="listView_Schedule_WeekDays" prefHeight="162.0" prefWidth="560.0" />
+                              <ListView fx:id="listView_Schedule_Classes" prefHeight="159.0" prefWidth="560.0" />
                            </children>
                         </VBox>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="tbProfessorAddGrade" text="Add Grade">
+            <Tab fx:id="tbAddGrade" text="Add Grade">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="348.0" prefWidth="600.0">
+                        <VBox prefHeight="348.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                            <children>
-                              <ListView fx:id="listViewClassesAddGrade" prefHeight="130.0" prefWidth="600.0" />
-                              <Label fx:id="lblClassListAddGrade" text="Class: ">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ListView fx:id="listViewStudents" prefHeight="126.0" prefWidth="600.0" />
-                              <Label fx:id="lblStudentListAddGrade" text="Student: ">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="5.0" />
-                                 </VBox.margin>
-                              </Label>
+                              <ListView fx:id="listView_AddGrade_Classes" prefHeight="130.0" prefWidth="600.0" />
+                              <ListView fx:id="listView_AddGrade_Students" prefHeight="126.0" prefWidth="600.0" />
                               <HBox prefHeight="30.0" prefWidth="600.0">
                                  <children>
-                                    <RadioButton fx:id="rdioBtnGradeA" mnemonicParsing="false" onAction="#onSetGradeA" text="A">
+                                    <RadioButton fx:id="rdioBtnGradeA" mnemonicParsing="false" text="A">
                                        <HBox.margin>
                                           <Insets left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="rdioBtnGradeB" mnemonicParsing="false" onAction="#onSetGradeB" text="B">
+                                    <RadioButton fx:id="rdioBtnGradeB" mnemonicParsing="false" text="B">
                                        <HBox.margin>
                                           <Insets left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="rdioBtnGradeC" mnemonicParsing="false" onAction="#onSetGradeC" text="C">
+                                    <RadioButton fx:id="rdioBtnGradeC" mnemonicParsing="false" text="C">
                                        <HBox.margin>
                                           <Insets left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="rdioBtnGradeD" mnemonicParsing="false" onAction="#onSetGradeD" text="D">
+                                    <RadioButton fx:id="rdioBtnGradeD" mnemonicParsing="false" text="D">
                                        <HBox.margin>
                                           <Insets left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="rdioBtnGradeE" mnemonicParsing="false" onAction="#onSetGradeE" text="E">
+                                    <RadioButton fx:id="rdioBtnGradeE" mnemonicParsing="false" text="E">
                                        <HBox.margin>
                                           <Insets left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="rdioBtnGradeF" mnemonicParsing="false" onAction="#onSetGradeF" text="F">
+                                    <RadioButton fx:id="rdioBtnGradeF" mnemonicParsing="false" text="F">
                                        <HBox.margin>
                                           <Insets left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <Button fx:id="btnConfirmAddGrade" mnemonicParsing="false" onAction="#onConfirmAddGrade" text="Confirm Grade Selection">
+                                    <Button fx:id="btn_AddGrade_Confirm" mnemonicParsing="false" onAction="#onConfirmAddGrade" text="Confirm Grade Selection">
                                        <HBox.margin>
                                           <Insets left="200.0" />
                                        </HBox.margin>
@@ -147,14 +115,14 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab fx:id="tbSeeClassGrades" text="See Class Grades">
+            <Tab fx:id="tbSeeGrades" text="See Class Grades">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="600.0">
                      <children>
                         <VBox layoutX="183.0" layoutY="7.0" prefHeight="366.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
                            <children>
-                              <ListView fx:id="listViewSeeGradesClasses" prefHeight="116.0" prefWidth="560.0" />
-                              <ListView fx:id="listViewSeeGradesStudents" prefHeight="213.0" prefWidth="560.0" />
+                              <ListView fx:id="listView_SeeGrades_Classes" prefHeight="116.0" prefWidth="560.0" />
+                              <ListView fx:id="listView_SeeGrades_Transcripts" prefHeight="213.0" prefWidth="560.0" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
