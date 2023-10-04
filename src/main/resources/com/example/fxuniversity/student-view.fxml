@@ -36,7 +36,7 @@
             </Button>
          </children>
       </HBox>
-      <TabPane fx:id="tabPane" layoutX="-3.0" layoutY="30.0" prefHeight="362.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <TabPane fx:id="tabPane" layoutX="-3.0" layoutY="30.0" prefHeight="362.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="0.0" tabMaxWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <tabs>
           <Tab fx:id="tbStudentHomepage" text="Homepage">
             <content>
