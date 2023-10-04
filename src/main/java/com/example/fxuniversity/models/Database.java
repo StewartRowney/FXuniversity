@@ -1,14 +1,10 @@
 package com.example.fxuniversity.models;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.time.DayOfWeek;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -336,7 +332,7 @@ public class Database {
         return departmentHashMap.values();
     }
 
-    public static Collection<Course> getCourses(Collection<UUID> ids) {
+    public static Collection<Course> getCoursesFromDepartment(Collection<UUID> ids) {
         ArrayList<Course> courses = new ArrayList<>();
         for (UUID id: ids) {
             Course course = courseHashMap.get(id);
