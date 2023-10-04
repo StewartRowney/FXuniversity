@@ -66,8 +66,9 @@ public class Database {
         Student student7 = new Student("Jack","","","","");
         Student student8 = new Student("Hamish","","","","");
         Student student9 = new Student("Bert","","","","");
+        Student student10 = new Student("Ayush", "", "", "","");
 
-        Student[] students = {student1, student2, student3, student4, student5, student6, student7, student8, student9};
+        Student[] students = {student1, student2, student3, student4, student5, student6, student7, student8, student9,student10};
         for (Student s: students) {
             studentHashMap.put(s.getId(), s);
         }
@@ -278,6 +279,7 @@ public class Database {
 
         return classes;
     }
+
 
     public static Collection<Class> getAllProfessorClassesForDay(UUID professorId, DayOfWeek day) {
         Collection<Class> classes = Database.getAllClassesForProfessor(professorId);

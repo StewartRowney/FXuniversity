@@ -18,6 +18,10 @@ public class Department {
         professors = new ArrayList<>();
     }
 
+    public String toString() {
+        return name;
+    }
+
     public String getName() {
         return name;
     }

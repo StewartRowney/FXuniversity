@@ -95,7 +95,7 @@
                         <VBox prefHeight="333.0" prefWidth="606.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-6.399999999999977">
                            <children>
                               <ListView fx:id="listViewDepartment" prefHeight="284.0" prefWidth="606.0" />
-                              <Button fx:id="btnSeeCoursesfromDept" mnemonicParsing="false" onAction="#onClassAvailability" text="See Courses">
+                              <Button fx:id="btnSeeCoursesfromDept" mnemonicParsing="false" onAction="#onSeeCoursesFromDept" text="See Courses">
                                  <VBox.margin>
                                     <Insets bottom="7.0" left="480.0" top="7.0" />
                                  </VBox.margin>

@@ -146,13 +146,19 @@ public class StudentController {
         this.currentStudent = student;
     }
 
-    public void setUpCourseList() {
-        Collection<Course> courseCollection = Database.getAllCoursesAStudentIsNotAlreadyOn(currentStudent.getId());
-        listViewCourses.getItems().removeAll(courseCollection);
-        for (Course course : courseCollection
-        ) {
-            listViewCourses.getItems().add(course);
+    public void setUpCourseList(ArrayList<UUID> coursesFromDept) {
+
+        Collection<Course> coursesStudentNotOn = Database.getAllCoursesAStudentIsNotAlreadyOn(currentStudent.getId());
+        Collection<Course> courseFromDepartment = Database.getCoursesFromDepartment(coursesFromDept);
+        ArrayList<Course> coursesToDisplay = new ArrayList<>();
+        listViewCourses.getItems().removeAll(coursesStudentNotOn);
+        listViewCourses.getItems().clear();
+        for (Course course : courseFromDepartment) {
+            if(coursesStudentNotOn.contains(course)) {
+                coursesToDisplay.add(course);
+            }
         }
+        listViewCourses.getItems().addAll(coursesToDisplay);
     }
 
     public void setUpDepartmentList() {
