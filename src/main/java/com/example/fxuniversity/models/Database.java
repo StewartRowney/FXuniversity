@@ -325,4 +325,24 @@ public class Database {
         }
         return transcripts;
     }
+
+    public static void editClass(Class editedClass) {
+        if (classHashMap.get(editedClass.getId()) != null) {
+            classHashMap.put(editedClass.getId(), editedClass);
+        }
+    }
+
+    public static Collection<Department> getAllDepartments() {
+        return departmentHashMap.values();
+    }
+
+    public static Collection<Course> getCourses(Collection<UUID> ids) {
+        ArrayList<Course> courses = new ArrayList<>();
+        for (UUID id: ids) {
+            Course course = courseHashMap.get(id);
+            courses.add(course);
+        }
+        return courses;
+    }
+
 }
