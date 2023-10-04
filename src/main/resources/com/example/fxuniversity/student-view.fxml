@@ -112,13 +112,7 @@
                      <children>
                         <VBox prefHeight="333.0" prefWidth="606.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-6.399999999999977">
                            <children>
-                              <ListView fx:id="listViewAllTranscripts" prefHeight="202.0" prefWidth="606.0" />
-                              <TextArea fx:id="txtAreaCourseDescription11" prefHeight="104.0" prefWidth="606.0" />
-                              <Button fx:id="btnCheckClassAvailability11" mnemonicParsing="false" onAction="#onClassAvailability" text="Check Availability">
-                                 <VBox.margin>
-                                    <Insets bottom="7.0" left="480.0" top="7.0" />
-                                 </VBox.margin>
-                              </Button>
+                              <ListView fx:id="listViewAllTranscripts" prefHeight="330.0" prefWidth="594.0" />
                            </children>
                         </VBox>
                      </children>

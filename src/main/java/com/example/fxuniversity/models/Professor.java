@@ -38,14 +38,13 @@ public class Professor {
         return address;
     }
 
-    public String getPhoneNumber() {
+     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public String getEmail() {
         return email;
     }
-
 
     public int getOfficeNumber() {
         return officeNumber;
