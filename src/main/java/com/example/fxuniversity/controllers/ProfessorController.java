@@ -104,22 +104,21 @@ public class ProfessorController {
     @FXML
     private TabPane tabPane;
 
-    /*@FXML
-    void onSeeSchedule(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbProfessorSchedule);
-        setUpDaysList();
-        setUpDaysArea();
-    }*/
+    private ToggleGroup radioToggleGroup = new ToggleGroup();
+
+    private String grade;
 
     @FXML
     void onConfirmAddGrade(ActionEvent event) {
-
+        addAGradeForAStudent();
+        tabPane.getSelectionModel().select(tbProfessorHomepage);
     }
 
     @FXML
     void onAddGrade (ActionEvent event) {
         tabPane.getSelectionModel().select(tbProfessorAddGrade);
         listAllClassesForProf();
+        setUpToggle();
     }
 
     @FXML
@@ -169,6 +168,8 @@ public class ProfessorController {
 
     }
 
+
+
     public void setProfessor(Professor professor) {
         this.currentProfessor = professor;
     }
@@ -178,22 +179,41 @@ public class ProfessorController {
     public void listAllClassesForProf() {
         Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
         listViewClassesAddGrade.getItems().addAll(classes);
+
         listViewClassesAddGrade.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Class>() {
             @Override
             public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
+
                 Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
+
                 listClassStudents(selectedClass.getId());
+
             }
         });
     }
+
     private void listClassStudents(UUID selectedClassID) {
         Collection<Student> students = Database.getAllStudentsInClass(selectedClassID);
         listViewStudents.getItems().removeAll(students);
+        listViewStudents.getItems().clear();
         for (Student student: students
              ) {
             listViewStudents.getItems().add(student);
         }
+
     }
+
+    public void setUpToggle() {
+        rdioBtnGradeA.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeB.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeC.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeD.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeE.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeF.setToggleGroup(radioToggleGroup);
+
+    }
+
+
     public void setUpDaysList() {
         ObservableList<DayOfWeek> weekdays = FXCollections.observableArrayList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
         listViewDateSchedule.getItems().addAll(weekdays);
@@ -220,6 +240,14 @@ public class ProfessorController {
         ) {
             listViewClassesSchedule.getItems().add(clas);
         }
+    }
+
+    public void addAGradeForAStudent() {
+        Student selectedStudent = listViewStudents.getSelectionModel().getSelectedItem();
+        Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
+        RadioButton rdio = (RadioButton) radioToggleGroup.getSelectedToggle();
+        grade = rdio.getText();
+        Database.addNewTranscript(new Transcript(selectedClass.getId(), selectedStudent.getId(), grade));
     }
 
 }

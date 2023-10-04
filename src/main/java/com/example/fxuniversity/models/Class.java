@@ -10,8 +10,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Class {
 
-
-
     private UUID id;
     private int semester;
     private DayOfWeek day;
