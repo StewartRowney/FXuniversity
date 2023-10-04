@@ -10,13 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class LoginController {
@@ -58,7 +56,7 @@ public class LoginController {
         Scene scene = new Scene(fxmlLoader.load());
 
         ProfessorController controller = fxmlLoader.getController();
-        controller.setProfessor(cmboBoxProffessor.getValue());
+        controller.setupProfessorController(cmboBoxProffessor.getValue());
         showScene(scene);
     }
 
