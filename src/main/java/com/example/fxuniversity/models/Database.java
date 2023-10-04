@@ -1,14 +1,10 @@
 package com.example.fxuniversity.models;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.time.DayOfWeek;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -70,8 +66,9 @@ public class Database {
         Student student7 = new Student("Jack","","","","");
         Student student8 = new Student("Hamish","","","","");
         Student student9 = new Student("Bert","","","","");
+        Student student10 = new Student("Ayush", "", "", "","");
 
-        Student[] students = {student1, student2, student3, student4, student5, student6, student7, student8, student9};
+        Student[] students = {student1, student2, student3, student4, student5, student6, student7, student8, student9,student10};
         for (Student s: students) {
             studentHashMap.put(s.getId(), s);
         }
@@ -283,6 +280,7 @@ public class Database {
         return classes;
     }
 
+
     public static Collection<Class> getAllProfessorClassesForDay(UUID professorId, DayOfWeek day) {
         Collection<Class> classes = Database.getAllClassesForProfessor(professorId);
         Collection<Class> relevantClasses = new ArrayList<>();
@@ -377,7 +375,7 @@ public class Database {
         return departmentHashMap.values();
     }
 
-    public static Collection<Course> getCourses(Collection<UUID> ids) {
+    public static Collection<Course> getCoursesFromDepartment(Collection<UUID> ids) {
         ArrayList<Course> courses = new ArrayList<>();
         for (UUID id: ids) {
             Course course = courseHashMap.get(id);

@@ -10,11 +10,16 @@ public class Department {
     private ArrayList<UUID> courses;
     private ArrayList<UUID> professors;
 
+
     public Department(String name) {
         id = UUID.randomUUID();
         this.name = name;
         courses = new ArrayList<>();
         professors = new ArrayList<>();
+    }
+
+    public String toString() {
+        return name;
     }
 
     public String getName() {

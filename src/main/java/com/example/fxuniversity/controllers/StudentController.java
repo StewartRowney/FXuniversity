@@ -41,15 +41,22 @@ public class StudentController {
 
     @FXML
     private Button btnLogout;
+    @FXML
+    private Button btnSeeCoursesfromDept;
 
     @FXML
     private Button btnSeeCourseList;
 
     @FXML
     private ListView<Class> listViewClassListAvailability;
+    @FXML
+    private ListView<Department> listViewDepartment;
 
     @FXML
     private ListView<Course> listViewCourses;
+
+    @FXML
+    private ListView<Transcript> listViewAllTranscripts;
 
     @FXML
     private TabPane tabPane;
@@ -67,6 +74,12 @@ public class StudentController {
     private Tab tbRegisterClassListTab;
 
     @FXML
+    private Tab tbDepartmentListTab;
+
+    @FXML
+    private Tab tbTranscriptsListTab;
+
+    @FXML
     private TextArea txtAreaCourseDescription;
 
     @FXML
@@ -77,6 +90,18 @@ public class StudentController {
         LoginController controller = fxmlLoader.getController();
         controller.loadComboBoxes();
         stage.setScene(scene);
+    }
+
+    @FXML
+    void onSeeCoursesFromDept(ActionEvent event) {
+        tabPane.getSelectionModel().select(tbCourseListTab);
+    }
+
+    @FXML
+    void onSeeTranscripts (ActionEvent event) {
+        tabPane.getSelectionModel().select(tbTranscriptsListTab);
+        seeAllTranscripts();
+
     }
 
     @FXML
@@ -102,11 +127,7 @@ public class StudentController {
 
         Class currentClass = listViewClassListAvailability.getSelectionModel().getSelectedItem();
         StudentClassRelationship src = new StudentClassRelationship(currentStudent.getId(), currentClass.getId());
-
-        if (result.get() == ButtonType.OK) {
-            Database.addStudentToClass(src);
-            tabPane.getSelectionModel().select(tbStudentHomepage);
-        }
+        Database.addStudentToClass(src);
     }
 
     @FXML
@@ -116,8 +137,8 @@ public class StudentController {
 
     @FXML
     void onSeeCourseList(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbCourseListTab);
-        setUpCourseList();
+        tabPane.getSelectionModel().select(tbDepartmentListTab);
+        setUpDepartmentList();
         setUpTextArea();
     }
 
@@ -125,13 +146,33 @@ public class StudentController {
         this.currentStudent = student;
     }
 
-    public void setUpCourseList() {
-        Collection<Course> courseCollection = Database.getAllCoursesAStudentIsNotAlreadyOn(currentStudent.getId());
-        listViewCourses.getItems().removeAll(courseCollection);
-        for (Course course : courseCollection
-        ) {
-            listViewCourses.getItems().add(course);
+    public void setUpCourseList(ArrayList<UUID> coursesFromDept) {
+
+        Collection<Course> coursesStudentNotOn = Database.getAllCoursesAStudentIsNotAlreadyOn(currentStudent.getId());
+        Collection<Course> courseFromDepartment = Database.getCoursesFromDepartment(coursesFromDept);
+        ArrayList<Course> coursesToDisplay = new ArrayList<>();
+        listViewCourses.getItems().removeAll(coursesStudentNotOn);
+        listViewCourses.getItems().clear();
+        for (Course course : courseFromDepartment) {
+            if(coursesStudentNotOn.contains(course)) {
+                coursesToDisplay.add(course);
+            }
         }
+        listViewCourses.getItems().addAll(coursesToDisplay);
+    }
+
+    public void setUpDepartmentList() {
+        Collection<Department> departments = Database.getAllDepartments();
+        for (Department department: departments){
+            listViewDepartment.getItems().add(department);
+        }
+        listViewDepartment.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Department>() {
+            @Override
+            public void changed(ObservableValue<? extends Department> observableValue, Department department, Department t1) {
+                Department selectedDepartment = listViewDepartment.getSelectionModel().getSelectedItem();
+                setUpCourseList(selectedDepartment.getCourses());
+            }
+        });
     }
 
     public void setUpTextArea() {
@@ -143,5 +184,12 @@ public class StudentController {
                 txtAreaCourseDescription.setText(setTextString);
             }
         });
+    }
+
+    public void seeAllTranscripts() {
+
+        Collection<Transcript> trasncripts = Database.getAllStudentTranscripts(currentStudent.getId());
+        listViewAllTranscripts.getItems().addAll(trasncripts);
+
     }
 }
