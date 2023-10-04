@@ -386,4 +386,13 @@ public class Database {
         return courses;
     }
 
+    public static Course getCourseFromClass(UUID classId) {
+        for (CourseClassRelationship ccr: courseClassRelationshipArrayList) {
+            if (ccr.getClassIDs().contains(classId)) {
+                return courseHashMap.get(ccr.getCourseID());
+            }
+        }
+        return null;
+    }
+
 }
