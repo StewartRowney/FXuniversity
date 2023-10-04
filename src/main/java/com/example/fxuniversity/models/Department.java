@@ -29,7 +29,19 @@ public class Department {
         courses.add(courseId);
     }
 
+    public void removeCourse(UUID courseId) {
+        courses.remove(courseId);
+    }
+
     public void addProfessors(UUID professorId) {
         professors.add(professorId);
+    }
+
+    public ArrayList<UUID> getCourses() {
+        return courses;
+    }
+
+    public ArrayList<UUID> getProfessors() {
+        return professors;
     }
 }
