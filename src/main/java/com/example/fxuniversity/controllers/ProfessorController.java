@@ -115,7 +115,9 @@ public class ProfessorController {
 
     @FXML
     void onLogoutAction() throws IOException {
-        listView_AddGrade_Classes.getSelectionModel().selectedItemProperty().addListener(listViewAddGradeClassesListener);
+        listView_AddGrade_Classes.getSelectionModel().selectedItemProperty().removeListener(listViewAddGradeClassesListener);
+        listView_SeeGrades_Classes.getSelectionModel().selectedItemProperty().removeListener(listViewSeeGradeClassesListener);
+        listView_Schedule_WeekDays.getSelectionModel().selectedItemProperty().removeListener(listViewScheduleDayOfWeekListener);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
