@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.example.fxuniversity.models.Database.getAllProfessorClassesForDay;
+
 public class ProfessorController {
 
     private Professor currentProfessor;
@@ -64,7 +66,7 @@ public class ProfessorController {
     private ListView<Class> listViewClassesAddGrade;
 
     @FXML
-    private ListView<?> listViewClassesSchedule;
+    private ListView<Class> listViewClassesSchedule;
 
     @FXML
     private ListView<DayOfWeek> listViewDateSchedule;
@@ -102,10 +104,12 @@ public class ProfessorController {
     @FXML
     private TabPane tabPane;
 
-
-
-
-
+    /*@FXML
+    void onSeeSchedule(ActionEvent event) {
+        tabPane.getSelectionModel().select(tbProfessorSchedule);
+        setUpDaysList();
+        setUpDaysArea();
+    }*/
 
     @FXML
     void onConfirmAddGrade(ActionEvent event) {
@@ -130,8 +134,9 @@ public class ProfessorController {
 
     @FXML
     void onSeeSchedule(ActionEvent event) {
-        setUpDaysList();
         tabPane.getSelectionModel().select(tbProfessorSchedule);
+        setUpDaysList();
+        setUpDaysArea();
     }
 
     @FXML
@@ -173,19 +178,14 @@ public class ProfessorController {
     public void listAllClassesForProf() {
         Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
         listViewClassesAddGrade.getItems().addAll(classes);
-
         listViewClassesAddGrade.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Class>() {
             @Override
             public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
-
                 Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
-
                 listClassStudents(selectedClass.getId());
-
             }
         });
     }
-
     private void listClassStudents(UUID selectedClassID) {
         Collection<Student> students = Database.getAllStudentsInClass(selectedClassID);
         listViewStudents.getItems().removeAll(students);
@@ -193,13 +193,33 @@ public class ProfessorController {
              ) {
             listViewStudents.getItems().add(student);
         }
-
     }
-
     public void setUpDaysList() {
         ObservableList<DayOfWeek> weekdays = FXCollections.observableArrayList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
         listViewDateSchedule.getItems().addAll(weekdays);
+    }
+    public void setUpDaysArea() {
+        //listViewClassesSchedule.getItems().clear();
+        listViewDateSchedule.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<DayOfWeek>() {
+            @Override
+            public void changed(ObservableValue<? extends DayOfWeek> observableValue, DayOfWeek dayOfWeek, DayOfWeek t1) {
+                DayOfWeek thisday = listViewDateSchedule.getSelectionModel().getSelectedItem();
+                Collection<Class> classes = Database.getAllProfessorClassesForDay(currentProfessor.getId(), thisday);
+                listViewClassesSchedule.getItems().removeAll(classes);
+                listViewClassesSchedule.getItems().addAll(classes);
+                listclassSchedule(thisday);
+            }
+        });
 
+    }
+    private void listclassSchedule(DayOfWeek selectedday) {
+        listViewClassesSchedule.getItems().clear();
+        Collection<Class> classes = Database.getAllProfessorClassesForDay(currentProfessor.getId(), selectedday);
+        listViewClassesSchedule.getItems().removeAll();
+        for (Class clas: classes
+        ) {
+            listViewClassesSchedule.getItems().add(clas);
+        }
     }
 
 }
