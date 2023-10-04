@@ -14,9 +14,9 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxuniversity.controllers.ProfessorController">
    <children>
-      <HBox prefHeight="26.0" prefWidth="600.0" AnchorPane.bottomAnchor="373.6" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox prefHeight="26.0" prefWidth="600.0" AnchorPane.bottomAnchor="370.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="lblWelcomeProfessor" prefHeight="27.0" prefWidth="460.0" text="Welcome Professor:  ">
+            <Label fx:id="lblWelcomeProfessor" prefHeight="38.0" prefWidth="460.0" text="Welcome Professor:  ">
                <font>
                   <Font size="18.0" />
                </font>
@@ -32,7 +32,7 @@
             </Button>
          </children>
       </HBox>
-      <TabPane fx:id="tabPane" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="0.0" tabMaxWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+      <TabPane fx:id="tabPane" layoutY="33.0" prefHeight="367.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="0.0" tabMaxWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
         <tabs>
           <Tab fx:id="tbProfessorHomepage" text="Homepage">
             <content>
@@ -40,6 +40,7 @@
                      <children>
                         <Button fx:id="btnSchedule" layoutX="162.0" layoutY="161.0" mnemonicParsing="false" onAction="#onSeeSchedule" text="Schedule" />
                         <Button fx:id="btnAddGradeButton" layoutX="380.0" layoutY="161.0" mnemonicParsing="false" onAction="#onAddGrade" text="Add Grade" />
+                        <Button layoutX="249.0" layoutY="113.0" mnemonicParsing="false" onAction="#onSeeGradesAction" text="See Class Grades" />
                      </children>
                   </AnchorPane>
             </content>
@@ -141,6 +142,23 @@
                                  </padding>
                               </HBox>
                            </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tbSeeClassGrades" text="See Class Grades">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="600.0">
+                     <children>
+                        <VBox layoutX="183.0" layoutY="7.0" prefHeight="366.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
+                           <children>
+                              <ListView fx:id="listViewSeeGradesClasses" prefHeight="116.0" prefWidth="560.0" />
+                              <ListView fx:id="listViewSeeGradesStudents" prefHeight="213.0" prefWidth="560.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
                         </VBox>
                      </children>
                   </AnchorPane>

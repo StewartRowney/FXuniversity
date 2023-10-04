@@ -68,6 +68,12 @@ public class ProfessorController {
     private ListView<Student> listViewStudents;
 
     @FXML
+    private ListView<String> listViewSeeGradesStudents;
+
+    @FXML
+    private ListView<Class> listViewSeeGradesClasses;
+
+    @FXML
     private RadioButton rdioBtnGradeA;
 
     @FXML
@@ -96,6 +102,9 @@ public class ProfessorController {
 
     @FXML
     private TabPane tabPane;
+
+    @FXML
+    private Tab tbSeeClassGrades;
 
     private ToggleGroup radioToggleGroup = new ToggleGroup();
 
@@ -137,6 +146,23 @@ public class ProfessorController {
     }
 
     @FXML
+    void onSeeGradesAction(ActionEvent event) {
+        tabPane.getSelectionModel().select(tbSeeClassGrades);
+        listViewSeeGradesClasses.getItems().clear();
+        Collection<Class> professorsClasses = Database.getAllClassesForProfessor(currentProfessor.getId());
+        listViewSeeGradesClasses.getItems().addAll(professorsClasses);
+        listViewSeeGradesClasses.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Class>() {
+            @Override
+            public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
+                Class selectedClass = listViewSeeGradesClasses.getSelectionModel().getSelectedItem();
+                if (selectedClass != null) {
+                    listClassTranscripts(selectedClass.getId());
+                }
+            }
+        });
+    }
+
+    @FXML
     void onSetGradeA(ActionEvent event) {
 
     }
@@ -172,25 +198,35 @@ public class ProfessorController {
 
     public void listAllClassesForProf() {
         Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
+        listViewClassesAddGrade.getItems().clear();
+        listViewStudents.getItems().clear();
+        //listViewClassesAddGrade.getSelectionModel().selectedItemProperty();
         listViewClassesAddGrade.getItems().addAll(classes);
         listViewClassesAddGrade.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Class>() {
             @Override
             public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
                 Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
-                listClassStudents(selectedClass.getId());
+                if (selectedClass != null) {
+                    listClassStudents(selectedClass.getId());
+                }
             }
         });
     }
 
     private void listClassStudents(UUID selectedClassID) {
         Collection<Student> students = Database.getAllStudentsInClass(selectedClassID);
-        listViewStudents.getItems().removeAll(students);
         listViewStudents.getItems().clear();
-        for (Student student: students
-             ) {
-            listViewStudents.getItems().add(student);
-        }
+        listViewStudents.getItems().addAll(students);
+    }
 
+    private void listClassTranscripts(UUID selectedClassID) {
+        Collection<Transcript> transcripts = Database.getAllTranscriptsForClass(selectedClassID);
+        listViewSeeGradesStudents.getItems().clear();
+
+        for (Transcript t: transcripts) {
+            Student student = Database.getStudent(t.getStudentID());
+            listViewSeeGradesStudents.getItems().add(String.format("Name: %s, Grade: %s",student.getName(), t.getGrade()));
+        }
     }
 
     public void setUpToggle() {
@@ -202,14 +238,12 @@ public class ProfessorController {
         rdioBtnGradeF.setToggleGroup(radioToggleGroup);
     }
 
-
     public void setUpDaysList() {
         listViewDateSchedule.getItems().clear();
         ObservableList<DayOfWeek> weekdays = FXCollections.observableArrayList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
         listViewDateSchedule.getItems().addAll(weekdays);
     }
     public void setUpDaysArea() {
-        //listViewClassesSchedule.getItems().clear();
         listViewDateSchedule.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<DayOfWeek>() {
             @Override
             public void changed(ObservableValue<? extends DayOfWeek> observableValue, DayOfWeek dayOfWeek, DayOfWeek t1) {
