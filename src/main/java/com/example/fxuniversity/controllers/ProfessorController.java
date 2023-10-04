@@ -102,20 +102,21 @@ public class ProfessorController {
     @FXML
     private TabPane tabPane;
 
+    private ToggleGroup radioToggleGroup = new ToggleGroup();
 
-
-
-
+    private String grade;
 
     @FXML
     void onConfirmAddGrade(ActionEvent event) {
-
+        addAGradeForAStudent();
+        tabPane.getSelectionModel().select(tbProfessorHomepage);
     }
 
     @FXML
     void onAddGrade (ActionEvent event) {
         tabPane.getSelectionModel().select(tbProfessorAddGrade);
         listAllClassesForProf();
+        setUpToggle();
     }
 
     @FXML
@@ -164,6 +165,8 @@ public class ProfessorController {
 
     }
 
+
+
     public void setProfessor(Professor professor) {
         this.currentProfessor = professor;
     }
@@ -197,10 +200,29 @@ public class ProfessorController {
 
     }
 
+    public void setUpToggle() {
+        rdioBtnGradeA.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeB.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeC.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeD.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeE.setToggleGroup(radioToggleGroup);
+        rdioBtnGradeF.setToggleGroup(radioToggleGroup);
+
+    }
+
+
     public void setUpDaysList() {
         ObservableList<DayOfWeek> weekdays = FXCollections.observableArrayList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
         listViewDateSchedule.getItems().addAll(weekdays);
 
+    }
+
+    public void addAGradeForAStudent() {
+        Student selectedStudent = listViewStudents.getSelectionModel().getSelectedItem();
+        Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
+        RadioButton rdio = (RadioButton) radioToggleGroup.getSelectedToggle();
+        grade = rdio.getText();
+        Database.addNewTranscript(new Transcript(selectedClass.getId(), selectedStudent.getId(), grade));
     }
 
 }
