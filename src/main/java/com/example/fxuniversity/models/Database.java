@@ -206,6 +206,41 @@ public class Database {
     public static void addNewCourse(Course course) {
         courseHashMap.put(course.getId(), course);
     }
+    public static void removeCourse(Course courseToRemove) {
+        courseHashMap.remove(courseToRemove.getId());
+
+        for (CourseClassRelationship ccr : courseClassRelationshipArrayList) {
+            if(ccr.getCourseID() == courseToRemove.getId()) {
+                courseClassRelationshipArrayList.remove(ccr);
+            }
+        }
+
+        for (Department d: departmentHashMap.values()) {
+            if(d.getCourses().contains(d)) {
+                d.removeCourse(courseToRemove.getId());
+            }
+        }
+    }
+    public static void addNewClass(Class newClass) {
+        classHashMap.put(newClass.getId(), newClass);
+    }
+
+    public static void removeClass(Class classToRemove) {
+        classHashMap.remove(classToRemove.getId());
+
+        for (CourseClassRelationship ccr : courseClassRelationshipArrayList) {
+            if(ccr.getClassIDs().contains(classToRemove.getId())) {
+                ccr.removeClass(classToRemove.getId());
+            }
+        }
+
+        for (StudentClassRelationship src: studentClassRelationshipArrayList) {
+            if (src.getClassID() == classToRemove.getId()) {
+                studentClassRelationshipArrayList.remove(src);
+            }
+        }
+
+    }
 
     public static void addStudentToClass(StudentClassRelationship src) {
         studentClassRelationshipArrayList.add(src);
@@ -328,6 +363,12 @@ public class Database {
         }
     }
 
+    public static void editCourse(Course editedCourse) {
+        if (courseHashMap.get(editedCourse.getId()) != null) {
+            courseHashMap.put(editedCourse.getId(), editedCourse);
+        }
+    }
+
     public static Collection<Department> getAllDepartments() {
         return departmentHashMap.values();
     }
@@ -339,6 +380,15 @@ public class Database {
             courses.add(course);
         }
         return courses;
+    }
+
+    public static Course getCourseFromClass(UUID classId) {
+        for (CourseClassRelationship ccr: courseClassRelationshipArrayList) {
+            if (ccr.getClassIDs().contains(classId)) {
+                return courseHashMap.get(ccr.getCourseID());
+            }
+        }
+        return null;
     }
 
 }

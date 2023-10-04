@@ -2,10 +2,8 @@ package com.example.fxuniversity.controllers;
 
 import com.example.fxuniversity.Main;
 import com.example.fxuniversity.models.*;
-import com.example.fxuniversity.models.Course;
 import com.example.fxuniversity.models.Database;
 import com.example.fxuniversity.models.Professor;
-import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,9 +20,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.UUID;
 import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class ProfessorController {
 
@@ -64,7 +59,7 @@ public class ProfessorController {
     private ListView<Class> listViewClassesAddGrade;
 
     @FXML
-    private ListView<?> listViewClassesSchedule;
+    private ListView<Class> listViewClassesSchedule;
 
     @FXML
     private ListView<DayOfWeek> listViewDateSchedule;
@@ -131,8 +126,9 @@ public class ProfessorController {
 
     @FXML
     void onSeeSchedule(ActionEvent event) {
-        setUpDaysList();
         tabPane.getSelectionModel().select(tbProfessorSchedule);
+        setUpDaysList();
+        setUpDaysArea();
     }
 
     @FXML
@@ -165,26 +161,18 @@ public class ProfessorController {
 
     }
 
-
-
     public void setProfessor(Professor professor) {
         this.currentProfessor = professor;
     }
 
-
-
     public void listAllClassesForProf() {
         Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
         listViewClassesAddGrade.getItems().addAll(classes);
-
         listViewClassesAddGrade.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Class>() {
             @Override
             public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
-
                 Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
-
                 listClassStudents(selectedClass.getId());
-
             }
         });
     }
@@ -207,21 +195,40 @@ public class ProfessorController {
         rdioBtnGradeD.setToggleGroup(radioToggleGroup);
         rdioBtnGradeE.setToggleGroup(radioToggleGroup);
         rdioBtnGradeF.setToggleGroup(radioToggleGroup);
-
     }
 
 
     public void setUpDaysList() {
         ObservableList<DayOfWeek> weekdays = FXCollections.observableArrayList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
         listViewDateSchedule.getItems().addAll(weekdays);
+    }
+    public void setUpDaysArea() {
+        //listViewClassesSchedule.getItems().clear();
+        listViewDateSchedule.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<DayOfWeek>() {
+            @Override
+            public void changed(ObservableValue<? extends DayOfWeek> observableValue, DayOfWeek dayOfWeek, DayOfWeek t1) {
+                DayOfWeek selectedDay = listViewDateSchedule.getSelectionModel().getSelectedItem();
+                Collection<Class> classes = Database.getAllProfessorClassesForDay(currentProfessor.getId(), selectedDay);
+                listViewClassesSchedule.getItems().addAll(classes);
+                listClassSchedule(selectedDay);
+            }
+        });
 
+    }
+    private void listClassSchedule(DayOfWeek selectedDay) {
+        listViewClassesSchedule.getItems().clear();
+        Collection<Class> classes = Database.getAllProfessorClassesForDay(currentProfessor.getId(), selectedDay);
+        for (Class currentClass: classes
+        ) {
+            listViewClassesSchedule.getItems().add(currentClass);
+        }
     }
 
     public void addAGradeForAStudent() {
         Student selectedStudent = listViewStudents.getSelectionModel().getSelectedItem();
         Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
-        RadioButton rdio = (RadioButton) radioToggleGroup.getSelectedToggle();
-        grade = rdio.getText();
+        RadioButton radio = (RadioButton) radioToggleGroup.getSelectedToggle();
+        grade = radio.getText();
         Database.addNewTranscript(new Transcript(selectedClass.getId(), selectedStudent.getId(), grade));
     }
 

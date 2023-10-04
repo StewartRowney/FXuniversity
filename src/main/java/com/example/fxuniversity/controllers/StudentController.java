@@ -8,16 +8,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 public class StudentController {
@@ -109,11 +112,19 @@ public class StudentController {
     public void setUpClassAvailabilityList() {
         Course course = listViewCourses.getSelectionModel().getSelectedItem();
         Collection<Class> classes = Database.getAllClassesInCourse(course.getId());
+        listViewClassListAvailability.getItems().removeAll(classes);
         listViewClassListAvailability.getItems().addAll(classes);
+
     }
 
     @FXML
     void onConfirmClassBooking(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Are you sure you wish to enroll in this class?");
+        Optional<ButtonType> result = alert.showAndWait();
+
         Class currentClass = listViewClassListAvailability.getSelectionModel().getSelectedItem();
         StudentClassRelationship src = new StudentClassRelationship(currentStudent.getId(), currentClass.getId());
         Database.addStudentToClass(src);
@@ -135,10 +146,11 @@ public class StudentController {
         this.currentStudent = student;
     }
 
-    public void setUpCourseList(ArrayList<UUID> dptID) {
-        Collection<Course> courseCollection = Database.getCoursesFromDepartment(dptID);
-        for (Course course: courseCollection
-             ) {
+    public void setUpCourseList() {
+        Collection<Course> courseCollection = Database.getAllCoursesAStudentIsNotAlreadyOn(currentStudent.getId());
+        listViewCourses.getItems().removeAll(courseCollection);
+        for (Course course : courseCollection
+        ) {
             listViewCourses.getItems().add(course);
         }
     }

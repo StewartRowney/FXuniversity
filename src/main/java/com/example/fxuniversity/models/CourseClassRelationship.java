@@ -6,11 +6,10 @@ import java.util.UUID;
 public class CourseClassRelationship {
 
     private UUID courseID;
-    private ArrayList<UUID> classID;
+    private ArrayList<UUID> classID = new ArrayList<>();
 
     public CourseClassRelationship(UUID courseID) {
         this.courseID = courseID;
-        classID = new ArrayList<>();
     }
     public CourseClassRelationship(UUID courseID, ArrayList<UUID> classes) {
         this.courseID = courseID;
@@ -23,5 +22,9 @@ public class CourseClassRelationship {
 
     public ArrayList<UUID> getClassIDs() {
         return classID;
+    }
+
+    public void removeClass(UUID classId) {
+        classID.remove(classId);
     }
 }
