@@ -5,10 +5,8 @@ import com.example.fxuniversity.models.*;
 import com.example.fxuniversity.models.Database;
 import com.example.fxuniversity.models.Professor;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,56 +20,29 @@ import java.util.UUID;
 import java.time.DayOfWeek;
 
 public class ProfessorController {
-
     private Professor currentProfessor;
+    private final ToggleGroup radioToggleGroup = new ToggleGroup();
 
     @FXML
     private AnchorPane anchorPane;
 
     @FXML
-    private Button btnConfirmAddGrade;
+    private ListView<Class> listView_AddGrade_Classes;
 
     @FXML
-    private Button btnProfessorLogout;
+    private ListView<Student> listView_AddGrade_Students;
 
     @FXML
-    private Button btnSchedule;
+    private ListView<Class> listView_Schedule_Classes;
 
     @FXML
-    private Button btnAddGradeButton;
+    private ListView<DayOfWeek> listView_Schedule_WeekDays;
 
     @FXML
-    private Label lblClassListAddGrade;
+    private ListView<Class> listView_SeeGrades_Classes;
 
     @FXML
-    private Label lblSelectedClass;
-
-    @FXML
-    private Label lblSelectedDate;
-
-    @FXML
-    private Label lblStudentListAddGrade;
-
-    @FXML
-    private Label lblWelcomeProfessor;
-
-    @FXML
-    private ListView<Class> listViewClassesAddGrade;
-
-    @FXML
-    private ListView<Class> listViewClassesSchedule;
-
-    @FXML
-    private ListView<DayOfWeek> listViewDateSchedule;
-
-    @FXML
-    private ListView<Student> listViewStudents;
-
-    @FXML
-    private ListView<String> listViewSeeGradesStudents;
-
-    @FXML
-    private ListView<Class> listViewSeeGradesClasses;
+    private ListView<String> listView_SeeGrades_Transcripts;
 
     @FXML
     private RadioButton rdioBtnGradeA;
@@ -92,44 +63,60 @@ public class ProfessorController {
     private RadioButton rdioBtnGradeF;
 
     @FXML
-    private Tab tbProfessorAddGrade;
-
-    @FXML
-    private Tab tbProfessorHomepage;
-
-    @FXML
-    private Tab tbProfessorSchedule;
-
-    @FXML
     private TabPane tabPane;
 
     @FXML
-    private Tab tbSeeClassGrades;
-
-    private ToggleGroup radioToggleGroup = new ToggleGroup();
-
-    private String grade;
+    private Tab tbAddGrade;
 
     @FXML
-    void onConfirmAddGrade(ActionEvent event) {
-        addAGradeForAStudent();
-        tabPane.getSelectionModel().select(tbProfessorHomepage);
-    }
+    private Tab tbHomepage;
 
     @FXML
-    void onAddGrade (ActionEvent event) {
-        tabPane.getSelectionModel().select(tbProfessorAddGrade);
+    private Tab tbSchedule;
+
+    @FXML
+    private Tab tbSeeGrades;
+
+    private final ChangeListener<Class> listViewAddGradeClassesListener = (observableValue, aClass, t1) -> {
+        Class selectedClass = listView_AddGrade_Classes.getSelectionModel().getSelectedItem();
+        if (selectedClass != null) {
+            listClassStudents(selectedClass.getId());
+        }
+    };
+
+    private final ChangeListener<DayOfWeek> listViewScheduleDayOfWeekListener = (observableValue, dayOfWeek, t1) -> {
+        DayOfWeek selectedDay = listView_Schedule_WeekDays.getSelectionModel().getSelectedItem();
+        listClassSchedule(selectedDay);
+    };
+
+    private final ChangeListener<Class> listViewSeeGradeClassesListener = (observableValue, aClass, t1) -> {
+        Class selectedClass = listView_SeeGrades_Classes.getSelectionModel().getSelectedItem();
+        if (selectedClass != null) {
+            listClassTranscripts(selectedClass.getId());
+        }
+    };
+
+    @FXML
+    void onAddGrade() {
+        tabPane.getSelectionModel().select(tbAddGrade);
         listAllClassesForProf();
-        setUpToggle();
     }
 
     @FXML
-    void onHome(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbProfessorHomepage);
+    void onConfirmAddGrade() {
+        addAGradeForAStudent();
+        tabPane.getSelectionModel().select(tbHomepage);
     }
 
     @FXML
-    void onLogout(ActionEvent event) throws IOException {
+    void onHomeAction() {
+        tabPane.getSelectionModel().select(tbHomepage);
+    }
+
+    @FXML
+    void onLogoutAction() throws IOException {
+        listView_AddGrade_Classes.getSelectionModel().selectedItemProperty().addListener(listViewAddGradeClassesListener);
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) anchorPane.getScene().getWindow();
@@ -139,93 +126,50 @@ public class ProfessorController {
     }
 
     @FXML
-    void onSeeSchedule(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbProfessorSchedule);
-        setUpDaysList();
-        setUpDaysArea();
-    }
-
-    @FXML
-    void onSeeGradesAction(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbSeeClassGrades);
-        listViewSeeGradesClasses.getItems().clear();
+    void onSeeGradesAction() {
+        tabPane.getSelectionModel().select(tbSeeGrades);
+        listView_SeeGrades_Classes.getItems().clear();
+        listView_SeeGrades_Transcripts.getItems().clear();
         Collection<Class> professorsClasses = Database.getAllClassesForProfessor(currentProfessor.getId());
-        listViewSeeGradesClasses.getItems().addAll(professorsClasses);
-        listViewSeeGradesClasses.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Class>() {
-            @Override
-            public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
-                Class selectedClass = listViewSeeGradesClasses.getSelectionModel().getSelectedItem();
-                if (selectedClass != null) {
-                    listClassTranscripts(selectedClass.getId());
-                }
-            }
-        });
+        listView_SeeGrades_Classes.getItems().addAll(professorsClasses);
     }
 
     @FXML
-    void onSetGradeA(ActionEvent event) {
-
+    void onSeeSchedule() {
+        tabPane.getSelectionModel().select(tbSchedule);
+        listView_Schedule_WeekDays.getItems().clear();
+        ObservableList<DayOfWeek> weekdays = FXCollections.observableArrayList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+        listView_Schedule_WeekDays.getItems().addAll(weekdays);
     }
 
-    @FXML
-    void onSetGradeB(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onSetGradeC(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onSetGradeD(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onSetGradeE(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onSetGradeF(ActionEvent event) {
-
-    }
-
-    public void setProfessor(Professor professor) {
+    public void setupProfessorController(Professor professor) {
         this.currentProfessor = professor;
+        setUpToggle();
+        listView_AddGrade_Classes.getSelectionModel().selectedItemProperty().addListener(listViewAddGradeClassesListener);
+        listView_SeeGrades_Classes.getSelectionModel().selectedItemProperty().addListener(listViewSeeGradeClassesListener);
+        listView_Schedule_WeekDays.getSelectionModel().selectedItemProperty().addListener(listViewScheduleDayOfWeekListener);
     }
 
     public void listAllClassesForProf() {
         Collection<Class> classes =  Database.getAllClassesForProfessor(currentProfessor.getId());
-        listViewClassesAddGrade.getItems().clear();
-        listViewStudents.getItems().clear();
-        //listViewClassesAddGrade.getSelectionModel().selectedItemProperty();
-        listViewClassesAddGrade.getItems().addAll(classes);
-        listViewClassesAddGrade.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Class>() {
-            @Override
-            public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
-                Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
-                if (selectedClass != null) {
-                    listClassStudents(selectedClass.getId());
-                }
-            }
-        });
+        listView_AddGrade_Classes.getItems().clear();
+        listView_AddGrade_Students.getItems().clear();
+        listView_AddGrade_Classes.getItems().addAll(classes);
     }
 
     private void listClassStudents(UUID selectedClassID) {
         Collection<Student> students = Database.getAllStudentsInClass(selectedClassID);
-        listViewStudents.getItems().clear();
-        listViewStudents.getItems().addAll(students);
+        listView_AddGrade_Students.getItems().clear();
+        listView_AddGrade_Students.getItems().addAll(students);
     }
 
     private void listClassTranscripts(UUID selectedClassID) {
         Collection<Transcript> transcripts = Database.getAllTranscriptsForClass(selectedClassID);
-        listViewSeeGradesStudents.getItems().clear();
+        listView_SeeGrades_Transcripts.getItems().clear();
 
         for (Transcript t: transcripts) {
             Student student = Database.getStudent(t.getStudentID());
-            listViewSeeGradesStudents.getItems().add(String.format("Name: %s, Grade: %s",student.getName(), t.getGrade()));
+            listView_SeeGrades_Transcripts.getItems().add(String.format("Name: %s, Grade: %s", student.getName(), t.getGrade()));
         }
     }
 
@@ -238,37 +182,19 @@ public class ProfessorController {
         rdioBtnGradeF.setToggleGroup(radioToggleGroup);
     }
 
-    public void setUpDaysList() {
-        listViewDateSchedule.getItems().clear();
-        ObservableList<DayOfWeek> weekdays = FXCollections.observableArrayList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
-        listViewDateSchedule.getItems().addAll(weekdays);
-    }
-    public void setUpDaysArea() {
-        listViewDateSchedule.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<DayOfWeek>() {
-            @Override
-            public void changed(ObservableValue<? extends DayOfWeek> observableValue, DayOfWeek dayOfWeek, DayOfWeek t1) {
-                DayOfWeek selectedDay = listViewDateSchedule.getSelectionModel().getSelectedItem();
-                Collection<Class> classes = Database.getAllProfessorClassesForDay(currentProfessor.getId(), selectedDay);
-                listViewClassesSchedule.getItems().addAll(classes);
-                listClassSchedule(selectedDay);
-            }
-        });
-
-    }
     private void listClassSchedule(DayOfWeek selectedDay) {
-        listViewClassesSchedule.getItems().clear();
+        listView_Schedule_Classes.getItems().clear();
         Collection<Class> classes = Database.getAllProfessorClassesForDay(currentProfessor.getId(), selectedDay);
         for (Class currentClass: classes
         ) {
-            listViewClassesSchedule.getItems().add(currentClass);
+            listView_Schedule_Classes.getItems().add(currentClass);
         }
     }
 
     public void addAGradeForAStudent() {
-        Student selectedStudent = listViewStudents.getSelectionModel().getSelectedItem();
-        Class selectedClass = listViewClassesAddGrade.getSelectionModel().getSelectedItem();
-        RadioButton radio = (RadioButton) radioToggleGroup.getSelectedToggle();
-        grade = radio.getText();
+        Student selectedStudent = listView_AddGrade_Students.getSelectionModel().getSelectedItem();
+        Class selectedClass = listView_AddGrade_Classes.getSelectionModel().getSelectedItem();
+        String grade = ((RadioButton) radioToggleGroup.getSelectedToggle()).getText();
         Database.addNewTranscript(new Transcript(selectedClass.getId(), selectedStudent.getId(), grade));
     }
 
