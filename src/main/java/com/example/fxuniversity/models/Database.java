@@ -222,8 +222,14 @@ public class Database {
             }
         }
     }
-    public static void addNewClass(Class newClass) {
+    public static void addNewClass(Class newClass, Course course) {
         classHashMap.put(newClass.getId(), newClass);
+        for (CourseClassRelationship ccr: courseClassRelationshipArrayList) {
+            if (ccr.getCourseID() == course.getId()) {
+                ccr.addClass(newClass.getId());
+                break;
+            }
+        }
     }
 
     public static void removeClass(Class classToRemove) {
