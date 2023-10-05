@@ -129,7 +129,7 @@ public class AdminController {
     private ListView<Course> listViewCoursesForAddClass;
 
     @FXML
-    private ListView<?> listViewCoursesForDeleteClass;
+    private ListView<Course> listViewCoursesForDeleteClass;
 
     @FXML
     private ListView<Course> listViewCoursesForDeletion;
@@ -280,13 +280,12 @@ public class AdminController {
     @FXML
     void onDeleteClassAdmin(ActionEvent event) {
 
-
     }
 
     @FXML
     void OnAddClass(ActionEvent event) {
-        setUpCourseListForAddClass();
-        setComboBoxDataForAddClass();
+        setUpCourseList(listViewCoursesForAddClass);
+        setComboBoxData(cmbBoxSemesterAddClass, cmbBoxDayAddClass, cmbBoxDurationAddClass);
         tabPane.getSelectionModel().select(tbAddClass);
     }
 
@@ -303,14 +302,15 @@ public class AdminController {
 
     @FXML
     void OnDeleteClass(ActionEvent event) {
+        setUpCourseList(listViewCoursesForDeleteClass);
         tabPane.getSelectionModel().select(tbDeleteClass);
     }
 
     @FXML
     void OnScheduleClass(ActionEvent event) {
         tabPane.getSelectionModel().select(tbScheduleClass);
-        setComboBoxData();
-        setUpCourseList();
+        setComboBoxData(cmboBoxSemesterSchedule, cmboBoxDaySchedule, cmboBoxDurationSchedule);
+        setUpCourseList(listViewCoursesToSchedule);
         setUpListViewClassesSchedule();
         populateScheduleInputBoxes();
     }
@@ -347,20 +347,19 @@ public class AdminController {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
-            String name = txtFieldGetStudentName.getText();
-            String address = txtFieldGetStudentAddress.getText();
-            String studentMajor = txtFieldGetStudentMajor.getText();
-            String email = txtFieldGetStudentEmail.getText();
-            String phoneNumber = txtFieldGetStudentPhone.getText();
-            Student myStudent = new Student(name, address, studentMajor, email, phoneNumber);
+            Student myStudent = new Student(txtFieldGetStudentName.getText(), txtFieldGetStudentAddress.getText(), txtFieldGetStudentMajor.getText(), txtFieldGetStudentEmail.getText(), txtFieldGetStudentPhone.getText());
             Database.addNewStudent(myStudent);
-            txtFieldGetStudentName.clear();
-            txtFieldGetStudentAddress.clear();
-            txtFieldGetStudentMajor.clear();
-            txtFieldGetStudentEmail.clear();
-            txtFieldGetStudentPhone.clear();
+            clearTextFields();
             tabPane.getSelectionModel().select(tbHome);
         }
+    }
+
+    public void clearTextFields() {
+        txtFieldGetStudentName.clear();
+        txtFieldGetStudentAddress.clear();
+        txtFieldGetStudentMajor.clear();
+        txtFieldGetStudentEmail.clear();
+        txtFieldGetStudentPhone.clear();
     }
 
     @FXML
@@ -373,23 +372,13 @@ public class AdminController {
         stage.setScene(scene);
     }
 
-    public void setUpCourseList() {
+    public void setUpCourseList(ListView<Course> listViewCourses) {
         Collection<Course> courseCollection = Database.getAllCourses();
-        listViewCoursesToSchedule.getItems().removeAll(courseCollection);
-        listViewCoursesToSchedule.getItems().clear();
+        listViewCourses.getItems().removeAll(courseCollection);
+        listViewCourses.getItems().clear();
         for (Course course : courseCollection
         ) {
-            listViewCoursesToSchedule.getItems().add(course);
-        }
-    }
-
-    public void setUpCourseListForAddClass() {
-        Collection<Course> courseCollection = Database.getAllCourses();
-        listViewCoursesForAddClass.getItems().removeAll(courseCollection);
-        listViewCoursesForAddClass.getItems().clear();
-        for (Course course : courseCollection
-        ) {
-            listViewCoursesForAddClass.getItems().add(course);
+            listViewCourses.getItems().add(course);
         }
     }
 
@@ -408,35 +397,20 @@ public class AdminController {
         });
     }
 
-    public void setComboBoxData(){
-        cmboBoxSemesterSchedule.getItems().clear();
-        cmboBoxSemesterSchedule.getItems().addAll(1,2,3);
+    public void setComboBoxData(ComboBox semester, ComboBox day, ComboBox duration){
+        semester.getItems().clear();
+        semester.getItems().addAll(1,2,3);
 
-        cmboBoxDaySchedule.getItems().clear();
-        cmboBoxDaySchedule.getItems().addAll(DayOfWeek.MONDAY,
+        day.getItems().clear();
+        day.getItems().addAll(DayOfWeek.MONDAY,
                 DayOfWeek.TUESDAY,
                 DayOfWeek.WEDNESDAY,
                 DayOfWeek.THURSDAY,
                 DayOfWeek.FRIDAY,
                 DayOfWeek.SATURDAY,
                 DayOfWeek.SUNDAY);
-        cmboBoxDurationSchedule.getItems().clear();
-        cmboBoxDurationSchedule.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
-    }
-
-    public void setComboBoxDataForAddClass(){
-        cmbBoxSemesterAddClass.getItems().clear();
-        cmbBoxSemesterAddClass.getItems().addAll(1,2,3);
-        cmbBoxDayAddClass.getItems().clear();
-        cmbBoxDayAddClass.getItems().addAll(DayOfWeek.MONDAY,
-                DayOfWeek.TUESDAY,
-                DayOfWeek.WEDNESDAY,
-                DayOfWeek.THURSDAY,
-                DayOfWeek.FRIDAY,
-                DayOfWeek.SATURDAY,
-                DayOfWeek.SUNDAY);
-        cmbBoxDurationAddClass.getItems().clear();
-        cmbBoxDurationAddClass.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
+        duration.getItems().clear();
+        duration.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
     }
 
     void manageCourses() {
