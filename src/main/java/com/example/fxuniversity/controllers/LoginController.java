@@ -66,7 +66,7 @@ public class LoginController {
         Scene scene = new Scene(fxmlLoader.load());
 
         StudentController controller = fxmlLoader.getController();
-        controller.setStudent(cmboBoxStudent.getValue());
+        controller.setUpStudentController(cmboBoxStudent.getValue());
         showScene(scene);
     }
 

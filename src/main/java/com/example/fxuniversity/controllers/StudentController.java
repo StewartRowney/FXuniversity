@@ -4,23 +4,15 @@ import com.example.fxuniversity.Main;
 import com.example.fxuniversity.models.*;
 import com.example.fxuniversity.models.Class;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.UUID;
 
 public class StudentController {
@@ -31,59 +23,98 @@ public class StudentController {
     private AnchorPane anchorPane;
 
     @FXML
-    private Button btnCheckClassAvailability;
+    private Button btn_Class_ConfirmClassBooking;
 
     @FXML
-    private Button btnConfirmClassBooking;
+    private Button btn_Courses_ShowClasses;
 
     @FXML
-    private Button btnHomePage;
+    private Button btn_Department_ShowCourses;
 
     @FXML
-    private Button btnLogout;
-    @FXML
-    private Button btnSeeCoursesfromDept;
+    private Button btn_Header_Home;
 
     @FXML
-    private Button btnSeeCourseList;
+    private Button btn_Header_Logout;
 
     @FXML
-    private ListView<Class> listViewClassListAvailability;
-    @FXML
-    private ListView<Department> listViewDepartment;
+    private Button btn_Home_RegisterForCourse;
 
     @FXML
-    private ListView<Course> listViewCourses;
+    private Button btn_Home_SeeTranscripts;
 
     @FXML
-    private ListView<Transcript> listViewAllTranscripts;
+    private ListView<Class> listView_Class_Classes;
+
+    @FXML
+    private ListView<Course> listView_Course_Courses;
+
+    @FXML
+    private ListView<Department> listView_Department_Departments;
+
+    @FXML
+    private ListView<Transcript> listView_Transcript_Transcripts;
 
     @FXML
     private TabPane tabPane;
 
     @FXML
-    private AnchorPane tbCourseList;
+    private Tab tbHomepage;
 
     @FXML
-    private Tab tbStudentHomepage;
+    private Tab tbRegisterClassList;
 
     @FXML
-    private Tab tbCourseListTab;
+    private Tab tbRegisterCourseList;
 
     @FXML
-    private Tab tbRegisterClassListTab;
+    private Tab tbRegisterDepartments;
 
     @FXML
-    private Tab tbDepartmentListTab;
+    private Tab tbTranscripts;
 
     @FXML
-    private Tab tbTranscriptsListTab;
+    private TextArea txtArea_Courses_CourseDescription;
+
+    private final ChangeListener<Department> departmentChangeListener = createDepartmentsListener();
+    private final ChangeListener<Course> courseChangeListener = createCourseListener();
 
     @FXML
-    private TextArea txtAreaCourseDescription;
+    void onAddStudentToClass() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Are you sure you wish to enroll in this class?");
+        alert.showAndWait();
+
+        Class currentClass = listView_Class_Classes.getSelectionModel().getSelectedItem();
+        StudentClassRelationship src = new StudentClassRelationship(currentStudent.getId(), currentClass.getId());
+        Database.addStudentToClass(src);
+    }
 
     @FXML
-    void onLogout(ActionEvent event) throws IOException {
+    void onCourseSelection() {
+        tabPane.getSelectionModel().select(tbRegisterClassList);
+        Course course = listView_Course_Courses.getSelectionModel().getSelectedItem();
+        Collection<Class> classes = Database.getAllClassesInCourse(course.getId());
+        listView_Class_Classes.getItems().clear();
+        listView_Class_Classes.getItems().addAll(classes);
+    }
+
+    @FXML
+    void onDepartmentSelection() {
+        tabPane.getSelectionModel().select(tbRegisterCourseList);
+    }
+
+    @FXML
+    void onHome() {
+        tabPane.getSelectionModel().select(tbHomepage);
+    }
+
+    @FXML
+    void onLogout() throws IOException {
+        listView_Department_Departments.getSelectionModel().selectedItemProperty().removeListener(departmentChangeListener);
+        listView_Course_Courses.getSelectionModel().selectedItemProperty().removeListener(courseChangeListener);
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) anchorPane.getScene().getWindow();
@@ -93,104 +124,59 @@ public class StudentController {
     }
 
     @FXML
-    void onSeeCoursesFromDept(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbCourseListTab);
-    }
-
-    @FXML
-    void onSeeTranscripts (ActionEvent event) {
-        tabPane.getSelectionModel().select(tbTranscriptsListTab);
-        seeAllTranscripts();
-
-    }
-
-    @FXML
-    void onClassAvailability(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbRegisterClassListTab);
-        setUpClassAvailabilityList();
-    }
-
-    public void setUpClassAvailabilityList() {
-        Course course = listViewCourses.getSelectionModel().getSelectedItem();
-        Collection<Class> classes = Database.getAllClassesInCourse(course.getId());
-        listViewClassListAvailability.getItems().removeAll(classes);
-        listViewClassListAvailability.getItems().addAll(classes);
-
-    }
-
-    @FXML
-    void onConfirmClassBooking(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setContentText("Are you sure you wish to enroll in this class?");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        Class currentClass = listViewClassListAvailability.getSelectionModel().getSelectedItem();
-        StudentClassRelationship src = new StudentClassRelationship(currentStudent.getId(), currentClass.getId());
-        Database.addStudentToClass(src);
-    }
-
-    @FXML
-    void onHomePage(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbStudentHomepage);
-    }
-
-    @FXML
-    void onSeeCourseList(ActionEvent event) {
-        tabPane.getSelectionModel().select(tbDepartmentListTab);
+    void onRegisterForCourse() {
+        tabPane.getSelectionModel().select(tbRegisterDepartments);
         setUpDepartmentList();
-        setUpTextArea();
     }
 
-    public void setStudent(Student student) {
+    @FXML
+    void onSeeTranscripts() {
+        tabPane.getSelectionModel().select(tbTranscripts);
+        Collection<Transcript> transcripts = Database.getAllStudentTranscripts(currentStudent.getId());
+        listView_Transcript_Transcripts.getItems().addAll(transcripts);
+    }
+
+    public void setUpStudentController(Student student) {
         this.currentStudent = student;
+        listView_Department_Departments.getSelectionModel().selectedItemProperty().addListener(departmentChangeListener);
+        listView_Course_Courses.getSelectionModel().selectedItemProperty().addListener(courseChangeListener);
     }
 
     public void setUpCourseList(ArrayList<UUID> coursesFromDept) {
-
         Collection<Course> coursesStudentNotOn = Database.getAllCoursesAStudentIsNotAlreadyOn(currentStudent.getId());
         Collection<Course> courseFromDepartment = Database.getCoursesFromDepartment(coursesFromDept);
+
         ArrayList<Course> coursesToDisplay = new ArrayList<>();
-        listViewCourses.getItems().removeAll(coursesStudentNotOn);
-        listViewCourses.getItems().clear();
+        listView_Course_Courses.getItems().clear();
         for (Course course : courseFromDepartment) {
             if(coursesStudentNotOn.contains(course)) {
                 coursesToDisplay.add(course);
             }
         }
-        listViewCourses.getItems().addAll(coursesToDisplay);
+        listView_Course_Courses.getItems().addAll(coursesToDisplay);
     }
 
     public void setUpDepartmentList() {
-        listViewDepartment.getItems().clear();
+        listView_Department_Departments.getItems().clear();
         Collection<Department> departments = Database.getAllDepartments();
         for (Department department: departments){
-            listViewDepartment.getItems().add(department);
+            listView_Department_Departments.getItems().add(department);
         }
-        listViewDepartment.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Department>() {
-            @Override
-            public void changed(ObservableValue<? extends Department> observableValue, Department department, Department t1) {
-                Department selectedDepartment = listViewDepartment.getSelectionModel().getSelectedItem();
-                setUpCourseList(selectedDepartment.getCourses());
-            }
+    }
+
+    private ChangeListener<Department> createDepartmentsListener() {
+      return ((observableValue, department, t1) -> {
+            Department selectedDepartment = listView_Department_Departments.getSelectionModel().getSelectedItem();
+            setUpCourseList(selectedDepartment.getCourses());
         });
     }
 
-    public void setUpTextArea() {
-        listViewCourses.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
-            @Override
-            public void changed(ObservableValue<? extends Course> observableValue, Course course, Course t1) {
-                Course coursetodisplay = listViewCourses.getSelectionModel().getSelectedItem();
-                String setTextString = "Course Description: " + coursetodisplay.getDescription() + "\nRequired Books: "+ coursetodisplay.getRequiredBooks()+"\nCourse Code: "+ coursetodisplay.getCourseNumber();
-                txtAreaCourseDescription.setText(setTextString);
-            }
-        });
+    private ChangeListener<Course> createCourseListener() {
+        return (observableValue, course, t1) -> {
+            Course courseToDisplay = listView_Course_Courses.getSelectionModel().getSelectedItem();
+            String setTextString = "Course Description: " + courseToDisplay.getDescription() + "\nRequired Books: "+ courseToDisplay.getRequiredBooks()+"\nCourse Code: "+ courseToDisplay.getCourseNumber();
+            txtArea_Courses_CourseDescription.setText(setTextString);
+        };
     }
 
-    public void seeAllTranscripts() {
-
-        Collection<Transcript> trasncripts = Database.getAllStudentTranscripts(currentStudent.getId());
-        listViewAllTranscripts.getItems().addAll(trasncripts);
-
-    }
 }
