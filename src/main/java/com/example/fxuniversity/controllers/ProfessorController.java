@@ -168,7 +168,7 @@ public class ProfessorController {
 
     public void setupProfessorController(Professor professor) {
         this.currentProfessor = professor;
-        setUpToggle();
+        setUpRadioGroup();
         listView_AddGrade_Classes.getSelectionModel().selectedItemProperty().addListener(listViewAddGradeClassesListener);
         listView_SeeGrades_Classes.getSelectionModel().selectedItemProperty().addListener(listViewSeeGradeClassesListener);
         listView_Schedule_WeekDays.getSelectionModel().selectedItemProperty().addListener(listViewScheduleDayOfWeekListener);
@@ -197,7 +197,7 @@ public class ProfessorController {
         }
     }
 
-    public void setUpToggle() {
+    public void setUpRadioGroup() {
         rdioBtnGradeA.setToggleGroup(radioToggleGroup);
         rdioBtnGradeB.setToggleGroup(radioToggleGroup);
         rdioBtnGradeC.setToggleGroup(radioToggleGroup);
