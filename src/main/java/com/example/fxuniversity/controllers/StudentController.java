@@ -79,6 +79,7 @@ public class StudentController {
 
     private final ChangeListener<Department> departmentChangeListener = createDepartmentsListener();
     private final ChangeListener<Course> courseChangeListener = createCourseListener();
+    private final ChangeListener<Class> classChangeListener = createClassListener();
 
     @FXML
     void onAddStudentToClass() {
@@ -99,11 +100,14 @@ public class StudentController {
         Collection<Class> classes = Database.getAllClassesInCourse(course.getId());
         listView_Class_Classes.getItems().clear();
         listView_Class_Classes.getItems().addAll(classes);
+        btn_Class_ConfirmClassBooking.setDisable(true);
     }
 
     @FXML
     void onDepartmentSelection() {
         tabPane.getSelectionModel().select(tbRegisterCourseList);
+        txtArea_Courses_CourseDescription.setText("");
+        btn_Courses_ShowClasses.setDisable(true);
     }
 
     @FXML
@@ -113,8 +117,7 @@ public class StudentController {
 
     @FXML
     void onLogout() throws IOException {
-        listView_Department_Departments.getSelectionModel().selectedItemProperty().removeListener(departmentChangeListener);
-        listView_Course_Courses.getSelectionModel().selectedItemProperty().removeListener(courseChangeListener);
+        removeListeners();
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -127,6 +130,7 @@ public class StudentController {
     @FXML
     void onRegisterForCourse() {
         tabPane.getSelectionModel().select(tbRegisterDepartments);
+        btn_Department_ShowCourses.setDisable(true);
         setUpDepartmentList();
     }
 
@@ -139,8 +143,19 @@ public class StudentController {
 
     public void setUpStudentController(Student student) {
         this.currentStudent = student;
+        addListeners();
+    }
+
+    private void addListeners() {
         listView_Department_Departments.getSelectionModel().selectedItemProperty().addListener(departmentChangeListener);
         listView_Course_Courses.getSelectionModel().selectedItemProperty().addListener(courseChangeListener);
+        listView_Class_Classes.getSelectionModel().selectedItemProperty().addListener(classChangeListener);
+    }
+
+    private void removeListeners() {
+        listView_Department_Departments.getSelectionModel().selectedItemProperty().removeListener(departmentChangeListener);
+        listView_Course_Courses.getSelectionModel().selectedItemProperty().removeListener(courseChangeListener);
+        listView_Class_Classes.getSelectionModel().selectedItemProperty().removeListener(classChangeListener);
     }
 
     public void setUpCourseList(ArrayList<UUID> coursesFromDept) {
@@ -168,16 +183,30 @@ public class StudentController {
     private ChangeListener<Department> createDepartmentsListener() {
       return ((observableValue, department, t1) -> {
             Department selectedDepartment = listView_Department_Departments.getSelectionModel().getSelectedItem();
-            setUpCourseList(selectedDepartment.getCourses());
+            if (selectedDepartment != null) {
+                setUpCourseList(selectedDepartment.getCourses());
+            }
+            btn_Department_ShowCourses.setDisable(selectedDepartment == null);
         });
     }
 
     private ChangeListener<Course> createCourseListener() {
         return (observableValue, course, t1) -> {
             Course courseToDisplay = listView_Course_Courses.getSelectionModel().getSelectedItem();
-            String setTextString = "Course Description: " + courseToDisplay.getDescription() + "\nRequired Books: "+ courseToDisplay.getRequiredBooks()+"\nCourse Code: "+ courseToDisplay.getCourseNumber();
+            String setTextString;
+            if (courseToDisplay != null) {
+                setTextString = "Course Description: " + courseToDisplay.getDescription() + "\nRequired Books: "+ courseToDisplay.getRequiredBooks()+"\nCourse Code: "+ courseToDisplay.getCourseNumber();
+            }
+            else {
+                setTextString = "";
+            }
+            btn_Courses_ShowClasses.setDisable(courseToDisplay == null);
             txtArea_Courses_CourseDescription.setText(setTextString);
         };
+    }
+
+    private ChangeListener<Class> createClassListener() {
+        return (observableValue, newClass, t1) -> btn_Class_ConfirmClassBooking.setDisable(false);
     }
 
 }
