@@ -1,10 +1,7 @@
 package com.example.fxuniversity.controllers;
 
 import com.example.fxuniversity.Main;
-import com.example.fxuniversity.models.Database;
-import com.example.fxuniversity.models.IUser;
-import com.example.fxuniversity.models.Professor;
-import com.example.fxuniversity.models.Student;
+import com.example.fxuniversity.models.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -79,7 +76,7 @@ public class LoginController {
             controller.setupProfessorController(Database.getProfessor(prof.getId()));
             showScene(scene);
         }
-        else {
+        else if (currentUser instanceof Admin admin) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("admin-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("Admin");

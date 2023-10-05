@@ -209,6 +209,8 @@ public class Database {
         return professorHashMap.get(id);
     }
 
+
+
     public static void addNewStudent(Student student) {
         studentHashMap.put(student.getId(), student);
         userLoginHashMap.put(student.getEmailAddress(), student);
