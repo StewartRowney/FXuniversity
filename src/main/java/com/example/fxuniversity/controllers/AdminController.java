@@ -381,6 +381,9 @@ public class AdminController {
                 DayOfWeek.FRIDAY,
                 DayOfWeek.SATURDAY,
                 DayOfWeek.SUNDAY);
+        cmboBoxDurationSchedule.getItems().clear();
+        cmboBoxDurationSchedule.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
+    }
 
     void manageCourses() {
         listViewCoursesPreReqs.getItems().clear();
@@ -418,10 +421,6 @@ public class AdminController {
         txtAreaCourseDescription.clear();
         txtFieldCourseNumber.clear();
 
-    }
-
-        cmboBoxDurationSchedule.getItems().clear();
-        cmboBoxDurationSchedule.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
     }
 
     public void populateScheduleInputBoxes(){
