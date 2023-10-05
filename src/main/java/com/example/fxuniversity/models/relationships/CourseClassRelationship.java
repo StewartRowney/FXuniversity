@@ -1,4 +1,4 @@
-package com.example.fxuniversity.models;
+package com.example.fxuniversity.models.relationships;
 
 import java.util.ArrayList;
 import java.util.UUID;
