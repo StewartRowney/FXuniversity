@@ -3,6 +3,7 @@ package com.example.fxuniversity.controllers;
 import com.example.fxuniversity.Main;
 import com.example.fxuniversity.models.*;
 import com.example.fxuniversity.models.Class;
+import com.example.fxuniversity.models.relationships.StudentClassRelationship;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
