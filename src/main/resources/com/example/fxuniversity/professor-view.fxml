@@ -101,7 +101,7 @@
                                     </RadioButton>
                                     <Button fx:id="btn_AddGrade_Confirm" mnemonicParsing="false" onAction="#onConfirmAddGrade" text="Confirm Grade Selection">
                                        <HBox.margin>
-                                          <Insets left="200.0" />
+                                          <Insets left="150.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>

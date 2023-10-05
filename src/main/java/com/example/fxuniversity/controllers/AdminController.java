@@ -21,6 +21,7 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Optional;
+import java.util.UUID;
 
 public class AdminController {
 
@@ -238,7 +239,7 @@ public class AdminController {
     @FXML
     void onAddCourseButton(ActionEvent event) {
         Course newCourse = new Course(txtFieldCourseName.getText(), txtAreaCourseDescription.getText(), txtAreaCourseReqBooks.getText(), txtAreaCoursePrereqs.getText(), txtFieldCourseNumber.getText());
-        Database.addNewCourse(newCourse);
+        Database.addNewCourse(newCourse, UUID.randomUUID());
         tabPane.getSelectionModel().select(tbHome);
     }
 

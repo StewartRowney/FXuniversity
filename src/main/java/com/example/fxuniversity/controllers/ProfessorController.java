@@ -172,7 +172,7 @@ public class ProfessorController {
     }
 
     private void listClassStudents(UUID selectedClassID) {
-        Collection<Student> students = Database.getAllStudentsInClass(selectedClassID);
+        Collection<Student> students = Database.getAllStudentsInClassNotGradedYet(selectedClassID);
         listView_AddGrade_Students.getItems().clear();
         listView_AddGrade_Students.getItems().addAll(students);
     }
