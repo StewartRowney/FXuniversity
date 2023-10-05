@@ -261,7 +261,7 @@ public class Database {
         }
 
         for (StudentClassRelationship src: studentClassRelationshipArrayList) {
-            if (src.getClassID() == classToRemove.getId()) {
+            if (src.classID() == classToRemove.getId()) {
                 studentClassRelationshipArrayList.remove(src);
             }
         }
@@ -292,8 +292,8 @@ public class Database {
     public static Collection<Class> getAllClassesForProfessor(UUID professorId) {
         ArrayList<UUID> classIds = new ArrayList<>();
         for (ProfessorClassRelationship pcr : professorClassRelationshipArrayList) {
-            if (pcr.getProfessorID() == professorId) {
-                classIds.add(pcr.getClassID());
+            if (pcr.professorID() == professorId) {
+                classIds.add(pcr.classID());
             }
         }
 
@@ -320,8 +320,8 @@ public class Database {
     public static Collection<Student> getAllStudentsInClass(UUID classId) {
         ArrayList<UUID> studentIds = new ArrayList<>();
         for (StudentClassRelationship scr : studentClassRelationshipArrayList) {
-            if (scr.getClassID() == classId) {
-                studentIds.add(scr.getStudentID());
+            if (scr.classID() == classId) {
+                studentIds.add(scr.studentID());
             }
         }
 
@@ -354,8 +354,8 @@ public class Database {
     public static Collection<Course> getAllCoursesAStudentIsNotAlreadyOn(UUID studentId) {
         ArrayList<UUID> listOfClassIdsStudentIsOn = new ArrayList<>();
         for (StudentClassRelationship src: studentClassRelationshipArrayList) {
-            if (src.getStudentID() == studentId) {
-                listOfClassIdsStudentIsOn.add(src.getClassID());
+            if (src.studentID() == studentId) {
+                listOfClassIdsStudentIsOn.add(src.classID());
             }
         }
 

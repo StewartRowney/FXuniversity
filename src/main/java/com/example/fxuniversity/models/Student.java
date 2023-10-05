@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Student implements IUser{
 
-    private UUID id;
+    private final UUID id;
     private String name;
     private String address;
     private String major;
@@ -19,7 +19,6 @@ public class Student implements IUser{
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
-
 
 
     public String getName() {

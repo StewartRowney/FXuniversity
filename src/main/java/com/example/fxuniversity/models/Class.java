@@ -1,16 +1,13 @@
 package com.example.fxuniversity.models;
 
-import java.security.Timestamp;
 import java.time.DayOfWeek;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class Class {
 
-    private UUID id;
+    private final UUID id;
     private int semester;
     private DayOfWeek day;
     private LocalTime timeStart;

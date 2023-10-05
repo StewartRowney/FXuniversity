@@ -8,7 +8,7 @@ public class Course {
         return id;
     }
 
-    private UUID id;
+    private final UUID id;
     private String name;
     private String description;
     private String requiredBooks;

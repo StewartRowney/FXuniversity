@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Admin implements IUser{
 
-    private UUID id;
+    private final UUID id;
 
     public Admin() {
         id = UUID.randomUUID();

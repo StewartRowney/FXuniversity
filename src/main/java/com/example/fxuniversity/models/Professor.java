@@ -4,13 +4,13 @@ import java.util.UUID;
 
 public class Professor implements IUser{
 
-    private UUID id;
-    private String name;
-    private String address;
-    private String phoneNumber;
-    private String email;
-    private UUID departmentID;
-    private int officeNumber;
+    private final UUID id;
+    private final String name;
+    private final String address;
+    private final String phoneNumber;
+    private final String email;
+    private final UUID departmentID;
+    private final int officeNumber;
 
 
     public Professor(String name, String professorAddress, String phoneNumber, String email, UUID departmentID, int officeNumber) {

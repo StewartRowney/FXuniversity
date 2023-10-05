@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Transcript {
 
-    private UUID id;
+    private final UUID id;
     private UUID classID;
     private UUID studentID;
     private String grade;

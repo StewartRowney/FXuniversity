@@ -5,17 +5,15 @@ import java.util.UUID;
 
 public class Department {
 
-    private String name;
-    private UUID id;
-    private ArrayList<UUID> courses;
-    private ArrayList<UUID> professors;
+    private final String name;
+    private final UUID id;
+    private final ArrayList<UUID> courses = new ArrayList<>();;
+    private final ArrayList<UUID> professors = new ArrayList<>();
 
 
     public Department(String name) {
         id = UUID.randomUUID();
         this.name = name;
-        courses = new ArrayList<>();
-        professors = new ArrayList<>();
     }
 
     public String toString() {
