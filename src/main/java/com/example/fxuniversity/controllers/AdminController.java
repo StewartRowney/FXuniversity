@@ -7,8 +7,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import com.example.fxuniversity.models.*;
 import com.example.fxuniversity.models.Class;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,9 +19,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.time.DayOfWeek;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Collection;
 import java.util.Optional;
 
 public class AdminController {
@@ -120,7 +116,7 @@ public class AdminController {
     private Label lblWelcomeAdmin;
 
     @FXML
-    private ListView<?> listViewClassesForDeleteClass;
+    private ListView<Class> listViewClassesForDeleteClass;
 
     @FXML
     private ListView<Class> listViewClassesToSchedule;
@@ -230,11 +226,7 @@ public class AdminController {
 
     @FXML
     void onAddClassToCourse(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setContentText("Confirm and add new class to this course?");
-        Optional<ButtonType> result = alert.showAndWait();
-
+        Optional<ButtonType> result = showConfirmationAlert("Are you sure all details are correct and you wish to add this class to the course?");
         if (result.get() == ButtonType.OK) {
             Course courseToAdd = listViewCoursesForAddClass.getSelectionModel().getSelectedItem();
             Class newClass = new Class(cmbBoxSemesterAddClass.getValue(), cmbBoxDayAddClass.getValue(), LocalTime.parse(txtFieldTimeAddClass.getText()), cmbBoxDurationAddClass.getValue(), Double.parseDouble(txtFieldRoomNumberAddClass.getText()));
@@ -260,12 +252,7 @@ public class AdminController {
 
     @FXML
     void onConfirmClassScheduleChange(ActionEvent event) {
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setContentText("Are you sure you wish to edit this class?");
-        Optional<ButtonType> result = alert.showAndWait();
-
+        Optional<ButtonType> result = showConfirmationAlert("Are you sure all details are correct and you wish change this class schedule?");
         if (result.get() == ButtonType.OK) {
             Class classToEdit = listViewClassesToSchedule.getSelectionModel().getSelectedItem();
             classToEdit.setSemester(cmboBoxSemesterSchedule.getValue());
@@ -279,7 +266,12 @@ public class AdminController {
 
     @FXML
     void onDeleteClassAdmin(ActionEvent event) {
-
+        Optional<ButtonType> result = showConfirmationAlert("Are you sure you wish to delete this class?");
+        if (result.get() == ButtonType.OK) {
+            Class classToDelete = listViewClassesForDeleteClass.getSelectionModel().getSelectedItem();
+            Database.removeClass(classToDelete);
+            tabPane.getSelectionModel().select(tbHome);
+        }
     }
 
     @FXML
@@ -302,8 +294,9 @@ public class AdminController {
 
     @FXML
     void OnDeleteClass(ActionEvent event) {
-        setUpCourseList(listViewCoursesForDeleteClass);
         tabPane.getSelectionModel().select(tbDeleteClass);
+        setUpCourseList(listViewCoursesForDeleteClass);
+        setUpListViewClassesInACourse(listViewCoursesForDeleteClass, listViewClassesForDeleteClass);
     }
 
     @FXML
@@ -311,7 +304,7 @@ public class AdminController {
         tabPane.getSelectionModel().select(tbScheduleClass);
         setComboBoxData(cmboBoxSemesterSchedule, cmboBoxDaySchedule, cmboBoxDurationSchedule);
         setUpCourseList(listViewCoursesToSchedule);
-        setUpListViewClassesSchedule();
+        setUpListViewClassesInACourse(listViewCoursesToSchedule, listViewClassesToSchedule);
         populateScheduleInputBoxes();
     }
 
@@ -341,10 +334,7 @@ public class AdminController {
 
     @FXML
     void onStudentAdmit(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setContentText("Confirm and add new student details?");
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = showConfirmationAlert("Are you sure all details are correct and you wish to enroll this student?");
 
         if (result.get() == ButtonType.OK) {
             Student myStudent = new Student(txtFieldGetStudentName.getText(), txtFieldGetStudentAddress.getText(), txtFieldGetStudentMajor.getText(), txtFieldGetStudentEmail.getText(), txtFieldGetStudentPhone.getText());
@@ -374,24 +364,23 @@ public class AdminController {
 
     public void setUpCourseList(ListView<Course> listViewCourses) {
         Collection<Course> courseCollection = Database.getAllCourses();
-        listViewCourses.getItems().removeAll(courseCollection);
-        listViewCourses.getItems().clear();
-        for (Course course : courseCollection
-        ) {
-            listViewCourses.getItems().add(course);
+        if(listViewCourses != null) {
+            listViewCourses.getItems().removeAll(courseCollection);
+            listViewCourses.getItems().clear();
+            listViewCourses.getItems().addAll(courseCollection);
         }
     }
 
-    public void setUpListViewClassesSchedule(){
-        listViewCoursesToSchedule.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
+    public void setUpListViewClassesInACourse(ListView<Course> listViewCourse, ListView<Class> listViewClass){
+        listViewCourse.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
             @Override
             public void changed(ObservableValue<? extends Course> observableValue, Course course, Course t1) {
-                Course courseToDisplay = listViewCoursesToSchedule.getSelectionModel().getSelectedItem();
+                Course courseToDisplay = listViewCourse.getSelectionModel().getSelectedItem();
                 if (courseToDisplay != null) {
                     Collection<Class> classesCollection = Database.getAllClassesInCourse(courseToDisplay.getId());
-                    listViewClassesToSchedule.getItems().removeAll(classesCollection);
-                    listViewClassesToSchedule.getItems().clear();
-                    listViewClassesToSchedule.getItems().addAll(classesCollection);
+                    listViewClass.getItems().removeAll(classesCollection);
+                    listViewClass.getItems().clear();
+                    listViewClass.getItems().addAll(classesCollection);
                 }
             }
         });
@@ -409,6 +398,7 @@ public class AdminController {
                 DayOfWeek.FRIDAY,
                 DayOfWeek.SATURDAY,
                 DayOfWeek.SUNDAY);
+
         duration.getItems().clear();
         duration.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
     }
@@ -463,6 +453,14 @@ public class AdminController {
                 }
             }
         });
+    }
+
+    public Optional<ButtonType> showConfirmationAlert(String alertMessage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText(alertMessage);
+        Optional<ButtonType> result = alert.showAndWait();
+        return result;
     }
 
 }
