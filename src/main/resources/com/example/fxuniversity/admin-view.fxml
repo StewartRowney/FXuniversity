@@ -222,6 +222,8 @@
                               <TextArea fx:id="txtAreaCourseReqBooks" prefHeight="200.0" prefWidth="200.0" promptText="e.g. &quot;Chemistry for Beginners&quot; by Arnold Waters" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pre-requisites:" />
                               <TextArea fx:id="txtAreaCoursePrereqs" prefHeight="200.0" prefWidth="200.0" promptText="e.g. Student to have completed high school chemistry" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Department:" />
+                              <ComboBox fx:id="cmbBoxDepartmentAddCourse" prefHeight="26.0" prefWidth="361.0" promptText="e.g. Physics" />
                            </children>
                            <padding>
                               <Insets left="10.0" right="10.0" />

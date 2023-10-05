@@ -48,6 +48,8 @@ public class AdminController {
 
     @FXML
     private ComboBox<Integer> cmbBoxSemesterAddClass;
+    @FXML
+    private ComboBox<Department> cmbBoxDepartmentAddCourse;
 
     @FXML
     private Button btnAddClass;
@@ -238,7 +240,7 @@ public class AdminController {
     @FXML
     void onAddCourseButton(ActionEvent event) {
         Course newCourse = new Course(txtFieldCourseName.getText(), txtAreaCourseDescription.getText(), txtAreaCourseReqBooks.getText(), txtAreaCoursePrereqs.getText(), txtFieldCourseNumber.getText());
-        Database.addNewCourse(newCourse);
+        Database.addNewCourse(newCourse, cmbBoxDepartmentAddCourse.getValue().getId());
         tabPane.getSelectionModel().select(tbHome);
     }
 
@@ -285,6 +287,9 @@ public class AdminController {
     void OnAddCourse(ActionEvent event) {
         tabPane.getSelectionModel().select(tbAddCourse);
         clearAddCourseFields();
+        cmbBoxDepartmentAddCourse.getItems().clear();
+        Collection<Department> departments = Database.getAllDepartments();
+        cmbBoxDepartmentAddCourse.getItems().addAll(departments);
     }
 
     @FXML
