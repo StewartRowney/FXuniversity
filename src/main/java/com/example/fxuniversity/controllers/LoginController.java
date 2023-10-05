@@ -58,13 +58,15 @@ public class LoginController {
         IUser currentUser;
         String email = txtFieldEnterEmail.getText();
         currentUser = Database.logIn(email);
+        Stage stage = (Stage) anchorPane.getScene().getWindow();
+
         if(currentUser == null ) {
             txtFielderror.setText("Invalid email. Please try again or contact your administrator for help.");
         }
         else if(currentUser instanceof Student student) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-
+            stage.setTitle("Student");
             StudentController controller = fxmlLoader.getController();
             controller.setUpStudentController(Database.getStudent(student.getId()));
             showScene(scene);
@@ -72,7 +74,7 @@ public class LoginController {
         else if(currentUser instanceof Professor prof){
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("professor-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-
+            stage.setTitle("Professor");
             ProfessorController controller = fxmlLoader.getController();
             controller.setupProfessorController(Database.getProfessor(prof.getId()));
             showScene(scene);
@@ -80,8 +82,10 @@ public class LoginController {
         else {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("admin-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Admin");
             showScene(scene);
         }
+
     }
 
     @FXML
