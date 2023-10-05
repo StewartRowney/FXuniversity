@@ -132,7 +132,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </Text>
-                                          <TextField fx:id="txtFieldAddTimeScheduleClass1" prefHeight="26.0" prefWidth="135.0" promptText="HH:mm">
+                                          <TextField fx:id="txtFieldAddTimeScheduleClass" prefHeight="26.0" prefWidth="135.0" promptText="HH:mm">
                                              <VBox.margin>
                                                 <Insets right="10.0" />
                                              </VBox.margin>

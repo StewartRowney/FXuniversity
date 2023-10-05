@@ -229,6 +229,8 @@ public class AdminController {
     @FXML
     private TextField txtFieldAddRoomNumberScheduleClass;
 
+    private Admin admin;
+
 
     @FXML
     void onAddClassToCourse(ActionEvent event) {
@@ -267,6 +269,8 @@ public class AdminController {
             classToEdit.setClassDuration(cmboBoxDurationSchedule.getValue());
             Database.editClass(classToEdit);
             tabPane.getSelectionModel().select(tbHome);
+
+
         }
     }
 
@@ -454,13 +458,15 @@ public class AdminController {
             @Override
             public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
                 Class classToDisplay = listViewClassesToSchedule.getSelectionModel().getSelectedItem();
-
+                if (classToDisplay != null) {
                     cmboBoxSemesterSchedule.setValue(classToDisplay.getSemester());
                     cmboBoxDurationSchedule.setValue(classToDisplay.getClassDuration());
-                    txtFieldAddTimeScheduleClass.setText(String.valueOf(classToDisplay.getTimeStart()));
                     cmboBoxDaySchedule.setValue(classToDisplay.getDay());
                     txtFieldAddRoomNumberScheduleClass.setText(String.valueOf(classToDisplay.getRoom()));
-
+                    if (classToDisplay.getTimeStart().toString() != null) {
+                        txtFieldAddTimeScheduleClass.setText(classToDisplay.getTimeStart().toString());
+                    }
+                }
             }
         });
     }
@@ -473,4 +479,7 @@ public class AdminController {
         return result;
     }
 
+    public void setUpAdminController (Admin admin){
+        this.admin = admin;
+    }
 }
