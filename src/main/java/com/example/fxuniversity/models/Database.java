@@ -204,6 +204,11 @@ public class Database {
     public static Student getStudent(UUID id) {
         return studentHashMap.get(id);
     }
+
+    public static Professor getProfessor(UUID id) {
+        return professorHashMap.get(id);
+    }
+
     public static void addNewStudent(Student student) {
         studentHashMap.put(student.getId(), student);
         userLoginHashMap.put(student.getEmailAddress(), student);
