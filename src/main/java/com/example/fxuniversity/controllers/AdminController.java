@@ -267,6 +267,8 @@ public class AdminController {
             classToEdit.setClassDuration(cmboBoxDurationSchedule.getValue());
             Database.editClass(classToEdit);
             tabPane.getSelectionModel().select(tbHome);
+
+
         }
     }
 
@@ -454,13 +456,15 @@ public class AdminController {
             @Override
             public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
                 Class classToDisplay = listViewClassesToSchedule.getSelectionModel().getSelectedItem();
-
+                if (classToDisplay != null) {
                     cmboBoxSemesterSchedule.setValue(classToDisplay.getSemester());
                     cmboBoxDurationSchedule.setValue(classToDisplay.getClassDuration());
-                    txtFieldAddTimeScheduleClass.setText(String.valueOf(classToDisplay.getTimeStart()));
                     cmboBoxDaySchedule.setValue(classToDisplay.getDay());
                     txtFieldAddRoomNumberScheduleClass.setText(String.valueOf(classToDisplay.getRoom()));
-
+                    if (classToDisplay.getTimeStart().toString() != null) {
+                        txtFieldAddTimeScheduleClass.setText(classToDisplay.getTimeStart().toString());
+                    }
+                }
             }
         });
     }
