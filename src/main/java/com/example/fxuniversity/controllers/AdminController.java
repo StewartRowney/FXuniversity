@@ -363,6 +363,7 @@ public class AdminController {
     }
 
     public void setUpCourseList(ListView<Course> listViewCourses) {
+        listViewCourses.getItems().clear();
         Collection<Course> courseCollection = Database.getAllCourses();
         if(listViewCourses != null) {
             listViewCourses.getItems().removeAll(courseCollection);
@@ -404,23 +405,21 @@ public class AdminController {
     }
 
     void manageCourses() {
-        listViewCoursesPreReqs.getItems().clear();
-        Collection<Course> courses = Database.getAllCourses();
-        listViewCoursesPreReqs.getItems().addAll(courses);
+        setUpCourseList(listViewCoursesPreReqs);
         txtAreaPreReqsDescription.clear();
         listViewCoursesPreReqs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
             @Override
             public void changed(ObservableValue<? extends Course> observableValue, Course course, Course t1) {
                 Course courseToManager = listViewCoursesPreReqs.getSelectionModel().getSelectedItem();
-                txtAreaPreReqsDescription.setText(courseToManager.getPreReqs());
+                if (courseToManager.getPreReqs() != null) {
+                    txtAreaPreReqsDescription.setText(courseToManager.getPreReqs());
+                }
             }
         });
     }
 
     void deleteCourses() {
-        listViewCoursesForDeletion.getItems().clear();
-        Collection<Course> courses = Database.getAllCourses();
-        listViewCoursesForDeletion.getItems().addAll(courses);
+        setUpCourseList(listViewCoursesForDeletion);
         txtAreaDescribeCourseForDeletion.clear();
         listViewCoursesForDeletion.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
 
