@@ -30,6 +30,8 @@ public class AdminController {
     @FXML
     private AnchorPane anchorPane;
 
+    @FXML
+    private Label lblWelcomeAdmin;
 
     @FXML
     private ComboBox<DayOfWeek> cmboBoxDaySchedule;
@@ -114,9 +116,6 @@ public class AdminController {
 
     @FXML
     private TextField getStudentPhone;
-
-    @FXML
-    private Label lblWelcomeAdmin;
 
     @FXML
     private ListView<Class> listViewClassesForDeleteClass;
@@ -229,6 +228,10 @@ public class AdminController {
     @FXML
     private TextField txtFieldAddRoomNumberScheduleClass;
 
+    @FXML
+    private void setWelcomeLabel(String welcomeMessage){
+        lblWelcomeAdmin.setText(welcomeMessage);
+    }
     private Admin admin;
 
 
@@ -473,11 +476,11 @@ public class AdminController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setContentText(alertMessage);
-        Optional<ButtonType> result = alert.showAndWait();
-        return result;
+        return alert.showAndWait();
     }
 
     public void setUpAdminController (Admin admin){
         this.admin = admin;
+        setWelcomeLabel("Welcome Admin");
     }
 }

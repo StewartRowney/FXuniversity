@@ -82,7 +82,7 @@ public class StudentController {
     private TextArea txtArea_Courses_CourseDescription;
 
     @FXML
-    public void setWelcomeLabel(String welcomeMessage){
+    private void setWelcomeLabel(String welcomeMessage){
         lblWelcome.setText(welcomeMessage);
     }
 
@@ -153,7 +153,7 @@ public class StudentController {
 
     public void setUpStudentController(Student student) {
         this.currentStudent = student;
-        setWelcomeLabel("welcome " + student.getName());
+        setWelcomeLabel("Welcome Student " + student.getName());
         addListeners();
     }
 

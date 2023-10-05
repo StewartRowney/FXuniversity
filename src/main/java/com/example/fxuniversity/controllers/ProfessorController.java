@@ -28,6 +28,9 @@ public class ProfessorController {
     private AnchorPane anchorPane;
 
     @FXML
+    private Label lblWelcomeProfessor;
+
+    @FXML
     private ListView<Class> listView_AddGrade_Classes;
 
     @FXML
@@ -80,6 +83,11 @@ public class ProfessorController {
 
     @FXML
     private Tab tbSeeGrades;
+
+    @FXML
+    private void setWelcomeLabel(String welcomeMessage){
+        lblWelcomeProfessor.setText(welcomeMessage);
+    }
 
     private final ChangeListener<Class> listViewAddGradeClassesListener = (observableValue, aClass, t1) -> {
         Class selectedClass = listView_AddGrade_Classes.getSelectionModel().getSelectedItem();
@@ -157,6 +165,7 @@ public class ProfessorController {
 
     public void setupProfessorController(Professor professor) {
         this.currentProfessor = professor;
+        setWelcomeLabel("Welcome Professor " + professor.getName());
         setUpRadioGroup();
         listView_AddGrade_Classes.getSelectionModel().selectedItemProperty().addListener(listViewAddGradeClassesListener);
         listView_SeeGrades_Classes.getSelectionModel().selectedItemProperty().addListener(listViewSeeGradeClassesListener);
