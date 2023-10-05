@@ -20,122 +20,54 @@ import java.util.Collection;
 public class LoginController {
 
     @FXML
-    private ComboBox<?> cmboBoxAdmin;
-
-    @FXML
-    private ComboBox<Professor> cmboBoxProffessor;
-
-    @FXML
-    private ComboBox<Student> cmboBoxStudent;
-
-    @FXML
     private AnchorPane anchorPane;
-
-    @FXML
-    private Button btnAdmin;
-
-    @FXML
-    private Button btnProfessor;
-
-    @FXML
-    private Button btnStudent;
-
-    @FXML
-    private HBox hbxButtons;
 
     @FXML
     private TextField txtFieldEnterEmail;
 
     @FXML
-    private Label txtFielderror;
+    private Label txtFieldError;
+
 
     @FXML
-    void onLoginButton(ActionEvent event) throws IOException {
-        txtFielderror.setText("");
+    void onLoginButton() throws IOException {
+        txtFieldError.setText("");
         String email = txtFieldEnterEmail.getText();
         IUser currentUser = Database.logIn(email);
         Stage stage = (Stage) anchorPane.getScene().getWindow();
+        String title = "";
+        Scene scene = null;
 
         if(currentUser == null) {
-            txtFielderror.setText("Invalid email. Please try again or contact your administrator for help.");
+            txtFieldError.setText("Invalid email. Please try again or contact your administrator for help.");
+            return;
         }
         else if(currentUser instanceof Student student) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Student");
+            scene = new Scene(fxmlLoader.load());
+            title = "Student";
             StudentController controller = fxmlLoader.getController();
             controller.setUpStudentController(Database.getStudent(student.getId()));
-            showScene(scene);
         }
         else if(currentUser instanceof Professor prof){
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("professor-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Professor");
+            scene = new Scene(fxmlLoader.load());
+            title = "Professor";
             ProfessorController controller = fxmlLoader.getController();
             controller.setupProfessorController(Database.getProfessor(prof.getId()));
-            showScene(scene);
         }
-        else if (currentUser instanceof Admin admin) {
+        else if (currentUser instanceof Admin) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("admin-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Admin");
-            showScene(scene);
+            scene = new Scene(fxmlLoader.load());
+            title ="Admin";
         }
 
-    }
-
-    @FXML
-    void onAdminLogin(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("admin-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle(title);
         showScene(scene);
     }
 
-    @FXML
-    void onProfessorLogin(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("professor-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ProfessorController controller = fxmlLoader.getController();
-        controller.setupProfessorController(cmboBoxProffessor.getValue());
-        showScene(scene);
-    }
-
-    @FXML
-    void onStudentLogin(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        StudentController controller = fxmlLoader.getController();
-        controller.setUpStudentController(cmboBoxStudent.getValue());
-        showScene(scene);
-    }
-
-    private void showScene(Scene scene) throws IOException {
+    private void showScene(Scene scene){
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.setScene(scene);
-    }
-
-    public void loadComboBoxes() {
-        loadStudents();
-        loadProfessors();
-    }
-
-    private void loadStudents() {
-        Collection<Student> students = Database.getStudentHashMap().values();
-        for (Student student : students) {
-            cmboBoxStudent.getItems().add(student);
-        }
-    }
-
-    private void loadProfessors() {
-        Collection<Professor> professors = Database.getProfessorHashMap().values();
-        for (Professor professor : professors) {
-            cmboBoxProffessor.getItems().add(professor);
-        }
-    }
-
-    private void loadAdmins() {
-
     }
 }

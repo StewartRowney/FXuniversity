@@ -371,8 +371,6 @@ public class AdminController {
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.setTitle("University login");
-        LoginController controller = fxmlLoader.getController();
-        controller.loadComboBoxes();
         stage.setScene(scene);
     }
 
