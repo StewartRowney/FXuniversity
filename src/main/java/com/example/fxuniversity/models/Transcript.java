@@ -18,7 +18,7 @@ public class Transcript {
     }
 
     public String toString(){
-        return "Course: " + Database.getCourseFromClass(classID) + " Grade: " + grade;
+        return "Course: " + Database.getAllCourseFromClass(classID) + " Grade: " + grade;
     }
 
     public UUID getId() {

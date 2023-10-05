@@ -162,7 +162,7 @@ public class StudentController {
 
     public void setUpCourseList(ArrayList<UUID> coursesFromDept) {
         Collection<Course> coursesStudentNotOn = Database.getAllCoursesAStudentIsNotAlreadyOn(currentStudent.getId());
-        Collection<Course> courseFromDepartment = Database.getCoursesFromDepartment(coursesFromDept);
+        Collection<Course> courseFromDepartment = Database.getAllCoursesFromDepartment(coursesFromDept);
 
         ArrayList<Course> coursesToDisplay = new ArrayList<>();
         listView_Course_Courses.getItems().clear();

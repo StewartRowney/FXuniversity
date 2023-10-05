@@ -4,8 +4,6 @@ import com.example.fxuniversity.models.relationships.CourseClassRelationship;
 import com.example.fxuniversity.models.relationships.ProfessorClassRelationship;
 import com.example.fxuniversity.models.relationships.StudentClassRelationship;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -24,44 +22,7 @@ public class Database {
     private static final ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
     private static final HashMap<String, IUser> userLoginHashMap = new HashMap<>();
 
-
-    public static void setUpDatabase(){
-//        loadStudentData();
-//        loadProfessorData();
-//        loadClassData();
-//        loadCourseData();
-        populatePCR();
-    }
-    private static void loadStudentData() {
-
-        try (Scanner fileScanner = new Scanner(new File("src/main/resources/studentmockdata.csv"))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] splitter = line.split(",");
-                Student student = new Student(splitter[0], splitter[1], splitter[2], splitter[3], splitter[4]);
-                studentHashMap.put(student.getId(), student);
-            }
-        } catch (FileNotFoundException fnfe) {
-            System.err.println("Hey, we couldn't find the file");
-        }
-    }
-    private static void loadProfessorData() {
-
-        try (Scanner fileScanner = new Scanner(new File("src/main/resources/professormockdata.csv"))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] splitter = line.split(",");
-
-                Professor professor = new Professor(splitter[0], splitter[1], splitter[2], splitter[3],  UUID.randomUUID(), Integer.parseInt(splitter[5].trim()));
-                professorHashMap.put(professor.getId(), professor);
-
-            }
-        } catch (FileNotFoundException fnfe) {
-            System.err.println("Hey, we couldn't find the file");
-        }
-    }
-
-    public static void populatePCR() {
+    public static void setUpDatabase() {
         Admin admin = new Admin();
         userLoginHashMap.put(admin.getEmailAddress(), admin);
 
@@ -90,7 +51,7 @@ public class Database {
         for (Class c: classes) {
             classHashMap.put(c.getId(), c);
         }
-        
+
         Department department1 = new Department("Physics");
         Department department2 = new Department("Maths");
         Department[] departments = {department1, department2};
@@ -106,7 +67,7 @@ public class Database {
             professorHashMap.put(p.getId(), p);
             userLoginHashMap.put(p.getEmailAddress(), p);
         }
-        
+
         Course course1 = new Course("Legit Course", "super legit", "None", "", "ENG109");
         Course course2 = new Course("Empty Course", "you do nothing", "None", "", "ENG105");
         Course course3 = new Course("Another Course", "course", "None", "", "ENG100");
@@ -114,11 +75,11 @@ public class Database {
         for (Course c: courses) {
             courseHashMap.put(c.getId(), c);
         }
-        
+
         department1.addCourse(course1.getId());
         department2.addCourse(course2.getId());
         department2.addCourse(course3.getId());
-        
+
         department1.addProfessors(prof1.getId());
         department2.addProfessors(prof2.getId());
         department2.addProfessors(prof3.getId());
@@ -161,116 +122,14 @@ public class Database {
         studentClassRelationshipArrayList.add(new StudentClassRelationship(student9.getId(), class3.getId()));
 
     }
-    private static void loadClassData() {
-
-        try (Scanner fileScanner = new Scanner(new File("src/main/resources/classesmockdata.csv"))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] splitter = line.split(",");
-
-                Class classroom = new Class(Integer.parseInt(splitter[0]), DayOfWeek.of(Integer.parseInt(splitter[1])), LocalTime.parse(splitter[2]), Duration.ofHours(Long.parseLong(splitter[3])), Double.parseDouble(splitter[4]));
-                classHashMap.put(classroom.getId(), classroom);
-
-            }
-        } catch (FileNotFoundException fnfe) {
-            System.err.println("Hey, we couldn't find the file");
-        }
-    }
-    private static void loadCourseData() {
-
-        try (Scanner fileScanner = new Scanner(new File("src/main/resources/coursemockdata.csv"))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] splitter = line.split(",");
-
-                Course course = new Course(splitter[0], splitter[1], splitter[2], "", splitter[3]);
-                courseHashMap.put(course.getId(), course);
-
-            }
-        } catch (FileNotFoundException fnfe) {
-            System.err.println("Hey, we couldn't find the file");
-        }
-    }
-
-    public static HashMap<UUID, Student> getStudentHashMap() {
-        return studentHashMap;
-    }
-
-    public static HashMap<UUID, Course> getCourseHashMap() {
-        return courseHashMap;
-    }
-
-    public static HashMap<UUID, Professor> getProfessorHashMap() {
-        return professorHashMap;
-    }
 
     public static Student getStudent(UUID id) {
         return studentHashMap.get(id);
     }
-
     public static Professor getProfessor(UUID id) {
         return professorHashMap.get(id);
     }
 
-
-    public static void addNewStudent(Student student) {
-        studentHashMap.put(student.getId(), student);
-        userLoginHashMap.put(student.getEmailAddress(), student);
-    }
-
-    public static Course getCourse(UUID id) {
-        return courseHashMap.get(id);
-    }
-    public static void addNewCourse(Course course, UUID departmentId) {
-        courseHashMap.put(course.getId(), course);
-        courseClassRelationshipArrayList.add(new CourseClassRelationship(course.getId()));
-        departmentHashMap.get(departmentId).addCourse(course.getId());
-    }
-    public static void removeCourse(Course courseToRemove) {
-        courseHashMap.remove(courseToRemove.getId());
-
-        for (CourseClassRelationship ccr : courseClassRelationshipArrayList) {
-            if(ccr.getCourseID() == courseToRemove.getId()) {
-                courseClassRelationshipArrayList.remove(ccr);
-            }
-        }
-
-        for (Department d: departmentHashMap.values()) {
-            if(d.getCourses().contains(d)) {
-                d.removeCourse(courseToRemove.getId());
-            }
-        }
-    }
-    public static void addNewClass(Class newClass, Course course) {
-        classHashMap.put(newClass.getId(), newClass);
-        for (CourseClassRelationship ccr: courseClassRelationshipArrayList) {
-            if (ccr.getCourseID() == course.getId()) {
-                ccr.addClass(newClass.getId());
-                break;
-            }
-        }
-    }
-
-    public static void removeClass(Class classToRemove) {
-        classHashMap.remove(classToRemove.getId());
-
-        for (CourseClassRelationship ccr : courseClassRelationshipArrayList) {
-            if(ccr.getClassIDs().contains(classToRemove.getId())) {
-                ccr.removeClass(classToRemove.getId());
-            }
-        }
-
-        for (StudentClassRelationship src: studentClassRelationshipArrayList) {
-            if (src.classID() == classToRemove.getId()) {
-                studentClassRelationshipArrayList.remove(src);
-            }
-        }
-
-    }
-
-    public static void addStudentToClass(StudentClassRelationship src) {
-        studentClassRelationshipArrayList.add(src);
-    }
 
     public static Collection<Class> getAllClassesInCourse(UUID courseId) {
         ArrayList<UUID> classIds = new ArrayList<>();
@@ -288,7 +147,6 @@ public class Database {
 
         return classes;
     }
-
     public static Collection<Class> getAllClassesForProfessor(UUID professorId) {
         ArrayList<UUID> classIds = new ArrayList<>();
         for (ProfessorClassRelationship pcr : professorClassRelationshipArrayList) {
@@ -304,8 +162,6 @@ public class Database {
 
         return classes;
     }
-
-
     public static Collection<Class> getAllProfessorClassesForDay(UUID professorId, DayOfWeek day) {
         Collection<Class> classes = Database.getAllClassesForProfessor(professorId);
         Collection<Class> relevantClasses = new ArrayList<>();
@@ -316,7 +172,6 @@ public class Database {
         }
         return relevantClasses;
     }
-
     public static Collection<Student> getAllStudentsInClass(UUID classId) {
         ArrayList<UUID> studentIds = new ArrayList<>();
         for (StudentClassRelationship scr : studentClassRelationshipArrayList) {
@@ -332,7 +187,6 @@ public class Database {
 
         return students;
     }
-
     public static Collection<Student> getAllStudentsInClassNotGradedYet(UUID classId) {
         Collection<Student> allStudentsInClass = Database.getAllStudentsInClass(classId);
         Collection<Transcript> allClassTranscripts = Database.getAllTranscriptsForClass(classId);
@@ -350,7 +204,6 @@ public class Database {
         allStudentsInClass.removeAll(studentsWithTranscript);
         return allStudentsInClass;
     }
-
     public static Collection<Course> getAllCoursesAStudentIsNotAlreadyOn(UUID studentId) {
         ArrayList<UUID> listOfClassIdsStudentIsOn = new ArrayList<>();
         for (StudentClassRelationship src: studentClassRelationshipArrayList) {
@@ -377,11 +230,6 @@ public class Database {
         }
         return coursesStudentIsNot;
     }
-
-    public static void addNewTranscript(Transcript transcript) {
-        transcriptHashMap.put(transcript.getId(), transcript);
-    }
-
     public static Collection<Transcript> getAllStudentTranscripts(UUID studentId) {
         ArrayList<Transcript> transcripts = new ArrayList<>();
         for (Transcript t: transcriptHashMap.values()) {
@@ -391,7 +239,6 @@ public class Database {
         }
         return transcripts;
     }
-
     public static Collection<Transcript> getAllTranscriptsForClass(UUID classId) {
         ArrayList<Transcript> transcripts = new ArrayList<>();
         for (Transcript t: transcriptHashMap.values()) {
@@ -401,24 +248,7 @@ public class Database {
         }
         return transcripts;
     }
-
-    public static void editClass(Class editedClass) {
-        if (classHashMap.get(editedClass.getId()) != null) {
-            classHashMap.put(editedClass.getId(), editedClass);
-        }
-    }
-
-    public static void editCourse(Course editedCourse) {
-        if (courseHashMap.get(editedCourse.getId()) != null) {
-            courseHashMap.put(editedCourse.getId(), editedCourse);
-        }
-    }
-
-    public static Collection<Department> getAllDepartments() {
-        return departmentHashMap.values();
-    }
-
-    public static Collection<Course> getCoursesFromDepartment(Collection<UUID> ids) {
+    public static Collection<Course> getAllCoursesFromDepartment(Collection<UUID> ids) {
         ArrayList<Course> courses = new ArrayList<>();
         for (UUID id: ids) {
             Course course = courseHashMap.get(id);
@@ -426,8 +256,7 @@ public class Database {
         }
         return courses;
     }
-
-    public static Course getCourseFromClass(UUID classId) {
+    public static Course getAllCourseFromClass(UUID classId) {
         for (CourseClassRelationship ccr: courseClassRelationshipArrayList) {
             if (ccr.getClassIDs().contains(classId)) {
                 return courseHashMap.get(ccr.getCourseID());
@@ -435,9 +264,71 @@ public class Database {
         }
         return null;
     }
-
+    public static Collection<Department> getAllDepartments() {
+        return departmentHashMap.values();
+    }
     public static Collection<Course> getAllCourses() {
         return courseHashMap.values();
+    }
+
+    public static void addNewStudent(Student student) {
+        studentHashMap.put(student.getId(), student);
+        userLoginHashMap.put(student.getEmailAddress(), student);
+    }
+    public static void addNewCourse(Course course, UUID departmentId) {
+        courseHashMap.put(course.getId(), course);
+        courseClassRelationshipArrayList.add(new CourseClassRelationship(course.getId()));
+        departmentHashMap.get(departmentId).addCourse(course.getId());
+    }
+    public static void addNewClass(Class newClass, Course course) {
+        classHashMap.put(newClass.getId(), newClass);
+        for (CourseClassRelationship ccr: courseClassRelationshipArrayList) {
+            if (ccr.getCourseID() == course.getId()) {
+                ccr.addClass(newClass.getId());
+                break;
+            }
+        }
+    }
+    public static void addStudentToClass(StudentClassRelationship src) {
+        studentClassRelationshipArrayList.add(src);
+    }
+    public static void addNewTranscript(Transcript transcript) {
+        transcriptHashMap.put(transcript.getId(), transcript);
+    }
+
+    public static void editClass(Class editedClass) {
+        if (classHashMap.get(editedClass.getId()) != null) {
+            classHashMap.put(editedClass.getId(), editedClass);
+        }
+    }
+    public static void editCourse(Course editedCourse) {
+        if (courseHashMap.get(editedCourse.getId()) != null) {
+            courseHashMap.put(editedCourse.getId(), editedCourse);
+        }
+    }
+
+    public static void removeClass(Class classToRemove) {
+        classHashMap.remove(classToRemove.getId());
+
+        for (CourseClassRelationship ccr : courseClassRelationshipArrayList) {
+            if(ccr.getClassIDs().contains(classToRemove.getId())) {
+                ccr.removeClass(classToRemove.getId());
+            }
+        }
+
+        studentClassRelationshipArrayList.removeIf(src -> src.classID() == classToRemove.getId());
+
+    }
+    public static void removeCourse(Course courseToRemove) {
+        courseHashMap.remove(courseToRemove.getId());
+
+        courseClassRelationshipArrayList.removeIf(ccr -> ccr.getCourseID() == courseToRemove.getId());
+
+        for (Department d: departmentHashMap.values()) {
+            if(d.getCourses().contains(d.getId())) {
+                d.removeCourse(courseToRemove.getId());
+            }
+        }
     }
 
     public static IUser logIn(String emailAddress) {
