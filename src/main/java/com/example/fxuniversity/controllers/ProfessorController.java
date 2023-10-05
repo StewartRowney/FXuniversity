@@ -103,18 +103,8 @@ public class ProfessorController {
     @FXML
     void onAddGrade() {
         tabPane.getSelectionModel().select(tbAddGrade);
-        deSelectAllRadioBtns();
+        rdioBtnGradeA.setSelected(true);
         listAllClassesForProf();
-
-    }
-
-    private void deSelectAllRadioBtns() {
-        rdioBtnGradeA.setSelected(false);
-        rdioBtnGradeB.setSelected(false);
-        rdioBtnGradeC.setSelected(false);
-        rdioBtnGradeD.setSelected(false);
-        rdioBtnGradeE.setSelected(false);
-        rdioBtnGradeF.setSelected(false);
     }
 
     @FXML
@@ -182,7 +172,7 @@ public class ProfessorController {
     }
 
     private void listClassStudents(UUID selectedClassID) {
-        Collection<Student> students = Database.getAllStudentsInClass(selectedClassID);
+        Collection<Student> students = Database.getAllStudentsInClassNotGradedYet(selectedClassID);
         listView_AddGrade_Students.getItems().clear();
         listView_AddGrade_Students.getItems().addAll(students);
     }

@@ -30,7 +30,7 @@ public class Class {
 
     @Override
     public String toString() {
-        return "Semester: "+ semester + " | Day: "+ day + " | Room: "+ room;
+        return "Semester: "+ semester + " | Day: "+ day + " | Time: "+ timeStart + " | Duration: "+ classDuration.toHours() + "hrs | Room: "+ room;
     }
 
     public int getSemester() {

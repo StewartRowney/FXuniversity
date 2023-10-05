@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 public class StudentController {
@@ -86,11 +87,13 @@ public class StudentController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setContentText("Are you sure you wish to enroll in this class?");
-        alert.showAndWait();
-
-        Class currentClass = listView_Class_Classes.getSelectionModel().getSelectedItem();
-        StudentClassRelationship src = new StudentClassRelationship(currentStudent.getId(), currentClass.getId());
-        Database.addStudentToClass(src);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Class currentClass = listView_Class_Classes.getSelectionModel().getSelectedItem();
+            StudentClassRelationship src = new StudentClassRelationship(currentStudent.getId(), currentClass.getId());
+            Database.addStudentToClass(src);
+            tabPane.getSelectionModel().select(tbHomepage);
+        }
     }
 
     @FXML

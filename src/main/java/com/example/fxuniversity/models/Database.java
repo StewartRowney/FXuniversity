@@ -204,6 +204,11 @@ public class Database {
     public static Student getStudent(UUID id) {
         return studentHashMap.get(id);
     }
+
+    public static Professor getProfessor(UUID id) {
+        return professorHashMap.get(id);
+    }
+
     public static void addNewStudent(Student student) {
         studentHashMap.put(student.getId(), student);
         userLoginHashMap.put(student.getEmailAddress(), student);
@@ -322,6 +327,24 @@ public class Database {
         }
 
         return students;
+    }
+
+    public static Collection<Student> getAllStudentsInClassNotGradedYet(UUID classId) {
+        Collection<Student> allStudentsInClass = Database.getAllStudentsInClass(classId);
+        Collection<Transcript> allClassTranscripts = Database.getAllTranscriptsForClass(classId);
+        ArrayList<Student> studentsWithTranscript = new ArrayList<>();
+
+        for (Student student: allStudentsInClass) {
+            for (Transcript transcript: allClassTranscripts) {
+                if (transcript.getStudentID() == student.getId()) {
+                    studentsWithTranscript.add(student);
+                    break;
+                }
+            }
+        }
+
+        allStudentsInClass.removeAll(studentsWithTranscript);
+        return allStudentsInClass;
     }
 
     public static Collection<Course> getAllCoursesAStudentIsNotAlreadyOn(UUID studentId) {

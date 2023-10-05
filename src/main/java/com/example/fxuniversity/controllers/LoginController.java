@@ -2,6 +2,7 @@ package com.example.fxuniversity.controllers;
 
 import com.example.fxuniversity.Main;
 import com.example.fxuniversity.models.Database;
+import com.example.fxuniversity.models.IUser;
 import com.example.fxuniversity.models.Professor;
 import com.example.fxuniversity.models.Student;
 import javafx.event.ActionEvent;
@@ -10,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -42,6 +45,44 @@ public class LoginController {
 
     @FXML
     private HBox hbxButtons;
+
+    @FXML
+    private TextField txtFieldEnterEmail;
+
+    @FXML
+    private Label txtFielderror;
+
+    @FXML
+    void onLoginButton(ActionEvent event) throws IOException {
+        txtFielderror.setText("");
+        IUser currentUser;
+        String email = txtFieldEnterEmail.getText();
+        currentUser = Database.logIn(email);
+        if(currentUser == null ) {
+            txtFielderror.setText("Invalid email. Please try again or contact your administrator for help.");
+        }
+        else if(currentUser instanceof Student student) {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            StudentController controller = fxmlLoader.getController();
+            controller.setUpStudentController(Database.getStudent(student.getId()));
+            showScene(scene);
+        }
+        else if(currentUser instanceof Professor prof){
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("professor-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            ProfessorController controller = fxmlLoader.getController();
+            controller.setupProfessorController(Database.getProfessor(prof.getId()));
+            showScene(scene);
+        }
+        else {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("admin-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            showScene(scene);
+        }
+    }
 
     @FXML
     void onAdminLogin(ActionEvent event) throws IOException {
