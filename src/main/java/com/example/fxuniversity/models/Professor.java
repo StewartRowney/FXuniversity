@@ -2,7 +2,7 @@ package com.example.fxuniversity.models;
 
 import java.util.UUID;
 
-public class Professor {
+public class Professor implements IUser{
 
     private UUID id;
     private String name;
@@ -42,7 +42,7 @@ public class Professor {
         return phoneNumber;
     }
 
-    public String getEmail() {
+    public String getEmailAddress() {
         return email;
     }
 

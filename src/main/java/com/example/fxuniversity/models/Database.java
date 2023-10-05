@@ -1,5 +1,9 @@
 package com.example.fxuniversity.models;
 
+import com.example.fxuniversity.models.relationships.CourseClassRelationship;
+import com.example.fxuniversity.models.relationships.ProfessorClassRelationship;
+import com.example.fxuniversity.models.relationships.StudentClassRelationship;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.DayOfWeek;
@@ -18,6 +22,7 @@ public class Database {
     private static final ArrayList<CourseClassRelationship> courseClassRelationshipArrayList = new ArrayList<>();
     private static final ArrayList<ProfessorClassRelationship> professorClassRelationshipArrayList = new ArrayList<>();
     private static final ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
+    private static final HashMap<String, IUser> userLoginHashMap = new HashMap<>();
 
 
     public static void setUpDatabase(){
@@ -57,20 +62,21 @@ public class Database {
     }
 
     public static void populatePCR() {
-        Student student1 = new Student("Stewart","","","","");
-        Student student2 = new Student("Thomas","","","","");
-        Student student3 = new Student("Abhijeet","","","","");
-        Student student4 = new Student("Jim","","","","");
-        Student student5 = new Student("Tom","","","","");
-        Student student6 = new Student("Bob","","","","");
-        Student student7 = new Student("Jack","","","","");
-        Student student8 = new Student("Hamish","","","","");
-        Student student9 = new Student("Bert","","","","");
-        Student student10 = new Student("Ayush", "", "", "","");
+        Student student1 = new Student("Stewart","","","stewart@student.com","");
+        Student student2 = new Student("Thomas","","","thomas@student.com","");
+        Student student3 = new Student("Abhijeet","","","abhijeet@student.com","");
+        Student student4 = new Student("Jim","","","jim@student.com","");
+        Student student5 = new Student("Tom","","","tom@student.com","");
+        Student student6 = new Student("Bob","","","bob@student.com","");
+        Student student7 = new Student("Jack","","","jack@student.com","");
+        Student student8 = new Student("Hamish","","","hamish@student.com","");
+        Student student9 = new Student("Bert","","","bert@student.com","");
+        Student student10 = new Student("Ayush", "", "", "ayush@student.com","");
 
         Student[] students = {student1, student2, student3, student4, student5, student6, student7, student8, student9,student10};
         for (Student s: students) {
             studentHashMap.put(s.getId(), s);
+            userLoginHashMap.put(s.getEmailAddress(), s);
         }
 
         Class class1 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(12,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
@@ -89,12 +95,13 @@ public class Database {
             departmentHashMap.put(d.getId(), d);
         }
 
-        Professor prof1 = new Professor("Ayush", "Aysuh12", "123", "pn@pn", department1.getId(), 69);
-        Professor prof2 = new Professor("Bill", "Aysuh124", "12354", "pn@pn45", department2.getId(), 67);
-        Professor prof3 = new Professor("Dave", "Aysuh125", "1234", "pn@ph", department2.getId(), 68);
+        Professor prof1 = new Professor("Ayush", "Aysuh12", "123", "ayush@professor.com", department1.getId(), 69);
+        Professor prof2 = new Professor("Bill", "Aysuh124", "12354", "bill@professor.com", department2.getId(), 67);
+        Professor prof3 = new Professor("Dave", "Aysuh125", "1234", "dave@professor.com", department2.getId(), 68);
         Professor[] professors = {prof1, prof2, prof3};
         for (Professor p: professors) {
             professorHashMap.put(p.getId(), p);
+            userLoginHashMap.put(p.getEmailAddress(), p);
         }
         
         Course course1 = new Course("Legit Course", "super legit", "None", "", "ENG109");
@@ -199,6 +206,7 @@ public class Database {
     }
     public static void addNewStudent(Student student) {
         studentHashMap.put(student.getId(), student);
+        userLoginHashMap.put(student.getEmailAddress(), student);
     }
 
     public static Course getCourse(UUID id) {
@@ -206,6 +214,7 @@ public class Database {
     }
     public static void addNewCourse(Course course) {
         courseHashMap.put(course.getId(), course);
+        courseClassRelationshipArrayList.add(new CourseClassRelationship(course.getId()));
     }
     public static void removeCourse(Course courseToRemove) {
         courseHashMap.remove(courseToRemove.getId());
@@ -401,6 +410,10 @@ public class Database {
 
     public static Collection<Course> getAllCourses() {
         return courseHashMap.values();
+    }
+
+    public static IUser logIn(String emailAddress) {
+        return userLoginHashMap.get(emailAddress);
     }
 
 }
