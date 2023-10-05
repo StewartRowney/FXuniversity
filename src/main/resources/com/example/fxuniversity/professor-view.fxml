@@ -40,7 +40,7 @@
                      <children>
                         <Button fx:id="btn_Home_Schedule" layoutX="162.0" layoutY="161.0" mnemonicParsing="false" onAction="#onSeeSchedule" text="Schedule" />
                         <Button fx:id="btn_Home_AddGrade" layoutX="380.0" layoutY="161.0" mnemonicParsing="false" onAction="#onAddGrade" text="Add Grade" />
-                        <Button fx:id="btn_Home_SeeGrades" layoutX="249.0" layoutY="113.0" mnemonicParsing="false" onAction="#onSeeGradesAction" text="See Grades" />
+                        <Button fx:id="btn_Home_SeeGrades" layoutX="262.0" layoutY="117.0" mnemonicParsing="false" onAction="#onSeeGradesAction" text="See Grades" />
                      </children>
                   </AnchorPane>
             </content>
