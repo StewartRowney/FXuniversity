@@ -52,12 +52,11 @@ public class LoginController {
     @FXML
     void onLoginButton(ActionEvent event) throws IOException {
         txtFielderror.setText("");
-        IUser currentUser;
         String email = txtFieldEnterEmail.getText();
-        currentUser = Database.logIn(email);
+        IUser currentUser = Database.logIn(email);
         Stage stage = (Stage) anchorPane.getScene().getWindow();
 
-        if(currentUser == null ) {
+        if(currentUser == null) {
             txtFielderror.setText("Invalid email. Please try again or contact your administrator for help.");
         }
         else if(currentUser instanceof Student student) {

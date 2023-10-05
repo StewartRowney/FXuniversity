@@ -62,6 +62,9 @@ public class Database {
     }
 
     public static void populatePCR() {
+        Admin admin = new Admin();
+        userLoginHashMap.put(admin.getEmailAddress(), admin);
+
         Student student1 = new Student("Stewart","","","stewart@student.com","");
         Student student2 = new Student("Thomas","","","thomas@student.com","");
         Student student3 = new Student("Abhijeet","","","abhijeet@student.com","");
