@@ -45,6 +45,9 @@ public class ProfessorController {
     private ListView<String> listView_SeeGrades_Transcripts;
 
     @FXML
+    private Button btn_AddGrade_Confirm;
+
+    @FXML
     private RadioButton rdioBtnGradeA;
 
     @FXML
@@ -100,6 +103,7 @@ public class ProfessorController {
     void onAddGrade() {
         tabPane.getSelectionModel().select(tbAddGrade);
         listAllClassesForProf();
+
     }
 
     @FXML
@@ -199,5 +203,7 @@ public class ProfessorController {
         String grade = ((RadioButton) radioToggleGroup.getSelectedToggle()).getText();
         Database.addNewTranscript(new Transcript(selectedClass.getId(), selectedStudent.getId(), grade));
     }
+
+
 
 }
