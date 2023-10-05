@@ -48,6 +48,7 @@ public class AdminController {
 
     @FXML
     private ComboBox<Integer> cmbBoxSemesterAddClass;
+
     @FXML
     private ComboBox<Department> cmbBoxDepartmentAddCourse;
 
@@ -224,6 +225,9 @@ public class AdminController {
 
     @FXML
     private TextField txtFieldTimeAddClass;
+
+    @FXML
+    private TextField txtFieldAddRoomNumberScheduleClass;
 
 
     @FXML
@@ -449,12 +453,13 @@ public class AdminController {
             @Override
             public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
                 Class classToDisplay = listViewClassesToSchedule.getSelectionModel().getSelectedItem();
-                if (classToDisplay != null) {
+
                     cmboBoxSemesterSchedule.setValue(classToDisplay.getSemester());
                     cmboBoxDurationSchedule.setValue(classToDisplay.getClassDuration());
                     txtFieldAddTimeScheduleClass.setText(String.valueOf(classToDisplay.getTimeStart()));
                     cmboBoxDaySchedule.setValue(classToDisplay.getDay());
-                }
+                    txtFieldAddRoomNumberScheduleClass.setText(String.valueOf(classToDisplay.getRoom()));
+
             }
         });
     }
