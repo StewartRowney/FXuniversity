@@ -210,7 +210,6 @@ public class Database {
     }
 
 
-
     public static void addNewStudent(Student student) {
         studentHashMap.put(student.getId(), student);
         userLoginHashMap.put(student.getEmailAddress(), student);

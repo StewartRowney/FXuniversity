@@ -229,6 +229,8 @@ public class AdminController {
     @FXML
     private TextField txtFieldAddRoomNumberScheduleClass;
 
+    private Admin admin;
+
 
     @FXML
     void onAddClassToCourse(ActionEvent event) {
@@ -472,4 +474,7 @@ public class AdminController {
         return result;
     }
 
+    public void setUpAdminController (Admin admin){
+        this.admin = admin;
+    }
 }

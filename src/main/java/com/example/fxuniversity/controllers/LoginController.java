@@ -74,9 +74,12 @@ public class LoginController {
             controller.setupProfessorController(Database.getProfessor(prof.getId()));
             showScene(scene);
         }
-        else if (currentUser instanceof Admin admin) {
+        else if (currentUser instanceof Admin admin ) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("admin-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+
+            AdminController controller = fxmlLoader.getController();
+            controller.setUpAdminController(admin);
             showScene(scene);
         }
     }
