@@ -212,9 +212,10 @@ public class Database {
     public static Course getCourse(UUID id) {
         return courseHashMap.get(id);
     }
-    public static void addNewCourse(Course course) {
+    public static void addNewCourse(Course course, UUID departmentId) {
         courseHashMap.put(course.getId(), course);
         courseClassRelationshipArrayList.add(new CourseClassRelationship(course.getId()));
+        departmentHashMap.get(departmentId).addCourse(course.getId());
     }
     public static void removeCourse(Course courseToRemove) {
         courseHashMap.remove(courseToRemove.getId());
