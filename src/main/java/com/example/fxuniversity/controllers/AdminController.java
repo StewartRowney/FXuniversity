@@ -408,7 +408,7 @@ public class AdminController {
 
             @Override
             public void changed(ObservableValue<? extends Course> observableValue, Course course, Course t1) {
-                Course courseToManager = listViewCoursesPreReqs.getSelectionModel().getSelectedItem();
+                Course courseToManager = listViewCoursesForDeletion.getSelectionModel().getSelectedItem();
                 txtAreaDescribeCourseForDeletion.setText(courseToManager.getDescription());
             }
         });

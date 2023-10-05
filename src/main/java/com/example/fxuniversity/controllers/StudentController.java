@@ -162,6 +162,7 @@ public class StudentController {
     }
 
     public void setUpDepartmentList() {
+        listViewDepartment.getItems().clear();
         Collection<Department> departments = Database.getAllDepartments();
         for (Department department: departments){
             listViewDepartment.getItems().add(department);
