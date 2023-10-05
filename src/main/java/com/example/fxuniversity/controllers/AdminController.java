@@ -21,7 +21,6 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Optional;
-import java.util.UUID;
 
 public class AdminController {
 
@@ -49,6 +48,9 @@ public class AdminController {
 
     @FXML
     private ComboBox<Integer> cmbBoxSemesterAddClass;
+
+    @FXML
+    private ComboBox<Department> cmbBoxDepartmentAddCourse;
 
     @FXML
     private Button btnAddClass;
@@ -224,6 +226,9 @@ public class AdminController {
     @FXML
     private TextField txtFieldTimeAddClass;
 
+    @FXML
+    private TextField txtFieldAddRoomNumberScheduleClass;
+
 
     @FXML
     void onAddClassToCourse(ActionEvent event) {
@@ -239,7 +244,7 @@ public class AdminController {
     @FXML
     void onAddCourseButton(ActionEvent event) {
         Course newCourse = new Course(txtFieldCourseName.getText(), txtAreaCourseDescription.getText(), txtAreaCourseReqBooks.getText(), txtAreaCoursePrereqs.getText(), txtFieldCourseNumber.getText());
-        Database.addNewCourse(newCourse, UUID.randomUUID());
+        Database.addNewCourse(newCourse, cmbBoxDepartmentAddCourse.getValue().getId());
         tabPane.getSelectionModel().select(tbHome);
     }
 
@@ -286,6 +291,9 @@ public class AdminController {
     void OnAddCourse(ActionEvent event) {
         tabPane.getSelectionModel().select(tbAddCourse);
         clearAddCourseFields();
+        cmbBoxDepartmentAddCourse.getItems().clear();
+        Collection<Department> departments = Database.getAllDepartments();
+        cmbBoxDepartmentAddCourse.getItems().addAll(departments);
     }
 
     @FXML
@@ -364,6 +372,7 @@ public class AdminController {
     }
 
     public void setUpCourseList(ListView<Course> listViewCourses) {
+        listViewCourses.getItems().clear();
         Collection<Course> courseCollection = Database.getAllCourses();
         if(listViewCourses != null) {
             listViewCourses.getItems().removeAll(courseCollection);
@@ -405,23 +414,21 @@ public class AdminController {
     }
 
     void manageCourses() {
-        listViewCoursesPreReqs.getItems().clear();
-        Collection<Course> courses = Database.getAllCourses();
-        listViewCoursesPreReqs.getItems().addAll(courses);
+        setUpCourseList(listViewCoursesPreReqs);
         txtAreaPreReqsDescription.clear();
         listViewCoursesPreReqs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
             @Override
             public void changed(ObservableValue<? extends Course> observableValue, Course course, Course t1) {
                 Course courseToManager = listViewCoursesPreReqs.getSelectionModel().getSelectedItem();
-                txtAreaPreReqsDescription.setText(courseToManager.getPreReqs());
+                if (courseToManager.getPreReqs() != null) {
+                    txtAreaPreReqsDescription.setText(courseToManager.getPreReqs());
+                }
             }
         });
     }
 
     void deleteCourses() {
-        listViewCoursesForDeletion.getItems().clear();
-        Collection<Course> courses = Database.getAllCourses();
-        listViewCoursesForDeletion.getItems().addAll(courses);
+        setUpCourseList(listViewCoursesForDeletion);
         txtAreaDescribeCourseForDeletion.clear();
         listViewCoursesForDeletion.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
 
@@ -446,12 +453,13 @@ public class AdminController {
             @Override
             public void changed(ObservableValue<? extends Class> observableValue, Class aClass, Class t1) {
                 Class classToDisplay = listViewClassesToSchedule.getSelectionModel().getSelectedItem();
-                if (classToDisplay != null) {
+
                     cmboBoxSemesterSchedule.setValue(classToDisplay.getSemester());
                     cmboBoxDurationSchedule.setValue(classToDisplay.getClassDuration());
                     txtFieldAddTimeScheduleClass.setText(String.valueOf(classToDisplay.getTimeStart()));
                     cmboBoxDaySchedule.setValue(classToDisplay.getDay());
-                }
+                    txtFieldAddRoomNumberScheduleClass.setText(String.valueOf(classToDisplay.getRoom()));
+
             }
         });
     }
