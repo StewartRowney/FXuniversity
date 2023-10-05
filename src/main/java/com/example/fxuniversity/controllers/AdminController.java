@@ -45,6 +45,15 @@ public class AdminController {
     private ComboBox<Integer> cmboBoxSemesterSchedule;
 
     @FXML
+    private ComboBox<DayOfWeek> cmbBoxDayAddClass;
+
+    @FXML
+    private ComboBox<Duration> cmbBoxDurationAddClass;
+
+    @FXML
+    private ComboBox<Integer> cmbBoxSemesterAddClass;
+
+    @FXML
     private Button btnAddClass;
 
     @FXML
@@ -117,7 +126,7 @@ public class AdminController {
     private ListView<Class> listViewClassesToSchedule;
 
     @FXML
-    private ListView<?> listViewCoursesForAddClass;
+    private ListView<Course> listViewCoursesForAddClass;
 
     @FXML
     private ListView<?> listViewCoursesForDeleteClass;
@@ -213,16 +222,35 @@ public class AdminController {
     private TextField txtFieldSemesterScheduleClasses;
 
     @FXML
-    void onAddClassToCourse(ActionEvent event) {
+    private TextField txtFieldRoomNumberAddClass;
 
+    @FXML
+    private TextField txtFieldTimeAddClass;
+
+
+    @FXML
+    void onAddClassToCourse(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Confirm and add new class to this course?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            Course courseToAdd = listViewCoursesForAddClass.getSelectionModel().getSelectedItem();
+            CourseClassRelationship ccr = new CourseClassRelationship(courseToAdd.getId());
+            Class newClass = new Class(cmbBoxSemesterAddClass.getValue(), cmbBoxDayAddClass.getValue(), LocalTime.parse(txtFieldTimeAddClass.getText()), cmbBoxDurationAddClass.getValue(), Double.parseDouble(txtFieldRoomNumberAddClass.getText()));
+            Database.addNewClass(newClass);
+            tabPane.getSelectionModel().select(tbHome);
+        }
     }
 
     @FXML
     void onAddCourseButton(ActionEvent event) {
-        Course newCourse = new Course(txtFieldCourseName.getText(), txtAreaCourseDescription.getText(), txtAreaCourseReqBooks.getText(), txtAreaCoursePrereqs.getText(), txtFieldCourseNumber.getText() );
+        Course newCourse = new Course(txtFieldCourseName.getText(), txtAreaCourseDescription.getText(), txtAreaCourseReqBooks.getText(), txtAreaCoursePrereqs.getText(), txtFieldCourseNumber.getText());
         Database.addNewCourse(newCourse);
         tabPane.getSelectionModel().select(tbHome);
     }
+
 
     @FXML
     void onAddPreReqs(ActionEvent event) {
@@ -258,6 +286,8 @@ public class AdminController {
 
     @FXML
     void OnAddClass(ActionEvent event) {
+        setUpCourseListForAddClass();
+        setComboBoxDataForAddClass();
         tabPane.getSelectionModel().select(tbAddClass);
     }
 
@@ -354,6 +384,16 @@ public class AdminController {
         }
     }
 
+    public void setUpCourseListForAddClass() {
+        Collection<Course> courseCollection = Database.getAllCourses();
+        listViewCoursesForAddClass.getItems().removeAll(courseCollection);
+        listViewCoursesForAddClass.getItems().clear();
+        for (Course course : courseCollection
+        ) {
+            listViewCoursesForAddClass.getItems().add(course);
+        }
+    }
+
     public void setUpListViewClassesSchedule(){
         listViewCoursesToSchedule.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
             @Override
@@ -383,6 +423,21 @@ public class AdminController {
                 DayOfWeek.SUNDAY);
         cmboBoxDurationSchedule.getItems().clear();
         cmboBoxDurationSchedule.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
+    }
+
+    public void setComboBoxDataForAddClass(){
+        cmbBoxSemesterAddClass.getItems().clear();
+        cmbBoxSemesterAddClass.getItems().addAll(1,2,3);
+        cmbBoxDayAddClass.getItems().clear();
+        cmbBoxDayAddClass.getItems().addAll(DayOfWeek.MONDAY,
+                DayOfWeek.TUESDAY,
+                DayOfWeek.WEDNESDAY,
+                DayOfWeek.THURSDAY,
+                DayOfWeek.FRIDAY,
+                DayOfWeek.SATURDAY,
+                DayOfWeek.SUNDAY);
+        cmbBoxDurationAddClass.getItems().clear();
+        cmbBoxDurationAddClass.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
     }
 
     void manageCourses() {
@@ -420,7 +475,6 @@ public class AdminController {
         txtAreaCourseReqBooks.clear();
         txtAreaCourseDescription.clear();
         txtFieldCourseNumber.clear();
-
     }
 
     public void populateScheduleInputBoxes(){
@@ -437,4 +491,5 @@ public class AdminController {
             }
         });
     }
+
 }
