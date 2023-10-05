@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import com.example.fxuniversity.models.Class;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 import java.time.DayOfWeek;
 
@@ -43,6 +44,9 @@ public class ProfessorController {
 
     @FXML
     private ListView<String> listView_SeeGrades_Transcripts;
+
+    @FXML
+    private Button btn_AddGrade_Confirm;
 
     @FXML
     private RadioButton rdioBtnGradeA;
@@ -99,13 +103,31 @@ public class ProfessorController {
     @FXML
     void onAddGrade() {
         tabPane.getSelectionModel().select(tbAddGrade);
+        deSelectAllRadioBtns();
         listAllClassesForProf();
+
+    }
+
+    private void deSelectAllRadioBtns() {
+        rdioBtnGradeA.setSelected(false);
+        rdioBtnGradeB.setSelected(false);
+        rdioBtnGradeC.setSelected(false);
+        rdioBtnGradeD.setSelected(false);
+        rdioBtnGradeE.setSelected(false);
+        rdioBtnGradeF.setSelected(false);
     }
 
     @FXML
     void onConfirmAddGrade() {
-        addAGradeForAStudent();
-        tabPane.getSelectionModel().select(tbHomepage);
+        if(listView_AddGrade_Students.getSelectionModel().getSelectedItem() != null && radioToggleGroup.getSelectedToggle() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Please select a Student and a Grade");
+            Optional<ButtonType> result = alert.showAndWait();
+        } else {
+            addAGradeForAStudent();
+            tabPane.getSelectionModel().select(tbHomepage);
+        }
     }
 
     @FXML
@@ -199,5 +221,7 @@ public class ProfessorController {
         String grade = ((RadioButton) radioToggleGroup.getSelectedToggle()).getText();
         Database.addNewTranscript(new Transcript(selectedClass.getId(), selectedStudent.getId(), grade));
     }
+
+
 
 }

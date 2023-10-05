@@ -24,6 +24,10 @@ public class CourseClassRelationship {
         return classID;
     }
 
+    public void addClass(UUID classId) {
+        classID.add(classId);
+    }
+
     public void removeClass(UUID classId) {
         classID.remove(classId);
     }
