@@ -237,9 +237,8 @@ public class AdminController {
 
         if (result.get() == ButtonType.OK) {
             Course courseToAdd = listViewCoursesForAddClass.getSelectionModel().getSelectedItem();
-            CourseClassRelationship ccr = new CourseClassRelationship(courseToAdd.getId());
             Class newClass = new Class(cmbBoxSemesterAddClass.getValue(), cmbBoxDayAddClass.getValue(), LocalTime.parse(txtFieldTimeAddClass.getText()), cmbBoxDurationAddClass.getValue(), Double.parseDouble(txtFieldRoomNumberAddClass.getText()));
-            Database.addNewClass(newClass);
+            Database.addNewClass(newClass, courseToAdd);
             tabPane.getSelectionModel().select(tbHome);
         }
     }
