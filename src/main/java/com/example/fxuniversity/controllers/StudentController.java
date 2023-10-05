@@ -197,7 +197,7 @@ public class StudentController {
             Course courseToDisplay = listView_Course_Courses.getSelectionModel().getSelectedItem();
             String setTextString;
             if (courseToDisplay != null) {
-                setTextString = "Course Description: " + courseToDisplay.getDescription() + "\nRequired Books: "+ courseToDisplay.getRequiredBooks()+"\nCourse Code: "+ courseToDisplay.getCourseNumber();
+                setTextString = "Course Description: " + courseToDisplay.getDescription() + "\nRequired Books: "+ courseToDisplay.getRequiredBooks()+"\nCourse Code: "+ courseToDisplay.getCourseNumber() + "\nPre-Requisites: " + courseToDisplay.getPreReqs();
             }
             else {
                 setTextString = "";
