@@ -206,6 +206,7 @@ public class Database {
     }
     public static void addNewStudent(Student student) {
         studentHashMap.put(student.getId(), student);
+        userLoginHashMap.put(student.getEmailAddress(), student);
     }
 
     public static Course getCourse(UUID id) {
@@ -213,6 +214,7 @@ public class Database {
     }
     public static void addNewCourse(Course course) {
         courseHashMap.put(course.getId(), course);
+        courseClassRelationshipArrayList.add(new CourseClassRelationship(course.getId()));
     }
     public static void removeCourse(Course courseToRemove) {
         courseHashMap.remove(courseToRemove.getId());
