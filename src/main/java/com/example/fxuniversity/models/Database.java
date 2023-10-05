@@ -324,6 +324,24 @@ public class Database {
         return students;
     }
 
+    public static Collection<Student> getAllStudentsInClassNotGradedYet(UUID classId) {
+        Collection<Student> allStudentsInClass = Database.getAllStudentsInClass(classId);
+        Collection<Transcript> allClassTranscripts = Database.getAllTranscriptsForClass(classId);
+        ArrayList<Student> studentsWithTranscript = new ArrayList<>();
+
+        for (Student student: allStudentsInClass) {
+            for (Transcript transcript: allClassTranscripts) {
+                if (transcript.getStudentID() == student.getId()) {
+                    studentsWithTranscript.add(student);
+                    break;
+                }
+            }
+        }
+
+        allStudentsInClass.removeAll(studentsWithTranscript);
+        return allStudentsInClass;
+    }
+
     public static Collection<Course> getAllCoursesAStudentIsNotAlreadyOn(UUID studentId) {
         ArrayList<UUID> listOfClassIdsStudentIsOn = new ArrayList<>();
         for (StudentClassRelationship src: studentClassRelationshipArrayList) {
