@@ -268,12 +268,11 @@ public class AdminController {
     void onDeleteClassAdmin(ActionEvent event) {
         Optional<ButtonType> result = showConfirmationAlert("Are you sure you wish to delete this class?");
         if (result.get() == ButtonType.OK) {
+            Class classToDelete = listViewClassesForDeleteClass.getSelectionModel().getSelectedItem();
+            Database.removeClass(classToDelete);
             tabPane.getSelectionModel().select(tbHome);
         }
-
     }
-
-
 
     @FXML
     void OnAddClass(ActionEvent event) {
@@ -298,7 +297,6 @@ public class AdminController {
         tabPane.getSelectionModel().select(tbDeleteClass);
         setUpCourseList(listViewCoursesForDeleteClass);
         setUpListViewClassesInACourse(listViewCoursesForDeleteClass, listViewClassesForDeleteClass);
-
     }
 
     @FXML
@@ -366,11 +364,10 @@ public class AdminController {
 
     public void setUpCourseList(ListView<Course> listViewCourses) {
         Collection<Course> courseCollection = Database.getAllCourses();
-        listViewCourses.getItems().removeAll(courseCollection);
-        listViewCourses.getItems().clear();
-        for (Course course : courseCollection
-        ) {
-            listViewCourses.getItems().add(course);
+        if(listViewCourses != null) {
+            listViewCourses.getItems().removeAll(courseCollection);
+            listViewCourses.getItems().clear();
+            listViewCourses.getItems().addAll(courseCollection);
         }
     }
 
@@ -401,6 +398,7 @@ public class AdminController {
                 DayOfWeek.FRIDAY,
                 DayOfWeek.SATURDAY,
                 DayOfWeek.SUNDAY);
+
         duration.getItems().clear();
         duration.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
     }
