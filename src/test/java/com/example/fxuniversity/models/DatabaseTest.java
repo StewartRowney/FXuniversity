@@ -100,7 +100,7 @@ class DatabaseTest {
     }
 
     @Test
-    void getAllProfessorClassesForDay() {
+    void test_getAllProfessorClassesForDay() {
 
         Database.addNewProfessor(prof);
         Database.addNewClass(classToAdd, testCourse);
@@ -114,7 +114,7 @@ class DatabaseTest {
     }
 
     @Test
-    void getAllStudentsInClass() {
+    void test_getAllStudentsInClass() {
 
         Database.addNewStudent(student);
         StudentClassRelationship scr = new StudentClassRelationship(student.getId(), classToAdd.getId());
@@ -126,7 +126,7 @@ class DatabaseTest {
     }
 
     @Test
-    void getAllStudentsInClassNotGradedYet() {
+    void test_getAllStudentsInClassNotGradedYet() {
         Student studentWithGrade = new Student("Graded Student", "", "", "", "");
         Database.addNewStudent(student);
         Database.addNewStudent(studentWithGrade);
