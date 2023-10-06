@@ -37,18 +37,6 @@ public class StudentController {
     private Button btn_Department_ShowCourses;
 
     @FXML
-    private Button btn_Header_Home;
-
-    @FXML
-    private Button btn_Header_Logout;
-
-    @FXML
-    private Button btn_Home_RegisterForCourse;
-
-    @FXML
-    private Button btn_Home_SeeTranscripts;
-
-    @FXML
     private ListView<Class> listView_Class_Classes;
 
     @FXML

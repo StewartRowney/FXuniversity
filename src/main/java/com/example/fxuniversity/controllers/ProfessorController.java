@@ -108,9 +108,15 @@ public class ProfessorController {
         }
     };
 
+    private final ChangeListener<Student> listViewAddGradeStudentsListener = (observableValue, student, t1) -> {
+        Student selectedStudent = listView_AddGrade_Students.getSelectionModel().getSelectedItem();
+        btn_AddGrade_Confirm.setDisable(selectedStudent == null);
+    };
+
     @FXML
     void onAddGrade() {
         tabPane.getSelectionModel().select(tbAddGrade);
+        btn_AddGrade_Confirm.setDisable(true);
         rdioBtnGradeA.setSelected(true);
         listAllClassesForProf();
     }
@@ -138,6 +144,7 @@ public class ProfessorController {
         listView_AddGrade_Classes.getSelectionModel().selectedItemProperty().removeListener(listViewAddGradeClassesListener);
         listView_SeeGrades_Classes.getSelectionModel().selectedItemProperty().removeListener(listViewSeeGradeClassesListener);
         listView_Schedule_WeekDays.getSelectionModel().selectedItemProperty().removeListener(listViewScheduleDayOfWeekListener);
+        listView_AddGrade_Students.getSelectionModel().selectedItemProperty().removeListener(listViewAddGradeStudentsListener);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -167,9 +174,11 @@ public class ProfessorController {
         this.currentProfessor = professor;
         setWelcomeLabel("Welcome " + professor.getName());
         setUpRadioGroup();
+
         listView_AddGrade_Classes.getSelectionModel().selectedItemProperty().addListener(listViewAddGradeClassesListener);
         listView_SeeGrades_Classes.getSelectionModel().selectedItemProperty().addListener(listViewSeeGradeClassesListener);
         listView_Schedule_WeekDays.getSelectionModel().selectedItemProperty().addListener(listViewScheduleDayOfWeekListener);
+        listView_AddGrade_Students.getSelectionModel().selectedItemProperty().addListener(listViewAddGradeStudentsListener);
     }
 
     public void listAllClassesForProf() {

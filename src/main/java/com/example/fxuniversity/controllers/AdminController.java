@@ -229,7 +229,7 @@ public class AdminController {
     void onChangeToDeleteClassTab() {
         tabPane.getSelectionModel().select(tbDeleteClass);
         setUpCourseList(listView_DeleteClass_Courses);
-        btn_DeleteCourse_Delete.setDisable(true);
+        btn_DeleteClass_Delete.setDisable(true);
         listView_DeleteClass_Classes.getItems().clear();
     }
 
