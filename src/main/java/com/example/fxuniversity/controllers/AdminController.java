@@ -265,10 +265,10 @@ public class AdminController {
 
         cbo_ScheduleClass_Duration.getItems().clear();
         cbo_ScheduleClass_Duration.getItems().addAll(Duration.ofHours(1), Duration.ofHours(2), Duration.ofHours(3));
-
         txtField_ScheduleClass_Time.clear();
         txtField_ScheduleClas_RommNumbers.clear();
         listView_ScheduleClass_Classes.getItems().clear();
+
 
         cbo_ScheduleClass_Semester.setDisable(true);
         cbo_ScheduleClass_Day.setDisable(true);
@@ -471,5 +471,6 @@ public class AdminController {
         listView_AddClass_Courses.getSelectionModel().selectedItemProperty().addListener(AddClassCourseChangeListener);
         listView_DeleteClass_Courses.getSelectionModel().selectedItemProperty().addListener(DeleteClassCoursesChangeListener);
         listView_DeleteClass_Classes.getSelectionModel().selectedItemProperty().addListener(DeleteClassClassChangeListener);
+
     }
 }
