@@ -50,12 +50,12 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="387.0" prefWidth="580.0">
                                  <children>
-                                    <Button fx:id="btn_Home_RegisterForCourse" mnemonicParsing="false" onAction="#onRegisterForCourse" styleClass="tabPane" text="Register For Course">
+                                    <Button fx:id="btn_Home_RegisterForCourse" mnemonicParsing="false" onAction="#onRegisterForCourse" prefHeight="80.0" prefWidth="130.0" styleClass="tabPane" text="Register For Course">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="btn_Home_SeeTranscripts" mnemonicParsing="false" onAction="#onSeeTranscripts" text="See Transcripts" />
+                                    <Button fx:id="btn_Home_SeeTranscripts" mnemonicParsing="false" onAction="#onSeeTranscripts" prefHeight="80.0" prefWidth="130.0" text="See Transcripts" />
                                  </children>
                               </HBox>
                            </children>

@@ -165,7 +165,7 @@ public class ProfessorController {
 
     public void setupProfessorController(Professor professor) {
         this.currentProfessor = professor;
-        setWelcomeLabel("Welcome Professor " + professor.getName());
+        setWelcomeLabel("Welcome " + professor.getName());
         setUpRadioGroup();
         listView_AddGrade_Classes.getSelectionModel().selectedItemProperty().addListener(listViewAddGradeClassesListener);
         listView_SeeGrades_Classes.getSelectionModel().selectedItemProperty().addListener(listViewSeeGradeClassesListener);

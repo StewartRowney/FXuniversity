@@ -153,7 +153,7 @@ public class StudentController {
 
     public void setUpStudentController(Student student) {
         this.currentStudent = student;
-        setWelcomeLabel("Welcome Student " + student.getName());
+        setWelcomeLabel("Welcome " + student.getName());
         addListeners();
     }
 

@@ -46,13 +46,13 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="350.0" prefWidth="580.0">
                                  <children>
-                                    <Button fx:id="btn_Home_Schedule" mnemonicParsing="false" onAction="#onSeeSchedule" text="Schedule">
+                                    <Button fx:id="btn_Home_Schedule" mnemonicParsing="false" onAction="#onSeeSchedule" prefHeight="80.0" prefWidth="130.0" text="Schedule">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="btn_Home_AddGrade" mnemonicParsing="false" onAction="#onAddGrade" text="Add Grade" />
-                                    <Button fx:id="btn_Home_SeeGrades" mnemonicParsing="false" onAction="#onSeeGradesAction" text="See Grades">
+                                    <Button fx:id="btn_Home_AddGrade" mnemonicParsing="false" onAction="#onAddGrade" prefHeight="80.0" prefWidth="130.0" text="Add Grade" />
+                                    <Button fx:id="btn_Home_SeeGrades" mnemonicParsing="false" onAction="#onSeeGradesAction" prefHeight="80.0" prefWidth="130.0" text="See Grades">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>

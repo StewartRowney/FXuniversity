@@ -53,17 +53,17 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Button fx:id="btnManageCourse" mnemonicParsing="false" onAction="#onManageCourse" text="Manage Course" />
-                                    <Button fx:id="btnDeleteCourseHomePage" mnemonicParsing="false" onAction="#onDeleteCourse" text="Delete Course" />
-                                    <Button fx:id="btnAddClass" mnemonicParsing="false" onAction="#OnAddClass" text="Add Class" />
-                                    <Button fx:id="btnDeleteClass" mnemonicParsing="false" onAction="#OnDeleteClass" text="Delete Class" />
+                                    <Button fx:id="btnManageCourse" mnemonicParsing="false" onAction="#onManageCourse" prefHeight="80.0" prefWidth="131.0" text="Manage Course" />
+                                    <Button fx:id="btnDeleteCourseHomePage" mnemonicParsing="false" onAction="#onDeleteCourse" prefHeight="80.0" prefWidth="131.0" text="Delete Course" />
+                                    <Button fx:id="btnAddClass" mnemonicParsing="false" onAction="#OnAddClass" prefHeight="80.0" prefWidth="131.0" text="Add Class" />
+                                    <Button fx:id="btnDeleteClass" mnemonicParsing="false" onAction="#OnDeleteClass" prefHeight="80.0" prefWidth="131.0" text="Delete Class" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Button fx:id="btnScheduleClass" mnemonicParsing="false" onAction="#OnScheduleClass" text="Schedule Class" />
-                                    <Button fx:id="btnAdmitStudent" mnemonicParsing="false" onAction="#OnAdmitStudent" text="Admit Student" />
-                                    <Button fx:id="btnAddCourseHomePage" mnemonicParsing="false" onAction="#OnAddCourse" text="Add Course" />
+                                    <Button fx:id="btnScheduleClass" mnemonicParsing="false" onAction="#OnScheduleClass" prefHeight="80.0" prefWidth="131.0" text="Schedule Class" />
+                                    <Button fx:id="btnAdmitStudent" mnemonicParsing="false" onAction="#OnAdmitStudent" prefHeight="80.0" prefWidth="131.0" text="Admit Student" />
+                                    <Button fx:id="btnAddCourseHomePage" mnemonicParsing="false" onAction="#OnAddCourse" prefHeight="80.0" prefWidth="131.0" text="Add Course" />
                                  </children>
                               </HBox>
                            </children>
@@ -251,7 +251,7 @@
                               <Insets left="10.0" right="10.0" />
                            </padding>
                         </VBox>
-                        <Button fx:id="btnAddCourse" layoutX="508.0" layoutY="297.0" mnemonicParsing="false" onAction="#onAddCourseButton" prefHeight="27.0" prefWidth="82.0" text="Add course" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="508.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="297.0" />
+                        <Button fx:id="btnAddCourse" layoutX="508.0" layoutY="321.0" mnemonicParsing="false" onAction="#onAddCourseButton" prefHeight="27.0" prefWidth="82.0" text="Add course" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="508.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="321.0" />
                      </children></AnchorPane>
               </content>
             </Tab>
@@ -271,9 +271,9 @@
                                     <Insets left="10.0" right="10.0" />
                                  </VBox.margin>
                               </TextArea>
-                              <Button fx:id="btnAddPreReqs" mnemonicParsing="false" onAction="#onAddPreReqs" text="Add PreRequisites">
+                              <Button fx:id="btnAddPreReqs" mnemonicParsing="false" onAction="#onAddPreReqs" prefHeight="26.0" prefWidth="138.0" text="Add PreRequisites">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="477.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="450.0" right="10.0" top="30.0" />
                                  </VBox.margin>
                               </Button>
                            </children>
@@ -299,7 +299,7 @@
                               </TextArea>
                               <Button fx:id="btnDeleteCourse" mnemonicParsing="false" onAction="#onDeleteCourseButton" text="Delete Course">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="497.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="495.0" right="10.0" top="30.0" />
                                  </VBox.margin>
                               </Button>
                            </children>
@@ -394,7 +394,7 @@
                               </HBox>
                               <Button fx:id="btnAddClassToCourse" mnemonicParsing="false" onAction="#onAddClassToCourse" text="Add Class">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="510.0" />
+                                    <Insets bottom="10.0" left="505.0" />
                                  </VBox.margin>
                               </Button>
                            </children>
@@ -423,7 +423,7 @@
                               </ListView>
                               <Button fx:id="btnDeleteClassAdmin" mnemonicParsing="false" onAction="#onDeleteClassAdmin" text="Delete Class">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="510.0" />
+                                    <Insets bottom="10.0" left="505.0" />
                                  </VBox.margin>
                               </Button>
                            </children>
