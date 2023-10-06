@@ -275,6 +275,11 @@ public class Database {
         studentHashMap.put(student.getId(), student);
         userLoginHashMap.put(student.getEmailAddress(), student);
     }
+
+    public static void addNewProfessor(Professor professor) {
+        professorHashMap.put(professor.getId(), professor);
+        userLoginHashMap.put(professor.getEmailAddress(), professor);
+    }
     public static void addNewCourse(Course course, UUID departmentId) {
         courseHashMap.put(course.getId(), course);
         courseClassRelationshipArrayList.add(new CourseClassRelationship(course.getId()));
@@ -333,6 +338,15 @@ public class Database {
 
     public static IUser logIn(String emailAddress) {
         return userLoginHashMap.get(emailAddress);
+    }
+
+    public static void addDepartment(Department dept) {
+        departmentHashMap.put(dept.getId(), dept);
+    }
+
+    public static void addClassToAProfessor(UUID profID, UUID classID) {
+        professorClassRelationshipArrayList.add(new ProfessorClassRelationship(profID, classID));
+
     }
 
 }
