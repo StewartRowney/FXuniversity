@@ -60,6 +60,8 @@ public class LoginController {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("admin-view.fxml"));
             scene = new Scene(fxmlLoader.load());
             title ="Admin";
+            AdminController controller = fxmlLoader.getController();
+            controller.setUp();
         }
 
         stage.setTitle(title);
