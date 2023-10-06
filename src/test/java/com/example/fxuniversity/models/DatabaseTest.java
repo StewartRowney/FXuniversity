@@ -121,12 +121,26 @@ class DatabaseTest {
         Database.addStudentToClass(scr);
         ArrayList<Student> expected = new ArrayList<>();
         expected.add(student);
-
-
+        ArrayList<Student> actual = (ArrayList<Student>) Database.getAllStudentsInClass(classToAdd.getId());
+        assertEquals(expected,actual);
     }
 
     @Test
     void getAllStudentsInClassNotGradedYet() {
+        Student studentWithGrade = new Student("Graded Student", "", "", "", "");
+        Database.addNewStudent(student);
+        Database.addNewStudent(studentWithGrade);
+        StudentClassRelationship scr = new StudentClassRelationship(student.getId(), classToAdd.getId());
+        StudentClassRelationship scr2 = new StudentClassRelationship(studentWithGrade.getId(), classToAdd.getId());
+        Database.addStudentToClass(scr);
+        Database.addStudentToClass(scr2);
+        Transcript gradedStudent = new Transcript(classToAdd.getId(), studentWithGrade.getId(), "A");
+        Database.addNewTranscript(gradedStudent);
+        Collection<Student> expected = new ArrayList<>();
+        expected.add(student);
+        Collection<Student> actual = Database.getAllStudentsInClassNotGradedYet(classToAdd.getId());
+        assertEquals(expected, actual);
+
     }
 
     @Test
