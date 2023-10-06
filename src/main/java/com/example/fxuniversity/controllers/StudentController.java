@@ -25,6 +25,9 @@ public class StudentController {
     private AnchorPane anchorPane;
 
     @FXML
+    private Label lblWelcome;
+
+    @FXML
     private Button btn_Class_ConfirmClassBooking;
 
     @FXML
@@ -77,6 +80,11 @@ public class StudentController {
 
     @FXML
     private TextArea txtArea_Courses_CourseDescription;
+
+    @FXML
+    private void setWelcomeLabel(String welcomeMessage){
+        lblWelcome.setText(welcomeMessage);
+    }
 
     private final ChangeListener<Department> departmentChangeListener = createDepartmentsListener();
     private final ChangeListener<Course> courseChangeListener = createCourseListener();
@@ -145,6 +153,7 @@ public class StudentController {
 
     public void setUpStudentController(Student student) {
         this.currentStudent = student;
+        setWelcomeLabel("Welcome " + student.getName());
         addListeners();
     }
 
