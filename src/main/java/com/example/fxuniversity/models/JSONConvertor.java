@@ -1,22 +1,25 @@
 package com.example.fxuniversity.models;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.HashMap;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class JSONConvertor {
 
-    public String convertStudentArrayListToJSON(Collection<Student> studentArrayList) throws JsonProcessingException {
-        String json = "";
-        ObjectMapper mapper = new ObjectMapper();
-        for (Student student : studentArrayList) {
-            json += mapper.writerWithDefaultPrettyPrinter().writeValueAsString(student);
+    public String convertArrayListToJSON(Collection<?> arrayList) {
+        try {
+            String json = "";
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            for (Object object : arrayList) {
+                json += mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+            }
+            return json;
+        } catch (JsonProcessingException e) {
+            System.out.println(e.getMessage());
         }
-        return json;
+        return "";
     }
-
 }

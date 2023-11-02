@@ -3,6 +3,7 @@ package com.example.fxuniversity.models;
 import com.example.fxuniversity.models.relationships.CourseClassRelationship;
 import com.example.fxuniversity.models.relationships.ProfessorClassRelationship;
 import com.example.fxuniversity.models.relationships.StudentClassRelationship;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
@@ -276,16 +277,19 @@ public class Database {
     public static void addNewStudent(Student student) {
         studentHashMap.put(student.getId(), student);
         userLoginHashMap.put(student.getEmailAddress(), student);
+        triggerFileWrite(FileCategories.STUDENT);
     }
 
     public static void addNewProfessor(Professor professor) {
         professorHashMap.put(professor.getId(), professor);
         userLoginHashMap.put(professor.getEmailAddress(), professor);
+        triggerFileWrite(FileCategories.PROFESSOR);
     }
     public static void addNewCourse(Course course, UUID departmentId) {
         courseHashMap.put(course.getId(), course);
         courseClassRelationshipArrayList.add(new CourseClassRelationship(course.getId()));
         departmentHashMap.get(departmentId).addCourse(course.getId());
+        triggerFileWrite(FileCategories.COURSE);
     }
     public static void addNewClass(Class newClass, Course course) {
         classHashMap.put(newClass.getId(), newClass);
@@ -295,12 +299,14 @@ public class Database {
                 break;
             }
         }
+        triggerFileWrite(FileCategories.CLASS);
     }
     public static void addStudentToClass(StudentClassRelationship src) {
         studentClassRelationshipArrayList.add(src);
     }
     public static void addNewTranscript(Transcript transcript) {
         transcriptHashMap.put(transcript.getId(), transcript);
+        triggerFileWrite(FileCategories.TRANSCRIPT);
     }
 
     public static void editClass(Class editedClass) {
@@ -344,6 +350,7 @@ public class Database {
 
     public static void addDepartment(Department dept) {
         departmentHashMap.put(dept.getId(), dept);
+        triggerFileWrite(FileCategories.DEPARTMENT);
     }
 
     public static void addClassToAProfessor(UUID profID, UUID classID) {
@@ -351,11 +358,16 @@ public class Database {
 
     }
 
-    public static void triggerFileWrite(FileCategories category) throws IOException {
+    public static void triggerFileWrite(FileCategories category) {
         FileWriterForUni fileWriterForUni = new FileWriterForUni();
         JSONConvertor convertor = new JSONConvertor();
         switch (category){
-            case STUDENT -> fileWriterForUni.writeJSONToFile(convertor.convertStudentArrayListToJSON(studentHashMap.values()), FileCategories.STUDENT);
+            case STUDENT -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(studentHashMap.values()), FileCategories.STUDENT);
+            case COURSE -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(courseHashMap.values()), FileCategories.COURSE);
+            case CLASS -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(classHashMap.values()), FileCategories.CLASS);
+            case DEPARTMENT -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(departmentHashMap.values()), FileCategories.DEPARTMENT);
+            case PROFESSOR -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(professorHashMap.values()), FileCategories.PROFESSOR);
+            case TRANSCRIPT -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(transcriptHashMap.values()), FileCategories.TRANSCRIPT);
         }
     }
 

@@ -335,8 +335,6 @@ public class AdminController {
         listView_DeleteClass_Courses.getSelectionModel().selectedItemProperty().removeListener(DeleteClassCoursesChangeListener);
         listView_DeleteClass_Classes.getSelectionModel().selectedItemProperty().removeListener(DeleteClassClassChangeListener);
 
-        Database.triggerFileWrite(FileCategories.STUDENT);
-
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) anchorPane.getScene().getWindow();
@@ -345,7 +343,7 @@ public class AdminController {
     }
 
     @FXML
-    void onStudentAdmit() {
+    void onStudentAdmit() throws IOException {
         Optional<ButtonType> result = showConfirmationAlert("Are you sure all details are correct and you wish to enroll this student?");
         if (result.get() == ButtonType.OK) {
             Student myStudent = new Student(txtField_AdmitStudent_Name.getText(), txtField_AdmitStudent_HomeAddress.getText(),
@@ -473,6 +471,5 @@ public class AdminController {
         listView_AddClass_Courses.getSelectionModel().selectedItemProperty().addListener(AddClassCourseChangeListener);
         listView_DeleteClass_Courses.getSelectionModel().selectedItemProperty().addListener(DeleteClassCoursesChangeListener);
         listView_DeleteClass_Classes.getSelectionModel().selectedItemProperty().addListener(DeleteClassClassChangeListener);
-
     }
 }

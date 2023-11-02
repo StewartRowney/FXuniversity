@@ -1,0 +1,71 @@
+{
+  "id" : "0bb66ed5-8f78-4e98-b003-0f35ad5fd0ec",
+  "name" : "Bert",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "bert@student.com"
+}{
+  "id" : "baa39ee5-e679-46a7-bcc7-007258e6d342",
+  "name" : "Hamish",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "hamish@student.com"
+}{
+  "id" : "64724117-e5c4-484d-848c-a039fba35e03",
+  "name" : "Ayush",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "ayush@student.com"
+}{
+  "id" : "fd49398b-c890-470e-a477-8ffcbc653d99",
+  "name" : "Tom",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "tom@student.com"
+}{
+  "id" : "fe20863f-b2d4-48b6-9679-527bb825ca27",
+  "name" : "Bob",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "bob@student.com"
+}{
+  "id" : "44f6ae0d-8338-430c-94a8-c2971c06f7d8",
+  "name" : "Thomas",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "thomas@student.com"
+}{
+  "id" : "06117de3-08cb-4948-9cc7-577cb594b250",
+  "name" : "Abhijeet",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "abhijeet@student.com"
+}{
+  "id" : "1911bd77-930a-4359-8f76-5848f2efeb9a",
+  "name" : "Jim",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "jim@student.com"
+}{
+  "id" : "3e5a16ab-fabf-4273-966a-08e1c89de704",
+  "name" : "Stewart",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "stewart@student.com"
+}{
+  "id" : "5a36422b-8e29-4969-9dd9-29df70993d3d",
+  "name" : "Jack",
+  "address" : "",
+  "major" : "",
+  "phoneNumber" : "",
+  "emailAddress" : "jack@student.com"
+}
