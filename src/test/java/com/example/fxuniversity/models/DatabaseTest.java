@@ -96,12 +96,10 @@ class DatabaseTest {
         expected.add(classToAdd);
         ArrayList<Class> actual = (ArrayList<Class>) Database.getAllClassesForProfessor(prof.getId());
         assertEquals(expected, actual);
-
     }
 
     @Test
     void test_getAllProfessorClassesForDay() {
-
         Database.addNewProfessor(prof);
         Database.addNewClass(classToAdd, testCourse);
         Database.addClassToAProfessor(prof.getId(), classToAdd.getId());
@@ -144,11 +142,23 @@ class DatabaseTest {
     }
 
     @Test
-    void getAllCoursesAStudentIsNotAlreadyOn() {
+    void test_getAllCoursesAStudentIsNotAlreadyOn() {
+        Database.addNewStudent(student);
+        Database.addDepartment(department);
+        StudentClassRelationship scr = new StudentClassRelationship(student.getId(), classToAdd.getId());
+        Database.addStudentToClass(scr);
+        Course UnOccupied = new Course("No students here", "", "", "", "");
+        Database.addNewCourse(testCourse, department.getId());
+        Database.addNewCourse(UnOccupied, department.getId());
+
+        Collection<Course> expected = new ArrayList<>();
+        expected.add(UnOccupied);
+        ArrayList<Course> actual = (ArrayList<Course>) Database.getAllCoursesAStudentIsNotAlreadyOn(student.getId());
     }
 
     @Test
     void getAllStudentTranscripts() {
+
     }
 
     @Test

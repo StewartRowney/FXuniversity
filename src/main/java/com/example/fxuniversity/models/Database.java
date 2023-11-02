@@ -4,6 +4,7 @@ import com.example.fxuniversity.models.relationships.CourseClassRelationship;
 import com.example.fxuniversity.models.relationships.ProfessorClassRelationship;
 import com.example.fxuniversity.models.relationships.StudentClassRelationship;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -22,6 +23,7 @@ public class Database {
     private static final ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
     private static final HashMap<String, IUser> userLoginHashMap = new HashMap<>();
 
+    private static FileReaderForUni fileReaderForUni = new FileReaderForUni();
     public static void setUpDatabase() {
         Admin admin = new Admin();
         userLoginHashMap.put(admin.getEmailAddress(), admin);
@@ -347,6 +349,14 @@ public class Database {
     public static void addClassToAProfessor(UUID profID, UUID classID) {
         professorClassRelationshipArrayList.add(new ProfessorClassRelationship(profID, classID));
 
+    }
+
+    public static void triggerFileWrite(FileCategories category) throws IOException {
+        FileWriterForUni fileWriterForUni = new FileWriterForUni();
+        JSONConvertor convertor = new JSONConvertor();
+        switch (category){
+            case STUDENT -> fileWriterForUni.writeJSONToFile(convertor.convertStudentArrayListToJSON(studentHashMap.values()), FileCategories.STUDENT);
+        }
     }
 
 }

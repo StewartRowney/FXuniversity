@@ -335,6 +335,8 @@ public class AdminController {
         listView_DeleteClass_Courses.getSelectionModel().selectedItemProperty().removeListener(DeleteClassCoursesChangeListener);
         listView_DeleteClass_Classes.getSelectionModel().selectedItemProperty().removeListener(DeleteClassClassChangeListener);
 
+        Database.triggerFileWrite(FileCategories.STUDENT);
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) anchorPane.getScene().getWindow();
