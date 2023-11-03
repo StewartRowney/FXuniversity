@@ -1,0 +1,36 @@
+{
+  "id" : "f779d19e-e287-4743-9563-b3daa5757109",
+  "semester" : 1,
+  "day" : "MONDAY",
+  "timeStart" : [ 12, 0 ],
+  "classDuration" : 3600.000000000,
+  "room" : 1.08
+}{
+  "id" : "173c37f7-74e7-4564-bc3b-490ce457383e",
+  "semester" : 1,
+  "day" : "MONDAY",
+  "timeStart" : [ 12, 12 ],
+  "classDuration" : 3600.000000000,
+  "room" : 1.11
+}{
+  "id" : "77c78702-d4ba-41cc-9ef4-56fe257875c9",
+  "semester" : 1,
+  "day" : "MONDAY",
+  "timeStart" : [ 14, 0 ],
+  "classDuration" : 3600.000000000,
+  "room" : 1.08
+}{
+  "id" : "e3ec956f-255c-4384-ba18-5c4bbe0dcbad",
+  "semester" : 1,
+  "day" : "MONDAY",
+  "timeStart" : [ 15, 0 ],
+  "classDuration" : 3600.000000000,
+  "room" : 5.08
+}{
+  "id" : "ec42c1d1-4155-474a-a8c7-fff38704d907",
+  "semester" : 1,
+  "day" : "TUESDAY",
+  "timeStart" : [ 12, 0 ],
+  "classDuration" : 3600.000000000,
+  "room" : 1.08
+}

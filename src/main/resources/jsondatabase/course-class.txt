@@ -1,0 +1,10 @@
+{
+  "courseID" : "3a3a7f90-f14f-4fd7-a8db-dcd0ccb387b2",
+  "classIDs" : [ "0bea1485-5a2d-44d7-8d80-a4fc2605a6db", "14753698-168a-4f6c-a2f9-4bff2c832292" ]
+}{
+  "courseID" : "4ef6d3b0-0a28-4673-a19b-af4bc81b778e",
+  "classIDs" : [ "31059be2-6769-46fa-9a66-6c121d6d7164" ]
+}{
+  "courseID" : "591de7a2-f905-49cf-beea-496008006246",
+  "classIDs" : [ "99d08bd7-e4bd-4907-906e-be2dc271381a" ]
+}

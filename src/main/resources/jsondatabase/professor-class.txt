@@ -1,0 +1,13 @@
+{
+  "professorID" : "3c36b5af-74b0-4910-85e3-440e66b7e11e",
+  "classID" : "0bea1485-5a2d-44d7-8d80-a4fc2605a6db"
+}{
+  "professorID" : "3c36b5af-74b0-4910-85e3-440e66b7e11e",
+  "classID" : "14753698-168a-4f6c-a2f9-4bff2c832292"
+}{
+  "professorID" : "f05168e1-6a23-45e2-8ccc-1cd54df2d869",
+  "classID" : "31059be2-6769-46fa-9a66-6c121d6d7164"
+}{
+  "professorID" : "f2d9b280-8853-4b33-843c-1361becbc7c1",
+  "classID" : "99d08bd7-e4bd-4907-906e-be2dc271381a"
+}
