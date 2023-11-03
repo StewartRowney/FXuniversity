@@ -6,7 +6,10 @@ public enum FileCategories {
     PROFESSOR("professors"),
     DEPARTMENT("departments"),
     CLASS("classes"),
-    TRANSCRIPT("transcripts");
+    TRANSCRIPT("transcripts"),
+    COURSECLASSRELATIONSHIP("course-class"),
+    PROFESSORCLASSRELATIONSHIP("professor-class"),
+    STUDENTCLASSRELATIONSHIP("student-class");
 
     String fileName;
 

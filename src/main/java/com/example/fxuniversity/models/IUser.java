@@ -1,5 +1,5 @@
 package com.example.fxuniversity.models;
 
 public interface IUser {
-    String getEmailAddress();
+    String getEmail();
 }

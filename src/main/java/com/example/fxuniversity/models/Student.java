@@ -35,7 +35,7 @@ public class Student implements IUser{
         return major;
     }
 
-    public String getEmailAddress() {
+    public String getEmail() {
         return email;
     }
 

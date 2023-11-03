@@ -42,7 +42,7 @@ public class Professor implements IUser{
         return phoneNumber;
     }
 
-    public String getEmailAddress() {
+    public String getEmail() {
         return email;
     }
 

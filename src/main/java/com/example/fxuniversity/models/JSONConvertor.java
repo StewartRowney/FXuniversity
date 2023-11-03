@@ -14,7 +14,7 @@ public class JSONConvertor {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
             for (Object object : arrayList) {
-                json += mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+                json += mapper.writeValueAsString(object)+"\n";
             }
             return json;
         } catch (JsonProcessingException e) {

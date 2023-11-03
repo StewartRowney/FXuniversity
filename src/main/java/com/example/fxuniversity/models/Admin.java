@@ -11,7 +11,7 @@ public class Admin implements IUser{
     }
 
     @Override
-    public String getEmailAddress() {
+    public String getEmail() {
         return "admin";
     }
 

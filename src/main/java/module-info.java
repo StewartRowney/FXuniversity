@@ -10,5 +10,6 @@ module com.example.fxuniversity {
     exports com.example.fxuniversity;
     exports com.example.fxuniversity.controllers;
     exports com.example.fxuniversity.models to com.fasterxml.jackson.databind;
+    exports com.example.fxuniversity.models.relationships;
     opens com.example.fxuniversity.controllers to javafx.fxml;
 }

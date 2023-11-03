@@ -3,9 +3,7 @@ package com.example.fxuniversity.models;
 import com.example.fxuniversity.models.relationships.CourseClassRelationship;
 import com.example.fxuniversity.models.relationships.ProfessorClassRelationship;
 import com.example.fxuniversity.models.relationships.StudentClassRelationship;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
-import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -24,26 +22,26 @@ public class Database {
     private static final ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
     private static final HashMap<String, IUser> userLoginHashMap = new HashMap<>();
 
-    private static FileReaderForUni fileReaderForUni = new FileReaderForUni();
+
     public static void setUpDatabase() {
         Admin admin = new Admin();
-        userLoginHashMap.put(admin.getEmailAddress(), admin);
+        userLoginHashMap.put(admin.getEmail(), admin);
 
-        Student student1 = new Student("Stewart","","","stewart@student.com","");
-        Student student2 = new Student("Thomas","","","thomas@student.com","");
-        Student student3 = new Student("Abhijeet","","","abhijeet@student.com","");
-        Student student4 = new Student("Jim","","","jim@student.com","");
-        Student student5 = new Student("Tom","","","tom@student.com","");
-        Student student6 = new Student("Bob","","","bob@student.com","");
-        Student student7 = new Student("Jack","","","jack@student.com","");
-        Student student8 = new Student("Hamish","","","hamish@student.com","");
-        Student student9 = new Student("Bert","","","bert@student.com","");
-        Student student10 = new Student("Ayush", "", "", "ayush@student.com","");
+        Student student1 = new Student("S","","","stewart@student.com","");
+        Student student2 = new Student("T","","","thomas@student.com","");
+        Student student3 = new Student("A","","","abhijeet@student.com","");
+        Student student4 = new Student("J","","","jim@student.com","");
+        Student student5 = new Student("To","","","tom@student.com","");
+        Student student6 = new Student("B","","","bob@student.com","");
+        Student student7 = new Student("Ja","","","jack@student.com","");
+        Student student8 = new Student("H","","","hamish@student.com","");
+        Student student9 = new Student("Be","","","bert@student.com","");
+        Student student10 = new Student("Ay", "", "", "ayush@student.com","");
 
         Student[] students = {student1, student2, student3, student4, student5, student6, student7, student8, student9,student10};
         for (Student s: students) {
             studentHashMap.put(s.getId(), s);
-            userLoginHashMap.put(s.getEmailAddress(), s);
+            userLoginHashMap.put(s.getEmail(), s);
         }
 
         Class class1 = new Class(1, DayOfWeek.MONDAY, LocalTime.of(12,0,0), Duration.of(1, ChronoUnit.HOURS), 1.08 );
@@ -68,7 +66,7 @@ public class Database {
         Professor[] professors = {prof1, prof2, prof3};
         for (Professor p: professors) {
             professorHashMap.put(p.getId(), p);
-            userLoginHashMap.put(p.getEmailAddress(), p);
+            userLoginHashMap.put(p.getEmail(), p);
         }
 
         Course course1 = new Course("Legit Course", "super legit", "None", "", "ENG109");
@@ -276,13 +274,13 @@ public class Database {
 
     public static void addNewStudent(Student student) {
         studentHashMap.put(student.getId(), student);
-        userLoginHashMap.put(student.getEmailAddress(), student);
+        userLoginHashMap.put(student.getEmail(), student);
         triggerFileWrite(FileCategories.STUDENT);
     }
 
     public static void addNewProfessor(Professor professor) {
         professorHashMap.put(professor.getId(), professor);
-        userLoginHashMap.put(professor.getEmailAddress(), professor);
+        userLoginHashMap.put(professor.getEmail(), professor);
         triggerFileWrite(FileCategories.PROFESSOR);
     }
     public static void addNewCourse(Course course, UUID departmentId) {
@@ -368,6 +366,19 @@ public class Database {
             case DEPARTMENT -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(departmentHashMap.values()), FileCategories.DEPARTMENT);
             case PROFESSOR -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(professorHashMap.values()), FileCategories.PROFESSOR);
             case TRANSCRIPT -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(transcriptHashMap.values()), FileCategories.TRANSCRIPT);
+            case COURSECLASSRELATIONSHIP -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(courseClassRelationshipArrayList),FileCategories.COURSECLASSRELATIONSHIP);
+            case PROFESSORCLASSRELATIONSHIP -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(professorClassRelationshipArrayList),FileCategories.PROFESSORCLASSRELATIONSHIP);
+            case STUDENTCLASSRELATIONSHIP -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(studentClassRelationshipArrayList),FileCategories.STUDENTCLASSRELATIONSHIP);
+
+        }
+    }
+
+    public static void readDataFromFiles(){
+        FileReaderForUni fileReaderForUni = new FileReaderForUni();
+        ArrayList<Student> students = fileReaderForUni.readStudentsFromDatabase();
+        for (Student student : students) {
+            studentHashMap.put(student.getId(), student);
+
         }
     }
 
