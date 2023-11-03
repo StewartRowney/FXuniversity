@@ -1,4 +1,4 @@
-{"professorID":"9b705e75-5cee-4bd1-ac3d-b6b46cf1623e","classID":"57149c82-a127-4102-8d0c-d10a5a82f028"}
-{"professorID":"9b705e75-5cee-4bd1-ac3d-b6b46cf1623e","classID":"96bad275-7031-4f34-bec8-09eaf0b00c0c"}
-{"professorID":"901587e1-d49e-4843-aa35-1dd8baaf41e2","classID":"cbb9dd8b-0a66-43cb-bf39-bbc6affff934"}
-{"professorID":"192f456e-95db-4fa7-93f5-9493ee806342","classID":"b0548506-2b4c-448c-9a20-369b6d2223f5"}
+{"professorID":"eec0117e-7d48-4682-922e-2d95ef17196b","classID":"26e295f0-db7b-470e-81bd-ac76e7721893"}
+{"professorID":"eec0117e-7d48-4682-922e-2d95ef17196b","classID":"359a4696-68e8-45c2-8485-7c91f1509f2e"}
+{"professorID":"d2dfd6d0-9b5e-4c60-81b9-a21a70dc760a","classID":"b75c9e8d-7d65-4622-b874-7d1c4950a191"}
+{"professorID":"599d0eae-9b6f-476e-bdbd-c18e6a995422","classID":"feecf59d-90f8-4ab5-8cf1-fde7b1974ad3"}

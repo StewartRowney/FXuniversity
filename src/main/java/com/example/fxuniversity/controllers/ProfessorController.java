@@ -216,8 +216,7 @@ public class ProfessorController {
     private void listClassSchedule(DayOfWeek selectedDay) {
         listView_Schedule_Classes.getItems().clear();
         Collection<Class> classes = Database.getAllProfessorClassesForDay(currentProfessor.getId(), selectedDay);
-        for (Class currentClass: classes
-        ) {
+        for (Class currentClass: classes) {
             listView_Schedule_Classes.getItems().add(currentClass);
         }
     }

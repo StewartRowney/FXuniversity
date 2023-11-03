@@ -410,16 +410,73 @@ public class Database {
                 transcriptHashMap.put(transcript.getId(), transcript);
             }
             else if (item instanceof CourseClassRelationship ccr) {
-                courseClassRelationshipArrayList.add(ccr);
+                addCCRData(ccr);
             }
             else if (item instanceof StudentClassRelationship scr) {
-                studentClassRelationshipArrayList.add(scr);
+                addSCRData(scr);
             }
             else if (item instanceof ProfessorClassRelationship pcr) {
-                professorClassRelationshipArrayList.add(pcr);
+                addPCRData(pcr);
+            }
+        }
+    }
+
+    private static void addPCRData(ProfessorClassRelationship pcr) {
+        for (Professor professor : professorHashMap.values()) {
+            if (professor.getId().equals(pcr.getProfessorID())) {
+                pcr.setProfessorID(professor.getId());
+                break;
             }
         }
 
+        for(Class newClass: classHashMap.values()) {
+            if (newClass.getId().equals(pcr.getClassID())) {
+                pcr.setClassID(newClass.getId());
+                break;
+            }
+        }
+
+        professorClassRelationshipArrayList.add(pcr);
+    }
+
+    private static void addSCRData(StudentClassRelationship scr) {
+        for (Student student : studentHashMap.values()) {
+            if (student.getId().equals(scr.getStudentID())) {
+                scr.setStudentID(student.getId());
+                break;
+            }
+        }
+
+        for(Class newClass: classHashMap.values()) {
+            if (newClass.getId().equals(scr.getClassID())) {
+                scr.setClassID(newClass.getId());
+                break;
+            }
+        }
+
+        studentClassRelationshipArrayList.add(scr);
+    }
+
+    private static void addCCRData(CourseClassRelationship ccr) {
+        for (Course course : courseHashMap.values()) {
+            if (course.getId().equals(ccr.getCourseID())) {
+                ccr.setCourseID(course.getId());
+                break;
+            }
+        }
+
+        ArrayList<UUID> classIds = new ArrayList<>();
+        for(Class newClass: classHashMap.values()) {
+            for (UUID id : ccr.getClassIDs()) {
+                if (newClass.getId().equals(id)) {
+                    classIds.add(newClass.getId());
+                    break;
+                }
+            }
+        }
+
+        ccr.setClassIDs(classIds);
+        courseClassRelationshipArrayList.add(ccr);
     }
 
 }

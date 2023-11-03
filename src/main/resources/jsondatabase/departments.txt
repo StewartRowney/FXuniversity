@@ -1,2 +1,2 @@
-{"name":"Physics","id":"d067c134-57e9-493b-aac5-c47aeab9d966","courses":["0d4304a0-767b-42e7-bc38-a568bca29dc8"],"professors":["9b705e75-5cee-4bd1-ac3d-b6b46cf1623e"]}
-{"name":"Maths","id":"60f11d54-8ebb-4b50-8373-5c3a5dabbea9","courses":["376099da-cb73-4d59-be14-d8d5446471ed","7001cd0e-5a8e-4e68-b84c-9043e71f915a"],"professors":["901587e1-d49e-4843-aa35-1dd8baaf41e2","192f456e-95db-4fa7-93f5-9493ee806342"]}
+{"name":"Physics","id":"9620c973-5675-4b05-a91f-c93f0f0c231a","courses":["d8e9f4d6-202c-4f7d-bc00-7a519393604d"],"professors":["eec0117e-7d48-4682-922e-2d95ef17196b"]}
+{"name":"Maths","id":"eab6298b-e2ff-45fe-805b-589c8e1e2f6b","courses":["20aa0991-92d5-4548-8b65-cf68cb674f93","ef82f6c5-7cda-47da-a0ee-bff5a6c6e62d"],"professors":["d2dfd6d0-9b5e-4c60-81b9-a21a70dc760a","599d0eae-9b6f-476e-bdbd-c18e6a995422"]}
