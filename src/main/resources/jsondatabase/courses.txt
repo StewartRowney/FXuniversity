@@ -1,0 +1,3 @@
+{"id":"7001cd0e-5a8e-4e68-b84c-9043e71f915a","name":"Another Course","description":"course","requiredBooks":"None","prerequisites":"","courseNumber":"ENG100"}
+{"id":"0d4304a0-767b-42e7-bc38-a568bca29dc8","name":"Legit Course","description":"super legit","requiredBooks":"None","prerequisites":"","courseNumber":"ENG109"}
+{"id":"376099da-cb73-4d59-be14-d8d5446471ed","name":"Empty Course","description":"you do nothing","requiredBooks":"None","prerequisites":"","courseNumber":"ENG105"}

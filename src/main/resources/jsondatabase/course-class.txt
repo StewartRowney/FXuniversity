@@ -1,0 +1,3 @@
+{"courseID":"0d4304a0-767b-42e7-bc38-a568bca29dc8","classIDs":["57149c82-a127-4102-8d0c-d10a5a82f028","96bad275-7031-4f34-bec8-09eaf0b00c0c"]}
+{"courseID":"376099da-cb73-4d59-be14-d8d5446471ed","classIDs":["cbb9dd8b-0a66-43cb-bf39-bbc6affff934"]}
+{"courseID":"7001cd0e-5a8e-4e68-b84c-9043e71f915a","classIDs":["b0548506-2b4c-448c-9a20-369b6d2223f5"]}

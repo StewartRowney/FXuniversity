@@ -1,0 +1,1 @@
+{"id":"7e2bba0b-0a38-4655-9566-47ed12a6ac1f","semester":2,"day":"THURSDAY","timeStart":[12,13],"classDuration":7200.000000000,"room":111.0}

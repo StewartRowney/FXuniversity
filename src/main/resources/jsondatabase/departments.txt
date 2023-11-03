@@ -1,0 +1,2 @@
+{"name":"Physics","id":"d067c134-57e9-493b-aac5-c47aeab9d966","courses":["0d4304a0-767b-42e7-bc38-a568bca29dc8"],"professors":["9b705e75-5cee-4bd1-ac3d-b6b46cf1623e"]}
+{"name":"Maths","id":"60f11d54-8ebb-4b50-8373-5c3a5dabbea9","courses":["376099da-cb73-4d59-be14-d8d5446471ed","7001cd0e-5a8e-4e68-b84c-9043e71f915a"],"professors":["901587e1-d49e-4843-aa35-1dd8baaf41e2","192f456e-95db-4fa7-93f5-9493ee806342"]}
