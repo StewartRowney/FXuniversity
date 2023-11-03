@@ -178,7 +178,7 @@ public class AdminController {
     @FXML
     void onAddPreReqs() {
         Course courseToChangePreReq = listView_ManageCourse_Courses.getSelectionModel().getSelectedItem();
-        courseToChangePreReq.setPreReqs(txtArea_ManageCourse_Prereqs.getText());
+        courseToChangePreReq.setPrerequisites(txtArea_ManageCourse_Prereqs.getText());
         tabPane.getSelectionModel().select(tbHome);
     }
 
@@ -334,9 +334,11 @@ public class AdminController {
         listView_AddClass_Courses.getSelectionModel().selectedItemProperty().removeListener(AddClassCourseChangeListener);
         listView_DeleteClass_Courses.getSelectionModel().selectedItemProperty().removeListener(DeleteClassCoursesChangeListener);
         listView_DeleteClass_Classes.getSelectionModel().selectedItemProperty().removeListener(DeleteClassClassChangeListener);
-        Database.triggerFileWrite(FileCategories.PROFESSORCLASSRELATIONSHIP);
-        Database.triggerFileWrite(FileCategories.COURSECLASSRELATIONSHIP);
-        Database.triggerFileWrite(FileCategories.STUDENTCLASSRELATIONSHIP);
+
+        for (FileCategories category: FileCategories.values()) {
+            Database.triggerFileWrite(category);
+        }
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) anchorPane.getScene().getWindow();
@@ -423,7 +425,7 @@ public class AdminController {
         return (observableValue, course, t1) -> {
             Course courseToManager = listView_ManageCourse_Courses.getSelectionModel().getSelectedItem();
             if (courseToManager != null) {
-                txtArea_ManageCourse_Prereqs.setText(courseToManager.getPreReqs());
+                txtArea_ManageCourse_Prereqs.setText(courseToManager.getPrerequisites());
             }
             btn_ManageCourse_Save.setDisable(courseToManager == null);
         };

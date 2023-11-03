@@ -11,7 +11,8 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Database.setUpDatabase();
+        //Database.setUpDatabase();
+        Database.setUpLogIns();
         Database.readDataFromFiles();
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));

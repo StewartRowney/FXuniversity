@@ -7,13 +7,16 @@ import java.util.UUID;
 
 public class Class {
 
-    private final UUID id;
+    private UUID id;
     private int semester;
     private DayOfWeek day;
     private LocalTime timeStart;
     private Duration classDuration;
     private double room;
 
+    public Class() {
+
+    }
 
     public Class(int semester, DayOfWeek day, LocalTime timeStart, Duration classDuration, double room) {
         id = UUID.randomUUID();
@@ -24,50 +27,46 @@ public class Class {
         this.room = room;
     }
 
-
-    @Override
-    public String toString() {
-        return "Semester: "+ semester + " | Day: "+ day + " | Time: "+ timeStart + " | Duration: "+ classDuration.toHours() + "hrs | Room: "+ room;
+    public UUID getId() {
+        return id;
     }
-
     public int getSemester() {
         return semester;
+    }
+    public DayOfWeek getDay() {
+        return day;
+    }
+    public LocalTime getTimeStart() {
+        return timeStart;
+    }
+    public Duration getClassDuration() {
+        return classDuration;
+    }
+    public double getRoom() {
+        return room;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
     public void setSemester(int semester) {
         this.semester = semester;
     }
-    public UUID getId() {
-        return id;
+    public void setDay(DayOfWeek day) {
+        this.day = day;
     }
-
-    public LocalTime getTimeStart() {
-        return timeStart;
-    }
-
     public void setTimeStart(LocalTime timeStart) {
         this.timeStart = timeStart;
     }
-
-    public Duration getClassDuration() {
-        return classDuration;
-    }
-
     public void setClassDuration(Duration classDuration) {
         this.classDuration = classDuration;
-    }
-
-    public double getRoom() {
-        return room;
     }
     public void setRoom(double room) {
         this.room = room;
     }
 
-    public DayOfWeek getDay() {
-        return day;
-    }
-
-    public void setDay(DayOfWeek day) {
-        this.day = day;
+    @Override
+    public String toString() {
+        return "Semester: "+ semester + " | Day: "+ day + " | Time: "+ timeStart + " | Duration: "+ classDuration.toHours() + "hrs | Room: "+ room;
     }
 }

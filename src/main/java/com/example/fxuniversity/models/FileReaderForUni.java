@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,22 +17,25 @@ import java.util.Scanner;
 
 public class FileReaderForUni {
 
-    public ArrayList<Student> readStudentsFromDatabase(){
-        ArrayList<Student> studentsArrayList = new ArrayList<>();
+    private Scanner myScanner;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public ArrayList<Object> readCategoryDataFromDatabase(FileCategories category){
+        ArrayList<Object> arrayList = new ArrayList<>();
         try {
-            Scanner myScanner = new Scanner(new File("src/main/resources/jsondatabase/"+FileCategories.STUDENT.fileName+".txt"));
-            ObjectMapper objectMapper = new ObjectMapper();
+            myScanner = new Scanner(new File("src/main/resources/jsondatabase/" + category.fileName + ".txt"));
             objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+            objectMapper.registerModule(new JavaTimeModule());
 
             while(myScanner.hasNextLine()) {
-                String studentJSON = myScanner.nextLine();
-                StringReader studentJsonReader = new StringReader(studentJSON);
-                Student student = objectMapper.readValue(studentJsonReader,Student.class);
-                studentsArrayList.add(student);
+                StringReader jsonReader = new StringReader(myScanner.nextLine());
+                Object newObject = objectMapper.readValue(jsonReader, category.classType);
+                arrayList.add(newObject);
             }
+
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        return studentsArrayList;
+        return arrayList;
     }
 }

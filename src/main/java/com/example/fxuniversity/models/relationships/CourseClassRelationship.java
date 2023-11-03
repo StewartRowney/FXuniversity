@@ -5,9 +5,12 @@ import java.util.UUID;
 
 public class CourseClassRelationship {
 
-    private final UUID courseID;
+    private UUID courseID;
     private ArrayList<UUID> classIDs = new ArrayList<>();
 
+    public CourseClassRelationship() {
+
+    }
     public CourseClassRelationship(UUID courseID) {
         this.courseID = courseID;
     }
@@ -19,9 +22,15 @@ public class CourseClassRelationship {
     public UUID getCourseID() {
         return courseID;
     }
-
     public ArrayList<UUID> getClassIDs() {
         return classIDs;
+    }
+
+    public void setCourseID(UUID courseID) {
+        this.courseID = courseID;
+    }
+    public void setClassIDs(ArrayList<UUID> classIDs) {
+        this.classIDs = classIDs;
     }
 
     public void addClass(UUID classId) {

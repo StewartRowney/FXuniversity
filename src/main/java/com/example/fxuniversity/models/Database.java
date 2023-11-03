@@ -22,21 +22,25 @@ public class Database {
     private static final ArrayList<StudentClassRelationship> studentClassRelationshipArrayList = new ArrayList<>();
     private static final HashMap<String, IUser> userLoginHashMap = new HashMap<>();
 
+    public static void setUpLogIns() {
+        userLoginHashMap.put("admin", new Admin());
+    }
+
 
     public static void setUpDatabase() {
         Admin admin = new Admin();
         userLoginHashMap.put(admin.getEmail(), admin);
 
-        Student student1 = new Student("S","","","stewart@student.com","");
-        Student student2 = new Student("T","","","thomas@student.com","");
-        Student student3 = new Student("A","","","abhijeet@student.com","");
-        Student student4 = new Student("J","","","jim@student.com","");
-        Student student5 = new Student("To","","","tom@student.com","");
-        Student student6 = new Student("B","","","bob@student.com","");
-        Student student7 = new Student("Ja","","","jack@student.com","");
-        Student student8 = new Student("H","","","hamish@student.com","");
-        Student student9 = new Student("Be","","","bert@student.com","");
-        Student student10 = new Student("Ay", "", "", "ayush@student.com","");
+        Student student1 = new Student("Stewart","","","stewart@student.com","");
+        Student student2 = new Student("Thomas","","","thomas@student.com","");
+        Student student3 = new Student("Abhijeet","","","abhijeet@student.com","");
+        Student student4 = new Student("Jim","","","jim@student.com","");
+        Student student5 = new Student("Tom","","","tom@student.com","");
+        Student student6 = new Student("Bob","","","bob@student.com","");
+        Student student7 = new Student("Jack","","","jack@student.com","");
+        Student student8 = new Student("Hamish","","","hamish@student.com","");
+        Student student9 = new Student("Bert","","","bert@student.com","");
+        Student student10 = new Student("Ayyush", "", "", "ayush@student.com","");
 
         Student[] students = {student1, student2, student3, student4, student5, student6, student7, student8, student9,student10};
         for (Student s: students) {
@@ -151,8 +155,8 @@ public class Database {
     public static Collection<Class> getAllClassesForProfessor(UUID professorId) {
         ArrayList<UUID> classIds = new ArrayList<>();
         for (ProfessorClassRelationship pcr : professorClassRelationshipArrayList) {
-            if (pcr.professorID() == professorId) {
-                classIds.add(pcr.classID());
+            if (pcr.getProfessorID() == professorId) {
+                classIds.add(pcr.getClassID());
             }
         }
 
@@ -176,8 +180,8 @@ public class Database {
     public static Collection<Student> getAllStudentsInClass(UUID classId) {
         ArrayList<UUID> studentIds = new ArrayList<>();
         for (StudentClassRelationship scr : studentClassRelationshipArrayList) {
-            if (scr.classID() == classId) {
-                studentIds.add(scr.studentID());
+            if (scr.getClassID() == classId) {
+                studentIds.add(scr.getStudentID());
             }
         }
 
@@ -208,8 +212,8 @@ public class Database {
     public static Collection<Course> getAllCoursesAStudentIsNotAlreadyOn(UUID studentId) {
         ArrayList<UUID> listOfClassIdsStudentIsOn = new ArrayList<>();
         for (StudentClassRelationship src: studentClassRelationshipArrayList) {
-            if (src.studentID() == studentId) {
-                listOfClassIdsStudentIsOn.add(src.classID());
+            if (src.getStudentID() == studentId) {
+                listOfClassIdsStudentIsOn.add(src.getClassID());
             }
         }
 
@@ -327,7 +331,7 @@ public class Database {
             }
         }
 
-        studentClassRelationshipArrayList.removeIf(src -> src.classID() == classToRemove.getId());
+        studentClassRelationshipArrayList.removeIf(src -> src.getClassID() == classToRemove.getId());
 
     }
     public static void removeCourse(Course courseToRemove) {
@@ -369,17 +373,53 @@ public class Database {
             case COURSECLASSRELATIONSHIP -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(courseClassRelationshipArrayList),FileCategories.COURSECLASSRELATIONSHIP);
             case PROFESSORCLASSRELATIONSHIP -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(professorClassRelationshipArrayList),FileCategories.PROFESSORCLASSRELATIONSHIP);
             case STUDENTCLASSRELATIONSHIP -> fileWriterForUni.writeJSONToFile(convertor.convertArrayListToJSON(studentClassRelationshipArrayList),FileCategories.STUDENTCLASSRELATIONSHIP);
-
         }
     }
 
     public static void readDataFromFiles(){
         FileReaderForUni fileReaderForUni = new FileReaderForUni();
-        ArrayList<Student> students = fileReaderForUni.readStudentsFromDatabase();
-        for (Student student : students) {
-            studentHashMap.put(student.getId(), student);
-
+        for (FileCategories category : FileCategories.values()) {
+            ArrayList<Object> arrayList = fileReaderForUni.readCategoryDataFromDatabase(category);
+            populateData(arrayList);
         }
+    }
+
+    private static void populateData(ArrayList<Object> arraylist) {
+
+        //todo: Relationship Id's look the same as Id but have different ObjectId's
+
+        for (Object item : arraylist) {
+            if (item instanceof Student student) {
+                studentHashMap.put(student.getId(), student);
+                userLoginHashMap.put(student.getEmail(), student);
+            }
+            else if (item instanceof Professor professor) {
+                professorHashMap.put(professor.getId(), professor);
+                userLoginHashMap.put(professor.getEmail(), professor);
+            }
+            else if (item instanceof Class newClass) {
+                classHashMap.put(newClass.getId(), newClass);
+            }
+            else if (item instanceof Course course) {
+                courseHashMap.put(course.getId(), course);
+            }
+            else if (item instanceof Department department) {
+                departmentHashMap.put(department.getId(), department);
+            }
+            else if (item instanceof Transcript transcript) {
+                transcriptHashMap.put(transcript.getId(), transcript);
+            }
+            else if (item instanceof CourseClassRelationship ccr) {
+                courseClassRelationshipArrayList.add(ccr);
+            }
+            else if (item instanceof StudentClassRelationship scr) {
+                studentClassRelationshipArrayList.add(scr);
+            }
+            else if (item instanceof ProfessorClassRelationship pcr) {
+                professorClassRelationshipArrayList.add(pcr);
+            }
+        }
+
     }
 
 }

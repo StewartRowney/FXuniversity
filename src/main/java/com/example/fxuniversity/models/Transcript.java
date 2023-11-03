@@ -4,11 +4,14 @@ import java.util.UUID;
 
 public class Transcript {
 
-    private final UUID id;
+    private UUID id;
     private UUID classID;
     private UUID studentID;
     private String grade;
 
+    public Transcript() {
+
+    }
 
     public Transcript(UUID classID, UUID studentID, String grade) {
         id = UUID.randomUUID();
@@ -17,32 +20,33 @@ public class Transcript {
         this.grade = grade;
     }
 
-    public String toString(){
-        return "Course: " + Database.getAllCourseFromClass(classID) + " Grade: " + grade;
-    }
-
     public UUID getId() {
         return id;
     }
-
     public UUID getClassID() {
         return classID;
+    }
+    public UUID getStudentID() {
+        return studentID;
+    }
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
     public void setClassID(UUID classID) {
         this.classID = classID;
     }
-
-    public UUID getStudentID() {
-        return studentID;
-    }
     public void setStudentID(UUID studentID) {
         this.studentID = studentID;
     }
-
-    public String getGrade() {
-        return grade;
-    }
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public String toString(){
+        return "Course: " + Database.getAllCourseFromClass(classID) + " Grade: " + grade;
     }
 }
